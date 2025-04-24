@@ -1,0 +1,221 @@
+\usepackage[utf8x]{inputenc}
+
+
+
+
+
+\usepackage[pdftex]{graphicx} % Required for including pictures
+
+\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
+
+
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry} %margins
+%\usepackage{parskip}
+
+%\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{braket}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+
+\usetikzlibrary{quantikz2}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{sample.bib}
+
+\usepackage{lmodern}
+\usepackage{framed}
+\usepackage{advdate}
+
+%-----------------------
+% Begin document
+%----------------------
+
+
+
+\title{ \begin{framed} Quantum Information Theory - 67749 \\ 
+Exercise 1, \today \end{framed}  }
+%\date{\today}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%\begin{framed}
+\maketitle{ }    
+%\end{framed}
+
+
+\newcommand{\CCZ}{\textbf{CCZ}}
+\newcommand{\CCX}{\textbf{CCX}}
+
+
+\newcounter{enumcirc}
+\setcounter{enumcirc}{1} 
+\counterwithin{enumcirc}{section}
+
+
+\newcommand{\advanceday}[1][11]{%
+\begingroup
+\AdvanceDate[#1]%
+\today%
+\endgroup
+}%
+
+
+\newcommand{\subqCircEx}[2]{\begin{subfigure}[t]{0.5\textwidth}
+        \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1} \centering 
+        #2
+    \end{subfigure}
+}
+
+\newcommand{\qCircEx}[4]{\begin{figure*}[h!]
+    \centering
+    \subqCircEx{#1}{#2}
+    ~ 
+    \subqCircEx{#3}{#4}
+\end{figure*}
+}
+
+\newcommand{\qCircExfullline}[2]{\begin{figure*}[h!]
+    \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1}
+        \centering 
+        #2
+\end{figure*}
+}
+
+
+
+\section{Submission Guidelines.}
+\begin{itemize}
+    \item Due date - \advanceday. 
+    \item Make sure your submission is clear. Unreadable assignments will get zero score.  
+    \item Using any Generative AI tool is forbidden but not enforced. Yet, please keep in mind that we might call you for an interview about your assignment. 
+\end{itemize}
+
+\newpage
+
+\section{Tensors Products.}
+\begin{enumerate}
+    \item Show that $(A \otimes B)(C \otimes D) = (AC) \otimes (BD)$ whenever the dimensions are compatible. Use the ket-bra notation. Then show that if $U_1, U_2$ are unitaris then $U_1 \otimes U_2$ is also a unitary. 
+    
+    \item Let $v_A, v_B$ be the vectors of eigenvalues of the matrices $A,B$ respectively. Show that $v_A \otimes v_B$ is the vector of eigenvalues of $A \otimes B$.
+    
+\end{enumerate}
+
+
+\section{Unambiguous Discrimination.}
+Recall the distinguishing task, we are promised to be given either $\ket{\psi_{1}}$ or $\ket{\psi_{2}}$ and have to decide which it is. In the class, we partly proved that if a distinguisher can answer a third option, stands for "don't know", then the success probability is $ 1 - \cos\theta$. 
+
+\begin{enumerate}
+    \item \textbf{[ Not Mandatory ] } In your words. Point out exactly what we skipped in the proof, and repeat the success probability calculation from the lecture. You should get $ a\left( 1  -||\braket{\psi_{1}| \psi_{2}}||^2 \right)$. 
+    \item Write $E_{3}$ explicitly in the $\{\ket{\psi_{1}}, \ket{\psi_{1}^\perp}\}$ basis. The answer should depend on $a$ and $\theta$.
+ \item Show that $a = 1 + \cos \theta $ gives the optimal measurement.  
+\end{enumerate}
+
+\section{Density Matrices.}
+\begin{enumerate}
+\item Show that the density matrices of the mixed state resulting from picking uniformly random a quantum state from an orthonormal basis are always $\frac{1}{n}I$ regardless of the basis.  
+
+\item Let $\rho$ be the density matrix of the \textbf{EPR}. Divide the qubits into two local systems $A$ and $B$.
+    
+    Compute the mixed state over $A$ given by first applying $T H S Z XSH$ on $A$ and then tracing out $B$.    
+ 
+\end{enumerate}
+
+\newcommand{\channel}{\mathcal{L}\left( \mathcal{H}_{2} \right)  \rightarrow \mathcal{L}\left( \mathcal{H}_{2} \right)} 
+
+\newpage
+
+\section{Diagonalize Noisy State.}
+Let $\ket{A_{+}}$ and $\ket{A_{-}}$ be two orthogonal pure states over single qubit, i.e $\braket{A_{+} | A_{-}} = 0$ and let $\rho$ be the mixed state such that $\braket{A_{+}|\rho|A_{+}}  = 1 -p$ for some $p<1$. We would like to design a channel $\mathcal{E}_{A}: \channel $ that takes $\rho$ into:
+    $$\rho^\prime = \mathcal{E}_{A}(\rho) = (1-p)\ket{A_{+}}\bra{A_{+}} + p\ket{A_{-}}\bra{A_{-}}$$ 
+\begin{enumerate} 
+    \item Solve it for the general case. (Hint: What does the orthogonality condition guarantee?). 
+    \item \textbf{[ Bonus: ]} Let $\ket{A_1},\ket{A_2},\ket{A_3}, \ket{A_{4}}$ be four orthogonal states in $\mathcal{H}_{4}$. Suppose now that $\rho$ is supported on two qubits.  And for $i \in \{1,2,3,4\}$ denote by $p_{i}$ the probability to measure $\ket{A_i}$ given $\rho$. Namely $ \braket{A_i|\rho|A_i} = p_i$. Design a channel $\mathcal{E}_{A}$ that takes $\rho$ into:
+    $$\rho^\prime = \mathcal{E}_{A}(\rho) =  \sum_{i=1}^{4}{p_{i}\ket{A_{i}}\bra{A_{i}}} $$  
+\end{enumerate}
+
+\section{Quantum Circuits.}
+Prove equivalence for the following circuit pairs. 
+
+\qCircEx{\textbf{[Not Mandatory]} Swapping Invariant of $CZ$:}{ $$ \begin{quantikz}
+& \ghost{X} & \ctrl{1} & \\
+&  \ghost{X} & \gate{Z} &
+\end{quantikz}
+=\begin{quantikz}
+& \gate{Z}  & \ghost{X} & \\
+& \ctrl{-1}  & \ghost{X} & 
+\end{quantikz} $$}
+{$X$,$Z$ - duality:}{$$ \begin{quantikz}
+& \gate{H} & \gate{X} & \gate{H} & \\
+& \gate{H} & \gate{Z} & \gate{H} &
+\end{quantikz}
+=\begin{quantikz}
+&  \gate{Z} &  \\
+&  \gate{X} &  
+\end{quantikz} $$}
+\qCircEx{Control $S$:}{ $$ \begin{quantikz}
+& \gate{T} & \ctrl{1} &  &   \ctrl{1} &\\
+&  \gate{T} & \targ{} & \gate{T^\dagger} & \targ{} & 
+\end{quantikz}
+=\begin{quantikz}
+& \ctrl{1}  & \ghost{X} & \\
+& \gate{S}  & \ghost{X} & 
+\end{quantikz} $$}
+{Reverse CNOT:}{$$ \begin{quantikz}
+& \gate{H} & \ctrl{1} & \gate{H} & \\
+& \gate{H} & \targ{} & \gate{H} &
+\end{quantikz}
+=\begin{quantikz}
+&  \targ{}  & \ghost{X} \\
+&  \ctrl{-1} & \ghost{X} 
+\end{quantikz} $$}
+
+
+
+\newpage
+
+\newcommand{\abs}[1]{||#1||}
+\section{[Not Mandatory] Measuring a Tensor Product.}
+
+\noindent
+Consider the task of distinguishing between the two quantum states 
+\[
+\ket{\Psi_0} = \ket{\psi_0}^{\otimes N} \quad \text{and} \quad \ket{\Psi_1} = \ket{\psi_1}^{\otimes N}
+\]
+Given with symmetric prior probabilities. The goal is to distinguish between them with minimal error probability. This question explores the structure of optimal measurements and error probabilities in this setting.
+
+\begin{enumerate}
+    \item Show that for $N = 1$, the Helstrom bound for the minimal error probability $p_e$ (achieved by the optimal measurement) satisfies:
+    \[
+    p_e(1 - p_e) = \frac{1}{4}||{\braket{\psi_0|\psi_1}}||^2.
+    \] 
+    
+    \item Interpret the error probability $p_e$ as the posterior probability. That is, after one optimal measurement, the posterior distribution over the hypotheses is either $(p_e, 1 - p_e)$ or $(1 - p_e, p_e)$.
+
+    \item Show that for $N = 1$ with a non-uniform prior $(q, 1 - q)$, the optimal error probability satisfies:
+    \[
+    p_e(1 - p_e) = q(1 - q)\abs{\braket{\psi_0|\psi_1}}^2.
+    \]
+    
+
+    \item For $N = 2$, use parts (2) and (3) to show that performing the optimal measurement on the second copy—using the posterior from the first measurement as the prior—leads to a total error probability given by:
+    \[
+    p_e = \frac{1}{2}\left( 1 - \sqrt{1 - \abs{\braket{\psi_0|\psi_1}}^4} \right)
+    \]
+
+    \item Compute the inner product $\braket{\psi_0\psi_0 |\psi_1 \psi_1}$ in terms of $\braket{\psi_0|\psi_1}$. Conclude from this that the two-stage measurement strategy described above is optimal for $N = 2$.
+
+    \item Extend the above reasoning by induction to any $N$, and describe the structure of the optimal measurement strategy.
+\end{enumerate}
+\printbibliography 
+\end{document}
+
