@@ -1,0 +1,499 @@
+%--------------------
+% Packages
+% -------------------
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+% \usepackage[T1]{fontenc}
+%\usepackage{gentium}
+% \usepackage{mathptmx} % Use Times Font
+
+
+\usepackage[pdftex]{graphicx} % Required for including pictures
+%\usepackage[swedish]{babel} % Swedish translations
+\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
+%\usepackage{calc} % To reset the counter in the document after title page
+%\usepackage{enumitem} % Includes lists
+
+%\frenchspacing % No double spacing between sentences
+% \linespread{1.2} % Set linespace
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry} %margins
+%\usepackage{parskip}
+
+%\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{braket}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+%\usepackage{chngcntr}
+\usetikzlibrary{quantikz2}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{sample.bib}
+
+\usepackage{lmodern}
+%-----------------------
+% Set pdf information and add title, fill in the fields
+%-----------------------
+% \hypersetup{ 	
+% pdfsubject = {},
+% pdftitle = {},
+% pdfauthor = {}
+% }
+
+\usepackage{framed}
+\usepackage{advdate}
+%\usepackage[colorlinks=true]{hyperref}
+\usepackage{cleveref}
+%\crefname{figure}{\textbf{Figure}}{\textbf{Figure}}
+%-----------------------
+% Begin document
+%----------------------
+
+
+
+\title{ \begin{framed} Quantum Information Theory - 67749 \\ 
+Recitation 1, \today \end{framed}  }
+%\date{\today}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%\begin{framed}
+\maketitle{ }    
+%\end{framed}
+
+
+\newcommand{\CCZ}{\textbf{CCZ}}
+\newcommand{\CCX}{\textbf{CCX}}
+
+
+\newcounter{enumcirc}
+\setcounter{enumcirc}{1} 
+\counterwithin{enumcirc}{section}
+
+
+\newcommand{\advanceday}[1][21]{%
+\begingroup
+\AdvanceDate[#1]%
+\today%
+\endgroup
+}%
+
+
+\newcommand{\subqCircEx}[2]{\begin{subfigure}[t]{0.5\textwidth}
+        \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1} \centering 
+        #2
+    \end{subfigure}
+}
+
+\newcommand{\qCircEx}[4]{\begin{figure*}[h!]
+    \centering
+    \subqCircEx{#1}{#2}
+    ~ 
+    \subqCircEx{#3}{#4}
+\end{figure*}
+}
+
+\newcommand{\qCircExfullline}[2]{\begin{figure*}[h!]
+    \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1}
+        \centering 
+        #2
+\end{figure*}
+}
+
+
+% \framebox{
+% \parbox[t]{\linewidth}{
+% \lipsum[2]}}
+
+
+\section{Two Qubit Gates and Quantum Circuits.}
+The standard computation model in the quantum setting is quantum circuits ('chips'), we describe it by associating a wire for each of the qubits, and on top of them, we lay operators (quantum gates). We think of the horizontal direction as our timeline, and the operators are set according to their time ordering. The gates can be either two-qubit gates, unitary, or a measurement in the computational basis. The \textbf{depth} of the circuits is the length of the longest line, and it quantifies the time complexity of the computation. The size of the circuit quantifies the space complexity. Since qubits are an expensive resource (e.g, IBM computers have at most 433 qubits), it's also interesting to talk about the width complexity - the number of additional ancillas that have to be paid. %Furthermore, since in this course we study information and focus our question around what can be computed (or represented) regardless of the time it requires the ancilla price would be the  
+
+
+A universal gate set is a set of gates that can generate an approximation (as good as we wish) of any operation in the computational model, in the classical model \{ \texttt{NAND} \} and \{ \texttt{OR}, \texttt{AND} \} are examples of universal gate set. In the quantum, we have, for example, the set $\{ H,S,T, CNOT \}$, also called Clifford + $T$. Where: 
+\begin{equation*}
+    \begin{split}
+        T = \begin{bmatrix}
+        1 & 0 \\
+        0 & e^{i\frac{\pi}{4}}
+        \end{bmatrix}  \ 
+        S = \begin{bmatrix}
+        1 & 0 \\
+        0 & e^{i\frac{\pi}{2}}
+        \end{bmatrix}  \ 
+                CNOT = \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0\\
+        \end{bmatrix} 
+    \end{split}
+\end{equation*}
+
+The CNOT -control not-, also called CX -control $X$- applies $X$ on the second (qu)bit conditioned on whether the first (qu)bit is turned on. Similarly, one can define CZ, CCX, and for a general unitary $U$: control-$U$. What's the inverse of control-$U$? (control-$U^\dagger$).
+
+\textbf{EPR/BELL/GHZ-circuits:} In \cref{fig:GHZ} we have the circuit which when act on $\ket{0^n}$ gives the state $\frac{1}{\sqrt{2}}\left(\ket{0^n} + \ket{1^n} \right)$. The circuit is composed of applying $H$ at the beginning on the first qubit and then xoring its value to the other qubits. At the end of the computation, in the ket associated with the value of the first qubit being $1$, the $1$ is spreading across all the qubits. 
+
+\begin{figure}[h]
+
+        \centering 
+        \begin{quantikz}
+\lstick{$\ket{0}$} & \gate{H} & \ctrl{1} &  & & & &&&&&&&&&   \\
+\lstick{$\ket{0}$} & \ghost{X} & \targ{} & \ctrl{1} & & & &&&&&&&&&\\
+\lstick{$\ket{0}$} & \ghost{X} &  &  \targ{} & \ctrl{1} & & &&&&&&&&&\\
+\lstick{$\ket{0}$} & \ghost{X} &  &  & \targ{} & \ctrl{1} & &&&&&&&&&\\
+\lstick{$\ket{0}$} & \ghost{X} &  & &  & \targ{} &  \ctrl{1} &&&&&&&&&\\
+\lstick{$\ket{0}$} & \ghost{X} & & & &  & \targ{} &&&&&&&&&
+        \end{quantikz}
+     \caption{ \textbf{GHZ}-generating circuit.}   
+\label{fig:GHZ}
+\end{figure}
+
+
+\subsection{Quantum Circuits.}
+Prove equivalence for the following circuit pairs. You can do it by either showing the equivalence of the matrices products or by shifting the graphs according to the commutation rules.
+
+\qCircEx{Bit flip propagation:}{$$ \begin{quantikz}
+& \ghost{X} & \ctrl{1} & \\
+& \gate{Z} & \targ{} &
+\end{quantikz}
+=\begin{quantikz}
+& \ctrl{1} & \gate{Z} & \\
+& \targ{} & \gate{Z} &
+\end{quantikz} $$}{Phase flip propagation:}
+{$$ \begin{quantikz}
+& \gate{X} & \ctrl{1} & \\
+& \ghost{X} & \targ{} &
+\end{quantikz}
+=\begin{quantikz}
+& \ctrl{1} & \gate{X} & \\
+& \targ{} & \gate{X} &
+\end{quantikz} $$}
+\textbf{Solution.} On one hand $\left(I \otimes Z \right) CX$ equals:
+\begin{equation*}
+\begin{split}
+    \left( \begin{bmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{bmatrix} \otimes \begin{bmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{bmatrix} \right) \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0\\
+        \end{bmatrix}  =\begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & -1\\
+        \end{bmatrix}  \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0\\
+        \end{bmatrix}   
+= \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & -1 & 0\\
+        \end{bmatrix}  
+        \end{split}
+\end{equation*}
+
+On the other hand $CX \left( Z \otimes Z \right)$: 
+\begin{equation*}
+    \begin{split}
+        \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0\\
+        \end{bmatrix} \left( \begin{bmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{bmatrix} \otimes \begin{bmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{bmatrix} \right) = \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & 1 & 0\\
+        \end{bmatrix} \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        0 & 0 & -1 & 0\\
+        0 & 0 & 0 & 1\\
+        \end{bmatrix} = \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+        0 & 0 & -1 & 0\\
+        \end{bmatrix} 
+    \end{split}
+\end{equation*}
+
+
+\section{Quantum Measurements}
+\begin{enumerate}
+    \item We would like to measure in an orthonormal basis $\{\ket{v_i}\}$, but the measuring apparatus works with the orthonormal basis $\{\ket{w_i}\}$. Show that the measurement can be performed by applying a unitary transformation $U$ to the system before measuring using the apparatus, followed by applying $U^\dagger$. 
+    
+    \textbf{Hint:} Try to understand first how one can measure in $\{\ket{+}, \ket{-} \}$ base while having an apparatus to measure in $\{\ket{0}, \ket{1} \}$ base. What would be $H$ in that case?
+
+    \textbf{Solution.} Let's consider first the case we would like to measure in $\{\ket{+}, \ket{-} \}$ base. In other words, we are willing to engineer a protocol for which: 
+    \begin{enumerate}
+        \item The probability to measure $\ket{\pm}$ is $||\braket{\pm|\psi}||^2$.
+        \item The output state at the end of the protocol is $\ket{\pm}$ upon the measurement result. 
+    \end{enumerate}
+Consider the circuit at \cref{fig:Hmeas}\footnote{Here we think of the measuring mechanism as a machine which outputs a classical bit which can't be used again as a fresh qubit. Otherwise, we could use a single wire by applying $U$ immediately after the measurement. }.  
+    \begin{figure}[h]
+        \centering 
+        \begin{quantikz}
+        \lstick{$\ket{0}$} &  & \gate{X} & \gate{H} &&&&&&&&&&&&& \\
+\lstick{$\ket{\psi}$} & \gate{H} & \meter{} \wire[u][1]{c}    \\
+        \end{quantikz}
+     \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
+\label{fig:Hmeas}
+\end{figure}
+
+
+\begin{figure}[h]
+        \centering 
+        \begin{quantikz}
+        \lstick{$\ket{0}$} &  & \gate{X} & \gate{U} &&&&&&&&&&&&& \\
+\lstick{$\ket{\psi}$} & \gate{U^\dagger} & \meter{} \wire[u][1]{c}    \\
+        \end{quantikz}
+     \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{U\ket{0}, U\ket{1} \}$ base. }   
+\label{fig:Umeas}
+\end{figure}
+
+    \item Recall that we said in the class that one can distinguish between only two nonorthogonal states $\ket{\psi}$ and $\ket{\phi}$. only with probability at most $ \frac{1 + \sin \theta}{2}$ when $\cos ^{2}\theta = \braket{\psi|| \phi} $
+
+    \begin{enumerate}
+        \item Show that the statement above is false given a machine which can copy $\ket{\psi}$ and $\ket{\phi}$
+        \item  Prove that a quantum circuit that can copy doesn't exist. 
+    \end{enumerate}
+
+    \textbf{Solution.} \begin{enumerate}
+        \item Given a state $\ket{\psi}$ one can duplicate it $t$ times and get the tensor $\ket{\psi}^{ \otimes t}$, Then by applying the measurement we saw in class \footnote{projecting over orthogonal base for which the crossing angle between the base element is the same as the one which cross the angle between $\ket{\psi}$ and $\ket{\phi}$}. And take the majority of the results. We bound the failure probability by the scenario that the mean of the results is $\varepsilon$ far from $\frac{1 + \sin\theta}{2}$. By the Chernoff bound, it happened with probability less than $\sim e^{-\varepsilon t}$.
+        
+        \item  Assume trough contradiction that $U$ is the cloning gate. Namely $U \ket{\psi} \ket{0} \mapsto \ket{\psi} \ket{\psi} $. Then:
+        \begin{equation*}
+        \begin{split}
+            U\ket{+}\ket{0} &=  U\frac{1}{\sqrt{2}}\left(\ket{0} + \ket{1} \right) \ket{0} =  \frac{1}{\sqrt{2}}\left(U\ket{0}\ket{0} + U\ket{1}\ket{0} \right) \\ &=\frac{1}{\sqrt{2}}\left(\ket{0}\ket{0} + \ket{1}\ket{1} \right) \neq \ket{+}\ket{+} 
+            \end{split}
+        \end{equation*}
+    \end{enumerate}
+
+    
+    % \item Assume that we want to encode (classical) messages from a domain $M$ using states in a system $A$. The encoding is error-free if the encoded messages are distinguishable (For this exercise, with probability $1$ \footnote{Usually, in classical computing, having a probability 1/poly to distinguish between entities is enough since one can repeat the test over copies of the inputs to amplify the successes probability to be effectively $1$. }). 
+    
+    % Show that an error-free encoding exists if and only if $|M| \leq \dim(A)$. Conclude that a qubit can reliably represent at most one classical bit. 
+    % %\textbf{Comment:} A review of what Prof. Kochman has already taught. 
+
+
+    % \textbf{Solution.} Denote by $\ket{\psi_1}, \ket{\psi_2}, \ket{\psi_3}, .., \ket{\psi_{|m|}}$ the encoding of the $m$ messages. Assume that $|M| > \dim(A)$; therefore, there exist at least two quantum states which are not orthogonal to each other. Without loss of generality, assume that they are $\ket{\psi_1}, \ket{\psi_2}$. Let $\ket{\phi_{2}} ,.., \ket{\phi_{\dim A} }$ be orthogonal states, such that they all orthogonal to $\ket{\psi_{1}}$. (hence $\ket{\psi_{1}}, \ket{\phi_{2}} ,.., \ket{\phi_{\dim A} }$ is an orthonormal base).  
+    
+    % Now, let $D$ be a quantum circuit, which at the end of its computation measures an ancilla. And observers that: 
+    % \begin{equation*}
+    %     \begin{split}
+    %     D\ket{\psi_{2}} &= D  \left( \braket{\psi_{1}|\psi_{2}} \ket{\psi_{1}} + \sum_{i}{ \braket{\phi_{1}|\psi_{2}} \ket{\phi_{1}} } \right)  \\ &=  \braket{\psi_{1}|\psi_{2}}  D\left( \ket{\psi_{1}}\right) + D\left(\sum_{i}{ \braket{\phi_{1}|\psi_{2}} \ket{\phi_{1}} } \right)
+    %     \end{split}
+    % \end{equation*}
+    
+    
+    % which distinguish between  $\ket{\psi_{1}}$ and $\ket{\psi_{2}}$. Namely applying $D$ measuring $1$ with probability $1$ if the given input is $\ket{\psi_{1}}$ and $0$ if it is $\ket{\psi_{2}}$.  
+    % \begin{equation*}
+    % \begin{split}
+    %  I\otimes\bra{1}  D \left(\ket{\psi_2} \otimes \ket{0}\right) &= I\otimes\bra{1}  D \left(  \left( \ket{\psi_1} \braket{\psi_{1}|\psi_{2}}   +  \braket{\psi_{1}^\perp|\psi_{2}} \ket{\psi_{1}^\perp}   \right) \otimes \ket{0}\right)  \\
+    %  & = \braket{\psi_{1}|\psi_{2}} \left( I\otimes\bra{1}  D \left(\ket{\psi_1} \otimes \ket{0}\right) \right) + \\ 
+    %  & = \braket{\psi_{1}|\psi_{2}}p + 
+    % \end{split}
+    % \end{equation*}
+    
+\end{enumerate}
+
+
+
+\subsection{Quantum Operations and POVMs}
+\begin{enumerate}
+    \item Consider the POVM given by the operators:
+    \begin{align*}
+        E_1 &= \frac{1}{2} \ket{0}\bra{0}, \quad E_2 = \frac{1}{2} \ket{1}\bra{1}, \\
+        E_3 &= \frac{1}{2} \ket{+}\bra{+}, \quad E_4 = \frac{1}{2} \ket{-}\bra{-}.
+    \end{align*}
+    \textbf{Verify} that this is an eligible POVM and \textbf{find} a realization of the POVM above as an orthogonal measurement in a two-qubit state space, by adding an ancilla qubit.
+
+    
+    \textbf{Solution.} First, observe that any rank-1 matrix $M=\alpha\ket{v}\bra{v}$ with positive coefficients is a PSD. That's because:
+    \begin{equation*}
+     \braket{u|M|u} = \braket{u\alpha|v}\braket{v|u} = \begin{cases}
+			0 & \text{if\ } \ket{u} \in \left( \ket{v} \right)^\perp \\
+            \alpha ||\braket{u,v}||^2  & \text{otherwise}
+		 \end{cases}   
+    \end{equation*}
+    So all the $E_i$ are PSD's, and now it's only left to show that they sum up to the identity. Also observe that: 
+    \begin{equation*}
+    \begin{split}
+    \ket{+}\bra{+} &= \frac{1}{\sqrt{2}}[1 , 1]  \frac{1}{\sqrt{2}} \left([ 1 , 1 ]\right)^\top = \frac{1}{2}\begin{bmatrix}
+        1 & 1 \\
+        1 & 1
+    \end{bmatrix} \\ 
+    \ket{-}\bra{-} &= \frac{1}{2}\begin{bmatrix}
+        1 & -1 \\
+        -1 & 1
+    \end{bmatrix}
+    \end{split}
+    \end{equation*}
+     So we have that:
+    \begin{equation*}
+    \begin{split}
+        E_{1} + E_{2} + E_{3} + E_{4} &= \frac{1}{2}\left( \begin{bmatrix}
+        1 & 0 \\
+        0 & 0
+    \end{bmatrix} + \begin{bmatrix}
+        0 & 0 \\
+        0 & 1
+    \end{bmatrix} + \frac{1}{2}\begin{bmatrix}
+        1 & 1 \\
+        1 & 1
+    \end{bmatrix} + \frac{1}{2}\begin{bmatrix}
+        1 & -1 \\
+        -1 & 1
+    \end{bmatrix} \right)        
+    \\ &= \begin{bmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{bmatrix} 
+    \end{split}
+    \end{equation*}
+
+    To realize the measurement, we are going to 'controlize' the measurement based on ancilla. Using almost the same apparatus we developed earlier, but we will condition the $ U$-rotation by a thread qubit ancilla.  
+    
+        \begin{figure}[h]
+        \centering 
+        \begin{quantikz}
+                \lstick{$\ket{0}$} & \gate{H} & \ctrl{2} &  & \ctrl{1} &\meter{}  \\
+        \lstick{$\ket{0}$} &  & & \gate{X} & \gate{H} &&&&&&&&&&&&& \\
+\lstick{$\ket{\psi}$} &  & \gate{H} & \meter{} \wire[u][1]{c}    \\
+        \end{quantikz}
+     \caption{ realizing the POVM-measurement $\{E_1,E_2,E_3,E_4 \}$. }   
+\label{fig:Hmeas3}
+\end{figure}
+
+Complete proof would also require explicitly computing probabilities, yet we will give up on the fun. 
+
+
+\end{enumerate}
+
+
+\newcommand{\channel}{\mathcal{L}\left( \mathcal{H}_{2} \right)  \rightarrow \mathcal{L}\left( \mathcal{H}_{2} \right)} 
+
+\section{Diagonalize Noisy State.}
+Let $\ket{A_{+}}$ and $\ket{A_{-}}$ be two orthogonal pure states over single qubit, i.e $\braket{A_{+} | A_{-}} = 0$ and let $\rho$ be the mixed state such that $\braket{A_{+}|\rho|A_{+}}  = 1 -p$ for some $p<1$. We would like to design a channel $\mathcal{E}_{A}: \channel $ that takes $\rho$ into:
+    $$\rho^\prime = \mathcal{E}_{A}(\rho) = (1-p)\ket{A_{+}}\bra{A_{+}} + p\ket{A_{-}}\bra{A_{-}}$$ 
+\begin{enumerate}
+    \item Give an explicit example for which $\mathcal{E}$ is not trivial, namely $\rho$ satisfies the constraint, yet doesn't have the form of $\rho^\prime$. 
+
+    \textbf{Solution.} Consider, for example, the mixed state: 
+    \begin{equation*}
+        \rho = \frac{2}{3}\ket{0}\bra{0}+ \frac{i}{3}\ket{1}\bra{0} - \frac{i}{3}\ket{0}\bra{1}+ \frac{1}{3}\ket{1}\bra{1} 
+    \end{equation*}
+    On one hand, it's clear that the matrix is Hermitian, and since its eigenvalues are $\frac{1}{2}\left(1 \pm \frac{\sqrt{5}}{3} \right) > 0 $, the matrix is definite positive, hence $\rho$ is density matrix. 
+    On the other hand, $\rho$ has non-zero off-diagonal elements.
+    \item Solve it for $\ket{A_{\pm}} = \ket{\pm}$. 
+    
+    
+    \textbf{Solution.} So in let's define the channel which is probability $\frac{1}{2}$ do nothing and with probability $\frac{1}{2}$ apply $X$. So in total we got: 
+    \begin{equation*}
+        \rho \rightarrow \frac{1}{2}\rho + \frac{1}{2}X\rho X 
+    \end{equation*} 
+    Notice that the channel acts trivially on $\ket{\pm}\bra{\pm}$:
+    \begin{equation*}
+    \begin{split}
+        \ket{\pm}\bra{\pm} \rightarrow  &\frac{1}{2} \ket{\pm}\bra{\pm} + \frac{1}{2}X\ket{\pm}\bra{\pm}X \\
+        & \frac{1}{2} \ket{\pm}\bra{\pm} + \frac{1}{2} (\pm ) \ket{\pm}\bra{\pm} (\pm) = \ket{\pm}\bra{\pm} 
+    \end{split}
+    \end{equation*}
+    However on $\ket{\pm}\bra{\mp}$ we have that: 
+\begin{equation*}
+    \begin{split}
+        \ket{\pm}\bra{\mp} \rightarrow  &\frac{1}{2} \ket{\pm}\bra{\mp} + \frac{1}{2}X\ket{\pm}\bra{\mp}X \\
+        & \frac{1}{2} \ket{\pm}\bra{\mp} + \frac{1}{2} (\pm ) \ket{\pm}\bra{\mp} (\mp) = \frac{1}{2}\ket{\pm}\bra{\mp} - \frac{1}{2}\ket{\pm}\bra{\mp} = 0 
+    \end{split}
+    \end{equation*}
+
+    So in total, we have that any $\rho$ such $\braket{+|\rho|+} = p $ and $\braket{+|\rho|+} = 1-p $ would be map to a mixed state 
+    \begin{equation*}
+    \rho^\prime = p\ket{+}\bra{+} + (1-p)\ket{-}\bra{-}    
+    \end{equation*}
+    
+    \item \textbf{[At home.]} Solve it for the general case. (Hint: What does the orthogonality condition guarantee?). 
+    \item \textbf{[At home.]} Let $\ket{A_1},\ket{A_2},\ket{A_3}, \ket{A_{4}}$ be four orthogonal states in $\mathcal{H}_{4}$. Suppose now that $\rho$ is supported on two qubits.  And for $i \in \{1,2,3,4\}$ denote by $p_{i}$ the fidelity between $\ket{A_i}$ and $\rho$. Namely $ \braket{A_i|\rho|A_i} = p_i$. Design a channel $\mathcal{E}_{A}$ that takes $\rho$ into:
+    $$\rho^\prime = \mathcal{E}_{A}(\rho) =  \sum_{i=1}^{4}{p_{i}\ket{A_{i}}\bra{A_{i}}} $$  
+
+\end{enumerate}
+
+\section{Partial Trace Transformation Under Local Operation.}
+Consider the mixed state $\rho \in \mathcal{H}_A \otimes \mathcal{H}_B$. And let $M$ be an operator that acts on $\mathcal{H}_{A}$. Show that:
+\begin{equation*}
+    \mathbf{Tr}_{B}\left( M \otimes I_{B} \rho M^\dagger \otimes I_{B} \right) = M \mathbf{Tr}_{B} \left( \rho \right) M^\dagger
+\end{equation*}
+
+
+\textbf{Solution.} Let $M$ be an operation in $\mathcal{H}_A$-space, and consider the presentation of $\rho$ in the base of the eigen vectors of $M$, namely $\rho$ can be written as: 
+\begin{equation*}
+    \rho = \sum_{ijkl}{ \alpha_{ijkl}\ket{ij}\bra{kl}}
+\end{equation*}
+When $\{ \ket{i,*} \}$ (or $\bra{k,*}$) are eigenvectors of $M$. Thus\footnote{Notice that the result is an unnormolized state. We are going to show an equivalence between matrices; to get the actual density matrices, we would have to normalize by the trace. } : 
+\begin{equation*}
+    \rho \rightarrow M \rho M^\dagger \rightarrow \sum_{ijkl}{ \sigma_{i}\sigma^{*}_{k}\alpha_{ijkl}\ket{ij}\bra{kl}}
+\end{equation*}
+Now tracing out $B$ gives:
+
+\begin{equation*}
+\begin{split}
+    \ & \sum_{j^\prime} \sum_{ijkl}{  I \otimes\bra{j^\prime} \left(\sum_{ik}{ \sigma_{i}\sigma^{*}_{k}\alpha_{ijkl}\ket{ij}\bra{kl} } \right) I \otimes \ket{j^\prime} } = \sum_{jik}{ \sigma_{i}\sigma^{*}_{k}\alpha_{ijkj}\ket{i}\bra{k} } \\
+     = \ &\sum_{ik}{\left(\sum_{j}{ \alpha_{ijkj}}\right)\sigma_{i}\sigma^{*}_{k}\ket{i}\bra{k} } = \sum_{ik}{\left(\sum_{j}{ \alpha_{ijkj}}\right)M\ket{i}\bra{k}M^\dagger } \\
+     =  & M \left(\sum_{ijkl} I \otimes \bra{j^\prime} \alpha_{ijkl}\ket{ij}\bra{kl}  I \otimes\ket{j^\prime}  \right) M^\dagger = M \mathbf{Tr}_{B}\left( \rho \right) M^\dagger
+\end{split}
+\end{equation*}
+
+\textbf{Example.} Let $\rho$ be the density matrix of the \textbf{EPR} state:
+\begin{equation*}
+\begin{split}
+    \rho &= \frac{1}{2}\left( \ket{00} + \ket{11} \right)\left( \bra{00} + \bra{11} \right) \\ &= \frac{1}{2}\left( \ket{00}\bra{00}+ \ket{00}\bra{11} + \ket{11}\bra{00} + \ket{11}\bra{11} \right)
+    \end{split}
+\end{equation*}
+
+Now consider the experiment in which we first forget (tracing out) the $B$'s-part, and then apply $X$ on the first qubit: 
+\begin{equation*}
+\begin{split}
+    \rho &\mapsto  I\otimes \bra{0} \rho I \otimes \ket{0} + I\otimes \bra{1} \rho I \otimes \ket{1} = \frac{1}{2}{\ket{0}\bra{0} + \ket{1}\bra{1}} \\
+    & \mapsto X ( \cdot ) X = \frac{1}{2}{\ket{1}\bra{1} + \ket{0}\bra{0}} 
+    \end{split}
+\end{equation*}
+On the other hand, if we were first to apply $X$ on the first qubit and then forget from $B$ then we would have: 
+\begin{equation*}
+\begin{split}
+    \rho &\mapsto  X\otimes I \rho X \otimes I = \frac{1}{2}\left( \ket{10}\bra{10}+ \ket{10}\bra{01} + \ket{01}\bra{10} + \ket{01}\bra{01} \right) \\
+    & \mapsto I \otimes \bra{0} ( \cdot ) I \otimes \ket{0} + I \otimes \bra{1} ( \cdot ) I \otimes \ket{1} = \frac{1}{2} \left({\ket{1}\bra{1} + \ket{0}\bra{0}} \right) 
+    \end{split}
+\end{equation*}
+
+\textbf{Question.} Why don't we have to normalize the resulting mixed state?  
+\printbibliography 
+\end{document}
+
