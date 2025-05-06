@@ -120,12 +120,15 @@ In the last lectures, we saw that quantum states can be considered as resources.
 \section{Dense Encoding.} ) 
 \section{Quantum Teleportation.}
 
+    \begin{figure}[h]
+        \centering 
 \begin{quantikz}
-\lstick{$\ket{\psi}$} & \qw & \ctrl{1} & \gate{H} & \meter{} & \cw & \cctrl{1} & \cw & \cctrl{1} & \cw & \rstick{$\ket{0}$} \\
-\lstick{$\ket{0}$} & \qw & \targ{} & \qw & \meter{} & \cw & \ctrl{1} & \cw & \cctrl{1} & \cw & \rstick{$\ket{0}$} \\
-\lstick{$\ket{0}$} & \gate{H} & \ctrl{-1} & \qw & \qw & \qw & \gate{X} & \qw & \gate{Z} & \qw & \rstick{$\ket{\psi}$}
+\lstick{$\ket{\psi}$} &  & \ctrl{1} & \gate{H} & \meter{} &  & \ctrl{1} &  & \ctrl{1} &  & \rstick{$\ket{0}$} \\
+\lstick{$\ket{0}$} &  & \targ{} &  & \meter{} &  & \ctrl{1} &  & \ctrl{1} &  & \rstick{$\ket{0}$} \\
+\lstick{$\ket{0}$} & \gate{H} & \ctrl{-1} &  &  &  & \gate{X} &  & \gate{Z} &  & \rstick{$\ket{\psi}$}
 \end{quantikz}
-
+     \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
+\end{figure}
 
 \section{Gate Teleportation.}
 Gate teleportation is a method to 'encode' operations by states. At the high level, given a precomputed state, it allows one to apply an operation (gate) by using (probably) simpler gates. The precomputed states are called \textbf{Magic States}.   
