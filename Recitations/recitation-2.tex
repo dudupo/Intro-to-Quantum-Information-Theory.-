@@ -250,8 +250,21 @@ Let $\rho_{AB}, \sigma_{AB} \in \mathcal{D}(\mathcal{H}_A \otimes \mathcal{H}_B)
 \end{equation*}
 where $\rho_A = \mathrm{Tr}_B\{\rho_{AB}\}$ and $\sigma_A = \mathrm{Tr}_B\{\sigma_{AB}\}$.
 
+\begin{proof}
 
-
+Consider fixed purifications $\ket{\psi}_{RAB}$ and $\ket{\phi}_{RAB}$ of $\rho_{AB}$ and $\sigma_{AB}$, respectively, which also purify $\rho_A$ and $\sigma_A$. By Uhlmann’s theorem,
+\[
+F(\rho_{AB}, \sigma_{AB}) = \max_{U_R} \left| \braket{\psi | U_R \otimes I_A \otimes I_B | \phi} \right|^2.
+\]
+On the other hand, since $U_R \otimes I_A$ is a subset of the larger class of unitaries $U_{RB}$ on $RB$,
+\[
+F(\rho_A, \sigma_A) = \max_{U_{RB}} \left| \braket{\psi | U_{RB} \otimes I_A | \phi} \right|^2 \geq F(\rho_{AB}, \sigma_{AB}).
+\]
+Thus, we conclude that
+\[
+F(\rho_{AB}, \sigma_{AB}) \leq F(\rho_A, \sigma_A).
+\]
+\end{proof}
 Notice that $\ket{i}\bra{j}$ is unitray since. 
 
 
