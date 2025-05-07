@@ -125,7 +125,7 @@ In the last lectures, we saw that quantum states can be considered as resources.
 \begin{quantikz}
   \lstick{$\ket{\psi}$} &  &  &  \ctrl{1} & \gate{H} & \meter{} &  & \ctrl{2} & &  &  &  \\
   \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} &  \ctrl{1}  & & & & &  \\
-  \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} & \targ{} & &  &  & %\rstick{\ket{\psi}}
+  \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} & \gate{Z} & &  &  & %\rstick{\ket{\psi}}
 \end{quantikz}
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
 \end{figure}
