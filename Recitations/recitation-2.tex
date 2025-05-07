@@ -212,9 +212,9 @@ Magic state distillation is a procedure that uses many copies of noisy magic sta
 \begin{equation*}
   \begin{split}
     \max | \braket{ \psi_\rho | \psi_\sigma } |^2  & =
-  \max | \sum_{i}{ \left( \bra{\psi_i} \rho^{\frac{1}{2}}\right) \bra{i}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{i}} \right)  U_{2}\ket{j} } |^{2} \\
-  & = \max |   \sum_{i}{  \mathbf{TR}  \left( \bra{\psi_i} \rho^{\frac{1}{2}}\right) \bra{i}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{i}} \right)  U_{2}\ket{j} } |^{2} \\
-  & = \max |   \sum_{i}{  \mathbf{TR}  \left( \bra{\psi_i} \rho^{\frac{1}{2}}\right) \bra{i}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{i}} \right)  U_{2}\ket{j} } |^{2} \\
+  \max | \sum_{i}{ \left( \bra{\psi_i} \rho^{\frac{1}{2}}\right) \bra{i}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{j}} \right)  U_{2}\ket{j} } |^{2} \\
+  & = \max |   \sum_{i}{  \mathbf{TR}  \left( \bra{\psi_i} \rho^{\frac{1}{2}}\right) \bra{i}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{j}} \right)  U_{2}\ket{j} } |^{2} \\
+  & = \max |   \sum_{i}{  \mathbf{TR}  \left( \sigma^{\frac{1}{2}} U_{1} \ket{\psi_{j}}\bra{\psi_i} \rho^{\frac{1}{2}}\right)   \left( U_{2}\ket{j} \bra{i}\right)   } |^{2} \\
   \end{split}
 \end{equation*}
 
