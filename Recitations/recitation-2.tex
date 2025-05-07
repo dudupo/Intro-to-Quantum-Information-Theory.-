@@ -194,6 +194,17 @@ Magic state distillation is a procedure that uses many copies of noisy magic sta
 
 
 
+
+\begin{claim} qq
+  
+  \begin{equation*}
+    \begin{split}
+      \sum_{ij}{ \braket{ i;i | AB | j ;j } } &=  \sum_{ij}{ \braket{ i| A | j} \braket{i | B | j } } =  \sum_{ij}{ \braket{ i| A | j} \braket{j | B^\top | i } } = \sum_{i}{ \braket{i | A B^\top | i } } = \mathbf{Tr} AB^\top
+    \end{split}
+  \end{equation*}
+\end{claim}
+
+
 \begin{equation*}
   \begin{split}
   \ket{\psi_\rho} = \sum_{i}{ \left( \rho^{\frac{1}{2}}\ket{\psi_i} \right) \ket{i} } \\ 
