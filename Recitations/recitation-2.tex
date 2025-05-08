@@ -150,7 +150,9 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
 \end{figure}
 
-For getting understaning the protocol let's first exmine the state, given by the partial circuit obtained by omtting the phase correction in the teleportation. It presented in \Cref{figure:partial_tel}. Let's assume the measurment results is zero. Hence we know that in the comptional base, Alice's \textbf{EPR} part, previously to the xoring, agrees with $\ket{\psi}$, or in other words, if we will measure all the systyem then   
+For getting understaning the protocol let's first exmine a mach more simpler circuit. Consider the state, given by the partial circuit obtained by first omtting the phase correction, and second by pulling the xoring of $\ket{\psi}$ and Alice's part into a thired ancille. The circuit is presented in \Cref{figure:partial_tel}.
+
+Let's assume the measurment results is zero. Hence we know that in the comptional base, Alice's \textbf{EPR} part, previously to the xoring, agrees with $\ket{\psi}$, or in other words, if we will measure all the systyem then   
 
     \begin{figure}[h]
         \centering 
