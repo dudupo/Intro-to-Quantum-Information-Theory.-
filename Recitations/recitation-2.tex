@@ -144,7 +144,7 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
         \centering 
 \begin{quantikz}
   \lstick{$\ket{\psi}$} &  &  &  \ctrl{1} & \gate{H} & \meter{} & \setwiretype{c} & \ctrl{2} & &  &  & &  & &  &\\
-  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} \setwiretype{c }&   \ctrl{1}  & & & & &  &  &&  &\\
+  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} \setwiretype{c} &   \ctrl{1}  & & & & &  &  &&  &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} & \gate{Z} & &  &  & &  &&  &%\rstick{\ket{\psi}}
 \end{quantikz}
 \caption{The teleportation gate. Note that at the beginning, the circuit initializes the $\EPR$ state. This is not standard, and usually, teleportation diagrams start by acting on an \textbf{EPR}.}
