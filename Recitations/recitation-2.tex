@@ -150,13 +150,14 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
 \end{figure}
 
-For getting understaning the protocol let's first exmine the state, given by the partial circuit obtained by omtting the phase correction in the teleportation. It presented in \Cref{figure:partial_tel}. Let's assume the measurment results is zero. 
+For getting understaning the protocol let's first exmine the state, given by the partial circuit obtained by omtting the phase correction in the teleportation. It presented in \Cref{figure:partial_tel}. Let's assume the measurment results is zero. Hence we know that in the comptional base, Alice's \textbf{EPR} part, previously to the xoring, agrees with $\ket{\psi}$, or in other words, if we will measure all the systyem then   
 
     \begin{figure}[h]
         \centering 
 \begin{quantikz}
-  \lstick{$\ket{\psi}$} &  &  &  \ctrl{1} & &  &  &  &  & &  &  & &  & &  &\\
-  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} &  \ctrl{1}  & & & & &  &  &&  &\\
+  \lstick{$\ket{\psi}$} &  \ctrl{1} & &  & &  &  &  &  & &  &  & &  & &  &\\
+  \lstick{$\ket{0}$} &  \targ{} & \targ{} & & & \meter{} &  \ctrl{1}  & & & & &  &  &&  &\\
+  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \ctrl{-1} &  & \meter{} &  \ctrl{1}  & & & & &  &  &&  &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} &  & &  &  & &  &&  &%\rstick{\ket{\psi}}
 \end{quantikz}
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
