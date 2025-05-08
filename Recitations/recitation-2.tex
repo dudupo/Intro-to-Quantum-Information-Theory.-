@@ -315,6 +315,10 @@ Distillation of entanglement is a process where two parties distill from a share
 
 It's interesting to look for protocols that use only local operations and classical communication (LOCC), since they suit the realistic case in which remote entities try to generate their shared entanglement state from a noisy source. Here we present one of the primary protocols \cite{Bennett_1996}\footnote{The original protocol starts with a twirling stage to ensure that the noise is uniformly distributed over the $\ket{\beta_{j \neq 00}}$ states.}.
 
+It goes as follows: We consider two copies of $\rho$ such that Alice holds the first qubit of each of the $\rho$ qubit pairs. Alice xors her first qubit into her second and measures, and Bob does the same. Then Alice sends the result to Bob. If the results are equal, they accept, and the mixed state supported over their first shared pair has a higher fidelity.
+
+
+
 
 The process involves multiple copies of a mixed entangled state, which are manipulated to increase the fidelity of the entanglement. Distillation protocols, such as the Bennett-Brassard protocol, are used to achieve this transformation. The distilled entangled states are more robust and can be used for tasks like quantum teleportation and superdense coding, where high-quality entanglement is crucial for optimal performance..
 
