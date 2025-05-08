@@ -239,7 +239,9 @@ For proving it, we will need the following definition and claims:
   Denote by $\ket{\Omega}$ the sate:  $\ket{\Omega}= \sum_{i}{\ket{i,i}}$
 \end{definition}
 
-\begin{claim} For any matrices $A, B$ (with matched dimensions), it holds that:
+\begin{claim} 
+  \label{claim:Omg}
+  For any matrices $A, B$ (with matched dimensions), it holds that:
   \begin{equation*}
     \begin{split}
     \braket{\Omega| A \otimes B  | \Omega} = \mathbf{Tr} AB^\dagger
@@ -256,6 +258,7 @@ For proving it, we will need the following definition and claims:
 \end{proof}
 
 \begin{claim} For any square matrix $A$:
+  \label{claim:AB}
   \begin{equation*}
     \begin{split}
       \max_{U \in \mathcal{U}} \mathbf{Tr} AU = \mathbf{Tr} \sqrt{ A^\dagger A } 
@@ -274,10 +277,7 @@ Let: $\{\ket{\psi_i}\}$ and $\{\ket{\psi_i^\prime}\}$ be the eigenstates of $\rh
   \sum_{i}{ \left( \sigma^{\frac{1}{2}} U_{\sigma} \ket{i} \right)  V \ket{i} }  =  \left( \sigma^{\frac{1}{2}} U_{\sigma} \right) \otimes V \ket{\Omega} 
   \end{split}
 \end{equation*}
-Where $U_{\rho},U_{\sigma}$ and $V$ are unitireis. 
-
-
-
+Where $U_{\rho},U_{\sigma}$ and $V$ are unitireis. Now using \Cref{claim:Omg} and \Cref{claim:AB} we get:
 \begin{equation*}
   \begin{split}
     \max | \braket{ \psi_\rho | \psi_\sigma } |^2  & = \max  | \braket{\Omega |   \left( U_{\rho}^{\dagger} \rho^{\frac{1}{2}}  \right) \otimes I   \left( \sigma^{\frac{1}{2}} U_{\sigma} \right) \otimes V     | \Omega}  |^{2} \\
