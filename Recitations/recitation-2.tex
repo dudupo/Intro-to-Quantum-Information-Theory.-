@@ -234,7 +234,7 @@ Let $\rho, \sigma$ be mixed states, and let's denote by $\ket{\psi_\rho}$, $\ket
   \end{equation*}
 \end{theorem}
 
-For proving it we will need the follow definition and claims: 
+For proving it, we will need the following definition and claims:
 \begin{definition}
   Denote by $\ket{\Omega}$ the sate:  $\ket{\Omega}= \sum_{i}{\ket{i,i}}$
 \end{definition}
@@ -255,6 +255,16 @@ For proving it we will need the follow definition and claims:
   \end{equation*}
 \end{proof}
 
+\begin{claim} For any square matrix $A$:
+  \begin{equation*}
+    \begin{split}
+      \max_{U \in \mathcal{U}} \mathbf{Tr} AU = \mathbf{Tr} \sqrt{ A^\dagger A } 
+    \end{split}
+  \end{equation*}
+\end{claim}
+The proof is left as an exercise.
+
+
 \begin{equation*}
   \begin{split}
     \ket{\psi_\rho} = \sum_{i}{ \left( \rho^{\frac{1}{2}}\ket{\psi_i} \right) \ket{i} } = \sum_{i}{ \left( \rho^{\frac{1}{2}} U_{\rho} \ket{i} \right) \ket{i} }  =  \left( \rho^{\frac{1}{2}} U_{\rho} \right) \otimes I \ket{ \Omega } \\ 
@@ -269,13 +279,6 @@ For proving it we will need the follow definition and claims:
 \end{equation*}
 
 
-\begin{claim} For any square matrix $A$:
-  \begin{equation*}
-    \begin{split}
-      \max_{U \in \mathcal{U}} \mathbf{Tr} AU = \mathbf{Tr} \sqrt{ A^\dagger A } 
-    \end{split}
-  \end{equation*}
-\end{claim}
 
 
 \begin{equation*}
