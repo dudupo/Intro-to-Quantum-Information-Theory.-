@@ -218,20 +218,6 @@ In \Cref{fig:magic}, we have the $T$-teleportation gadget. The state progresses 
     \end{split}
 \end{equation*}
 
-\subsection{Extends it.}
-
-Let's extends it to a general gate. First create $\ket{\textbf{GHZ}_{2n}}$ state, then 
-
-Let's split upon the measurement result. 
-\begin{enumerate}
-    \item If we measured $0$, means the states 'agreed' in the computational base. 
-      \begin{equation*}
-    \begin{split}
-          \ket{\psi} \otimes \left( \sum_x\ket{x}\otimes U\ket{x} \right)
-    \end{split}
-\end{equation*}
-\end{enumerate}
-
 
 \section{Uhlmann's Theorem}
 Fidelity of pure quantum states is defined as the absolute square of the inner product between two quantum states. It measures the similarity or overlap between two quantum states, indicating how close they are to being identical. We define the fidelity of a pure state $\ket{\psi}$ with a mixed one $\rho$ as the expectation of the fidelity of the pure state drawn from the distribution induced by $\rho$. In this section we are about to define the fidelity of two mixed states $\sigma$ and $\rho$.
@@ -383,6 +369,23 @@ The density matrix over each qubit is $\frac{1}{2}I$, so the measurement is equi
 
 Magic state distillation is a procedure that uses many copies of noisy magic states, plus only Clifford gates and measurements, to produce fewer, higher-fidelity magic states.
 
+\ifdefined\DEBUG
+\subsection{Extends it.}
+
+Let's extends it to a general gate. First create $\ket{\textbf{GHZ}_{2n}}$ state, then 
+
+Let's split upon the measurement result. 
+\begin{enumerate}
+    \item If we measured $0$, means the states 'agreed' in the computational base. 
+      \begin{equation*}
+    \begin{split}
+          \ket{\psi} \otimes \left( \sum_x\ket{x}\otimes U\ket{x} \right)
+    \end{split}
+\end{equation*}
+\end{enumerate}
+
+\else
+\fi
 
 
 \printbibliography 
