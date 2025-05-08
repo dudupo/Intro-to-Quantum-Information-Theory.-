@@ -311,7 +311,9 @@ Namely, the purifications over the $AB$-subsystem are a subset of the purificati
 
 
 \section{ $ \ket{\mathbf{EPR} }$ Distillation / Entanglement Purification.  }
-Distillation of entanglement is a process in quantum information theory where a mixed entangled state is transformed into a more pure form of entanglement. This is achieved by using local operations and classical communication (LOCC) to extract a smaller number of highly entangled pairs from a larger number of weakly entangled pairs. The goal is to maximize the quality of entanglement, making it more suitable for quantum communication and computation tasks.
+Distillation of entanglement is a process where two parties distill from a shared mixed entangled state, i.e., noisy EPR, a higher quality entanglement state. Formally, they take $n$ copies of a mixed state $\rho$ at fidelity $F$ with the $\EPR$ and output (with probability) $k$ copies of the mixed state $\rho^{\prime}$ at fidelity $F^\prime > F$ with $\EPR$.
+
+This is achieved by using local operations and classical communication (LOCC) to extract a smaller number of highly entangled pairs from a larger number of weakly entangled pairs. The goal is to maximize the quality of entanglement, making it more suitable for quantum communication and computation tasks.
 
 The process involves multiple copies of a mixed entangled state, which are manipulated to increase the fidelity of the entanglement. Distillation protocols, such as the Bennett-Brassard protocol, are used to achieve this transformation. The distilled entangled states are more robust and can be used for tasks like quantum teleportation and superdense coding, where high-quality entanglement is crucial for optimal performance.\cite{Bennett_1996}.
 
@@ -364,13 +366,13 @@ The density matrix over each qubit is $\frac{1}{2}I$, so the measurement is equi
 
 
 
+\ifdefined\DEBUG
 \section{Magic State Distillation.}
 
 \textbf{Question.} Can we purify noisy magic states into high-fidelity ones, using only Clifford operations?
 
 Magic state distillation is a procedure that uses many copies of noisy magic states, plus only Clifford gates and measurements, to produce fewer, higher-fidelity magic states.
 
-\ifdefined\DEBUG
 \subsection{Extends it.}
 
 Let's extends it to a general gate. First create $\ket{\textbf{GHZ}_{2n}}$ state, then 
