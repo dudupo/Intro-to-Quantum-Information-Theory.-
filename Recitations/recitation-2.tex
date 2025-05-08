@@ -147,7 +147,7 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
   \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} &  \ctrl{1}  & & & & &  &  &&  &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} & \gate{Z} & &  &  & &  &&  &%\rstick{\ket{\psi}}
 \end{quantikz}
-     \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
+\caption{The teleportation gate. Note that at the beginning, the circuit initializes the $\EPR$ state. This is not standard, and usually, teleportation diagrams start by acting on an \textbf{EPR}.}
 \end{figure}
 
 For understanding the protocol, let's first examine a much simpler circuit. Consider the state given by the partial circuit obtained by first omitting the phase correction, and second by pulling the XORing of $\ket{\psi}$ and Alice's part into a third ancilla. The circuit is presented in \Cref{figure:partial_tel}.
@@ -164,7 +164,7 @@ What happens if the result measurement is $1$? In that case, we find that $\ket{
   \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \ctrl{-1} &  &  &    & & & & &  &  &&  & &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  &  &  & &  &  & &  &&  & & %\rstick{\ket{\psi}}
 \end{quantikz}
-     \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
+\caption{ Simple circuit to undersatnad teleportation concept.  }   
       \label{figure:partial_tel}
 \end{figure}
 
