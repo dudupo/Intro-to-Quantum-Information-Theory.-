@@ -342,9 +342,7 @@ The protocol's success probability is greater than $\frac{1}{2}p^{2}$. In partic
   With probability $p^2$, the state induced over the qubits is $\ket{\beta_{00}}^{\otimes 2}$. Thus, the density matrices over each of the qubits are the fully mixed state $\frac{1}{2}I$, i.e., a fair coin. So each of the xoring results is distributed as $\sim \text{Bin}(\frac{1}{2})$, and therefore the probability for equality is $\frac{1}{2}$, and in total the success probability $\ge \frac{1}{2} p^2$. 
 \end{proof}
 
-The density matrix over each qubit is $\frac{1}{2}I$, so the measurement is equivalent to flipping coins and asking if the first pair and second pair are the same. Thus, the success probability is $\frac{1}{4}$. Now the state that is left is the projection of $\rho$ into the space in which both the bits of Alice and Bob are equal, namely: 
-
-
+Now, upon a successful measurement, the state that is left is the projection of $\rho$ into the space in which both the bits of Alice and Bob are equal, namely:
 \begin{equation*}
   \begin{split}
     & \frac{1}{4} \inb{ \left(  \left(\ket{00} \pm \ket{11} \right) \otimes \left(\ket{00} \pm \ket{11} \right) \right) }  \rightarrow \left( \ket{0000} + \ket{1111} \right)  \\ 
