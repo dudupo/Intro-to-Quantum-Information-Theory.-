@@ -143,8 +143,8 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
     \begin{figure}[h]
         \centering 
 \begin{quantikz}
-  \lstick{$\ket{\psi}$} &  &  &  \ctrl{1} & \gate{H} & \meter{} &  & \ctrl{2} & &  &  & &  & &  &\\
-  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} &  \ctrl{1}  & & & & &  &  &&  &\\
+  \lstick{$\ket{\psi}$} &  &  &  \ctrl{1} & \gate{H} & \meter{} & \setwiretype{c} & \ctrl{2} & &  &  & &  & &  &\\
+  \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \targ{} &  & \meter{} &  \setwiretype{c}\ctrl{1}  & & & & &  &  &&  &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  & \targ{} & \gate{Z} & &  &  & &  &&  &%\rstick{\ket{\psi}}
 \end{quantikz}
 \caption{The teleportation gate. Note that at the beginning, the circuit initializes the $\EPR$ state. This is not standard, and usually, teleportation diagrams start by acting on an \textbf{EPR}.}
@@ -160,7 +160,7 @@ What happens if the result measurement is $1$? In that case, we find that $\ket{
         \centering 
 \begin{quantikz}
   \lstick{$\ket{\psi}$} &  \ctrl{1} & &  & &  &  &  &  & &  &  & &  & &  &\\
-  \lstick{$\ket{0}$} &  \targ{} & & \targ{} & & \meter{} &   & & & & &  &  &&  & &\\
+  \lstick{$\ket{0}$} &  \targ{} & & \targ{} & & \meter{} & \setwiretype{c}   & & & & &  &  &&  & &\\
   \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \ctrl{-1} &  &  &    & & & & &  &  &&  & &\\
   \lstick{$\ket{0}$} &  & \targ{} &   &  &  &  &  & &  &  & &  &&  & & %\rstick{\ket{\psi}}
 \end{quantikz}
