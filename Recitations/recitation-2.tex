@@ -319,9 +319,9 @@ The process involves multiple copies of a mixed entangled state, which are manip
         \centering 
         \begin{quantikz}[wire types={q,n,n,n}]
   \lstick[3]{$\ket{\psi}$}& & & \ctrl{1} & & & & & & & & & & & & \\
- & & \lstick[3]{$\ket{0}$} &  \targ{} & &  \meter{} & & \wire[d][2]{c} \\
- & &  \lstick{$\ket{\psi}$} & \ctrl{1} & & & & & & & & & & & & \\
- & &  \lstick{$\ket{0}$} &  \targ{} & &  \meter{} & & \gate{ \text{IF EQUALS} } 
+ & & \lstick[3]{$\ket{0}$} \setwiretype{q} &  \targ{} & &  \meter{} & & \wire[d][2]{c} \\
+ & &  \lstick{$\ket{\psi}$} \setwiretype{q} & \ctrl{1} & & & & & & & & & & & & \\
+ & &  \lstick{$\ket{0}$} \setwiretype{q }&  \targ{} & &  \meter{} & & \gate{ \text{IF EQUALS} } 
 \end{quantikz}
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
 \end{figure}
