@@ -167,6 +167,8 @@ What happens if the result measurement is $1$? In that case, we find that $\ket{
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
       \label{figure:partial_tel}
 \end{figure}
+
+In the teleportation protocol, the state progresses up to measurements as:
 \begin{equation*}
   \begin{split}
       \ket{\psi} \otimes &\EPR \left( \alpha\ket{0} + \beta \ket{1} \right)  \\ 
@@ -178,8 +180,7 @@ What happens if the result measurement is $1$? In that case, we find that $\ket{
   = & \frac{1}{2}\ket{00} \ket{\psi} + \frac{1}{2} \ket{01} X\ket{\psi} + \frac{1}{2} \ket{10} Z\ket{\psi} + \frac{1}{2}\ket{11}XZ\ket{\psi} 
   \end{split}
 \end{equation*}
-
-
+Where the first arrow stands for the Xoring operation, and the second stands for the Hadamard.
 
 
 \section{Gate Teleportation.}
