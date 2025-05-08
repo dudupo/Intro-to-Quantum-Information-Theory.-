@@ -233,14 +233,19 @@ Let's split upon the measurement result.
 \end{enumerate}
 
 
-\section{Uhlmann's theorem}
+\section{Uhlmann's Theorem}
 Fidelity of pure quantum states is defined as the absolute square of the inner product between two quantum states. It measures the similarity or overlap between two quantum states, indicating how close they are to being identical. We define the fidelity of a pure state $\ket{\psi}$ with a mixed one $\rho$ as the expectation of the fidelity of the pure state drawn from the distribution induced by $\rho$. In this section we are about to define the fidelity of two mixed states $\sigma$ and $\rho$.
 \begin{definition}
 The fidelity of $\rho$ and $\sigma$ is the maximal fidelity between chosen purifications of them.
 \end{definition}
 
-\begin{theorem}
-
+\begin{theorem}[Uhlmann's Theorem]
+Let $\rho, \sigma$ be mixed states, and let's denote by $\ket{\psi_\rho}$, $\ket{\psi_\sigma}$ arbitrary purifications of $\rho, \sigma$. Then their fidelity equals:
+  \begin{equation*}
+    \begin{split}
+      F(\sigma,\rho) = \max_{\ket{\psi_\rho}, \ket{\psi_\sigma}} \left| \braket{\psi_\rho|\psi_\sigma} \right|^2 
+    \end{split}
+  \end{equation*}
 \end{theorem}
 
 
