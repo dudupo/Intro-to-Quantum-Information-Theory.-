@@ -150,9 +150,11 @@ Quantum teleportation is a gadget (method) to transfer a quantum state from one 
      \caption{ Measuring the single-qubit state $\ket{\psi}$ at the $\{\ket{+}, \ket{-} \}$ base. }   
 \end{figure}
 
-For getting understaning the protocol let's first exmine a mach more simpler circuit. Consider the state, given by the partial circuit obtained by first omtting the phase correction, and second by pulling the xoring of $\ket{\psi}$ and Alice's part into a thired ancille. The circuit is presented in \Cref{figure:partial_tel}.
+For understanding the protocol, let's first examine a much simpler circuit. Consider the state given by the partial circuit obtained by first omitting the phase correction, and second by pulling the XORing of $\ket{\psi}$ and Alice's part into a third ancilla. The circuit is presented in \Cref{figure:partial_tel}.
 
-Let's assume the measurment results is zero. Hence we know that in the comptional base, Alice's \textbf{EPR} part, previously to the xoring, agrees with $\ket{\psi}$, or in other words, if we will measure all the systyem then   
+Let's assume the measurement result is zero. Hence, we know that in the computational basis, Alice's \textbf{EPR} part agrees with $\ket{\psi}$, or in other words, if we measure the entire system in the computational basis, then the $\ket{\psi}$ bit would be equal to Alice's bit, and therefore would also be equal to Bob's bit. From here, we understand that the probability of Bob's bit being measured as zero equals the probability of $\ket{\psi}$ being measured as zero. 
+
+What happens if the result measurement is $1$? In that case, we find that $\ket{\psi}$ disagrees with Alice's part and hence also disagrees with Bob's part. We can fix it by applying a Pauli correction, and that is the reason for the controlled XOR at the end of the teleportation.
 
     \begin{figure}[h]
         \centering 
