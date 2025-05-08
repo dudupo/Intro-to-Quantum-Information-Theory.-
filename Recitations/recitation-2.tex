@@ -125,7 +125,18 @@ In the last lectures, we saw that quantum states can be considered as resources.
 \end{enumerate}
 
 
-\section{Dense Encoding.} ) 
+\section{Superdense Encoding.} 
+The idea behind superdense coding is that a local operation over $\ket{\mathbf{EPR}}=\ket{\beta_{00}}$, namely an operation on the partition held by Alice, sends it to any of the other Bell states. For example, $X \otimes I_{\text{Bob}} \EPR \rightarrow \frac{1}{\sqrt{2}}\left( \ket{01} + \ket{10} \right)$. Thus, Alice can change the complete encoded state shared between Alice and Bob by acting only over her local system. Yet, as we have seen, for Bob to infer what that state is, he has to hold both qubits, otherwise, his local view is the uniformly mixed state over a single qubit. So the protocol works as follows:
+\begin{enumerate}
+  \item  We assume that Alice and Bob share an $\EPR$, each holding a single qubit.
+  \item  Alice applies one of $I, X, Z, XZ$ on her qubit to transform the shared state to one of the following $\beta_{00}, \beta_{10}, \beta_{01}, \beta_{11}$ and sends it to Bob.
+  \item Bob decodes the qubit pair by rotating the state into the computational basis and then measuring.
+\end{enumerate}
+
+In total, we have a protocol that, by sending a single qubit through the channel, passes two classical bits. Notice that any attempt to listen to the channel\footnote{The assumption that Alice and Bob initially held a valid \textbf{EPR} pair is important, yet much weaker than assuming they have a private key.} would reveal no information since, again, when squeezing the view into a single qubit, it seems uniformly mixed.
+
+
+
 \section{Quantum Teleportation.}
 Quantum teleportation is a process by which the quantum state of a particle is transferred from one location to another, without the physical transfer of the particle itself. This is achieved through the use of quantum entanglement, where two particles become linked in such a way that the state of one instantly influences the state of the other, regardless of the distance between them. In quantum teleportation, an entangled pair of particles is used to transmit the quantum information of a third particle to a distant location, effectively recreating the original quantum state at the destination. This process does not involve the teleportation of matter, but rather the precise transfer of quantum information.
 
