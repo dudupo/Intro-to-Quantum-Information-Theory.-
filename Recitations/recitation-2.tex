@@ -229,7 +229,7 @@ The fidelity of $\rho$ and $\sigma$ is the maximal fidelity between chosen purif
 Let $\rho, \sigma$ be mixed states, and let's denote by $\ket{\psi_\rho}$, $\ket{\psi_\sigma}$ arbitrary purifications of $\rho, \sigma$. Then their fidelity equals:
   \begin{equation*}
     \begin{split}
-      F(\sigma,\rho) = \max_{\ket{\psi_\rho}, \ket{\psi_\sigma}} \left| \braket{\psi_\rho|\psi_\sigma} \right|^2 
+      F(\sigma,\rho) = \max_{\ket{\psi_\rho}, \ket{\psi_\sigma}} \left| \braket{\psi_\rho|\psi_\sigma} \right|^2 =  \left|   \mathbf{Tr} \sqrt{      \rho^{\frac{1}{2}} \sigma \rho^{\frac{1}{2}}   }   \right|^{2}
     \end{split}
   \end{equation*}
 \end{theorem}
@@ -298,20 +298,13 @@ where $\rho_A = \mathrm{Tr}_B\{\rho_{AB}\}$ and $\sigma_A = \mathrm{Tr}_B\{\sigm
 
 \begin{proof}
 
-Consider fixed purifications $\ket{\psi}_{RAB}$ and $\ket{\phi}_{RAB}$ of $\rho_{AB}$ and $\sigma_{AB}$, respectively, which also purify $\rho_A$ and $\sigma_A$. By Uhlmann’s theorem,
-\[
-F(\rho_{AB}, \sigma_{AB}) = \max_{U_R} \left| \braket{\psi | U_R \otimes I_A \otimes I_B | \phi} \right|^2.
-\]
-On the other hand, since $U_R \otimes I_A$ is a subset of the larger class of unitaries $U_{RB}$ on $RB$,
-\[
-F(\rho_A, \sigma_A) = \max_{U_{RB}} \left| \braket{\psi | U_{RB} \otimes I_A | \phi} \right|^2 \geq F(\rho_{AB}, \sigma_{AB}).
-\]
-Thus, we conclude that
-\[
-F(\rho_{AB}, \sigma_{AB}) \leq F(\rho_A, \sigma_A).
-\]
+  Consider fixed purifications $\ket{\psi}_{RAB}$ and $\ket{\phi}_{RAB}$ of $\rho_{AB}$ and $\sigma_{AB}$, respectively, which also purify $\rho_A$ and $\sigma_A$. Namely the purifications over $AB$-subsystem is a subset of the purifications over the $A$-subsestem. Therefore: 
+  \begin{equation*}
+    \begin{split}
+      F(\rho_{AB}, \sigma_{AB}) = \max_{\ket{\psi_\rho_{AB}}, \ket{\psi_\sigma_{AB}}} \left| \braket{\psi_\rho_{AB}|\psi_\sigma_{AB}} \right|^2  \le \max_{\ket{\psi_\rho_{A}}, \ket{\psi_\sigma_{A}}} \left| \braket{\psi_\rho_{A}|\psi_\sigma_{A}} \right|^2 =F(\rho_{A}, \sigma_{A})
+    \end{split}
+  \end{equation*}
 \end{proof}
-Notice that $\ket{i}\bra{j}$ is unitray since. 
 
 
 \section{ $ \ket{\mathbf{EPR} }$ Distillation / Entanglement Purification.  }
