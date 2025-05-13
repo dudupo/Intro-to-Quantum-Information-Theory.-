@@ -211,10 +211,10 @@ Observe that the fidelity of the compression is not identical to the fidelity be
             \braket{a|\xi_j^{(a)}} \\
             &\leq \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} \left(\ketbra{a}\right) \ket{\xi_j^{(a)}}
             = \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} P_a \ket{\xi_j^{(a)}}
-            = \sum_{j=1}^{2^{nR}} tr \left( P_a \ketbra{\xi_j^{(a)}} \right)
+            = \sum_{j=1}^{2^{nR}} \trace \left( P_a \ketbra{\xi_j^{(a)}} \right)
             \\
-            &= tr \left( P_a \sum_{j=1}^{2^{nR}} \ketbra{\xi_j^{(a)}} \right)
-            = tr(P_a P_{\Lambda_n}) \,,
+            &= \trace \left( P_a \sum_{j=1}^{2^{nR}} \ketbra{\xi_j^{(a)}} \right)
+            = \trace(P_a P_{\Lambda_n}) \,,
         \end{align*}
         where the inequality holds true since $q_j^{(a)} \leq 1$, and $P_a$
         and $P_{\Lambda_n}$ are the projectors on $\ket{a}$ and the subspace
