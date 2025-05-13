@@ -283,7 +283,9 @@ First application of the non-cloning theorem is quantum money, which is a scheme
 \end{enumerate}
 Now the bank gives the client the pair $\left( f(s), \ket{\psi_s} \right)$ and keeps a table which, for any key $f(s)$, stores the value $s$.
 
-The verification of a banknote is as follows: the bank asks for the coin $\left( f(s), \ket{\psi_s} \right)$. Then, by looking at the table, it restores $s$ and measures the $i$th qubit in the basis according to $s_{2i}$ and compares the results to $s_{2i+1}$.
+The verification of a banknote is as follows: the bank asks for the coin $\left( f(s), \ket{\psi_s} \right)$. Then, by looking at the table, it restores $s$ and measures the $i$th qubit in the basis according to $s_{2i}$ and compares the result to $s_{2i+1}$. If one of the measurements doesn't match the expected, then it returns failure.
+
+If the chosen $f$ were a pseudorandom function, then even when $f(s)$ is given, the $i$th qubit of $\ket{\psi_s}$ appears to a polynomial observer as the fully mixed state, or in other words, having $f(s)$ doesn't help in preparing another copy of $\ket{\psi_s}$. Combined with the fact that $\ket{\psi_s}$ can't be cloned, we get that the banknote can't be duplicated.
 
 \section{Superdense Encoding.} 
 The idea behind superdense coding is that a local operation over $\ket{\mathbf{EPR}}=\ket{\beta_{00}}$, namely an operation on the partition held by Alice, sends it to any of the other Bell states. For example, $X \otimes I_{\text{Bob}} \EPR \rightarrow \frac{1}{\sqrt{2}}\left( \ket{01} + \ket{10} \right) = \ket{\beta_{10}} $. Thus, Alice can change the complete encoded state shared between Alice and Bob by acting only over her local system. Yet, as we have seen, for Bob to infer what that state is, he has to hold both qubits, otherwise, his local view is the uniformly mixed state over a single qubit. So the protocol works as follows:
