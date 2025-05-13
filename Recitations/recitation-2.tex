@@ -129,6 +129,25 @@ In the last lectures, we saw that quantum states can be considered as resources.
 \newcommand{\brakett}[3]{\braket{#1|#2|#3}}
 \newcommand{\old}[1]{}
 
+
+\section{The Compression Theorem }
+\begin{theorem}[The Quantum Coding Theorem, Schumacher 1995]
+\label{thm:QuantumCoding}
+    Let $ \psi$ be a quantum source with density matrix $\rho$ and
+    let $\epsilon,\delta>0$.
+
+    \begin{enumerate}
+    \item
+        \textbf{Direct:} For every large enough $n$, there exists a coding
+        scheme of rate $R<S\left(\rho\right)+\epsilon$, and fidelity
+        $F>1-\delta$.
+    \item
+        \textbf{Converse:} For every large enough $n$, the fidelity of any coding scheme with
+        $R<S\left(\rho\right)-\epsilon$
+        satisfies $F<1-\delta$.\\
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
 2. \textbf{\emph{Upper Bound:}}\\
         We shall restrict our attention to unitary decoders only, since the
         proof for the general case is much more complicated.  
@@ -233,7 +252,7 @@ In the last lectures, we saw that quantum states can be considered as resources.
         goes to zero, as exponentially less than $2^{nH(\tA)}$ sequences are
         being summed. See~\cite[ch. 3]{CoverBook}.}
         But by the converse to the quantum AEP, this must be low.
-%\end{proof}
+\end{proof}
 
 
 \section{Superdense Encoding.} 
