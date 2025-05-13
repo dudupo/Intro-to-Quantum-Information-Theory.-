@@ -190,10 +190,10 @@ In the last lectures, we saw that quantum states can be considered as resources.
 
         \begin{align*}
             F \left( \ket{a}, \omega_a \right) &= \brakett{a}{\omega_a}{a} =
-            \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{a}{\xi_j^{(a)}}
-            \braket{\xi_j^{(a)}}{a}
-            = \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{\xi_j^{(a)}}{a}
-            \braket{a}{\xi_j^{(a)}} \\
+            \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{a|\xi_j^{(a)}}
+            \braket{\xi_j^{(a)}|a}
+            = \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{\xi_j^{(a)}|a}
+            \braket{a|\xi_j^{(a)}} \\
             &\leq \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} \left(\ketbra{a}\right) \ket{\xi_j^{(a)}}
             = \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} P_a \ket{\xi_j^{(a)}}
             = \sum_{j=1}^{2^{nR}} tr \left( P_a \ketbra{\xi_j^{(a)}} \right)
