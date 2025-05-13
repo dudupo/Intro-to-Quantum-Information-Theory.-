@@ -124,6 +124,116 @@ In the last lectures, we saw that quantum states can be considered as resources.
     \item 'Teleoperate' a qubit by sending two classical bits. From an engineering point of view, it means that for having a complete quantum internet, it's enough to provide a mechanism to distribute $\textbf{EPR}$ pairs.
 \end{enumerate}
 
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\ketbra}[1]{\ket{#1}\bra{#1}}
+\newcommand{\brakett}{\braket{#1|#2|#3}}
+
+2. \textbf{\emph{Upper Bound:}}\\
+        We shall restrict our attention to unitary decoders only, since the
+        proof for the general case is much more complicated.  
+
+        Denote by $\Omega_a \in \Delta(\cH_{2^{nR}})$ the d.m. of the
+        state $\ket{a}$, of the source $A_n$, after encoding:
+        the encoded source state:
+        \begin{align*}
+            &\Omega_a = E(\ket{a}) \in \Delta \left( \cH_{2^{nR}} \right)
+            \,, \\
+            &\dim \Omega_a \leq 2^{nR} \,.
+        \end{align*}
+\\
+\textbf{Unitary Decoder:}
+        Denote by $\omega_a$ the reconstructed state at the decoder:
+        \begin{align*}
+            \omega_a = D(\Omega_a) = U \left( \underbrace{\Omega_a}_{\dim \leq 2^{nR}} \otimes \underbrace{\ketbra{0_{rem}}}_{\dim = 1} \right)
+            U^\dagger \,,
+        \end{align*}
+        for some unitary operator $U$. Note that $\dim(\omega_a) =
+        \dim(\Omega_a) \leq 2^{nR}$, and therefore there exists some
+        subspace $\Lambda_n$ of $H_d^{\otimes n}$, of dimension $2^{nR}$,
+        such that:
+
+        \begin{align*}
+            \forall \ket{a} \in A_n: \quad \text{support} (\omega_a) &\subseteq
+            \Lambda_n \,, \\
+            \dim(\Lambda_n) &= 2^{nR} \,.
+        \end{align*}
+        Hence, $\omega_a$ has an orthonormal decomposition with a basis
+        $\left\{ \ket{\xi_1^{(a)}}, ..., \ket{\xi_{2^{nR}}^{(a)}} \right\}$
+        laying within the subspace $\Lambda_n$:
+        \begin{align*}
+            \omega_a = \sum_{j=1}^{2^{nR}} q_j^{(a)} \ketbra{\xi_j^{(a)}} \,,
+        \end{align*}
+        where $\{q_j^{(a)}\}$ are non-negative and sum to $1$.
+
+        The fidelity of $\ket{a}$ and its corresponding ``quantized'' state
+        $\omega_a$ is
+
+        \begin{align*}
+            F \left( \ket{a}, \omega_a \right) &= \brakett{a}{\omega_a}{a} =
+            \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{a}{\xi_j^{(a)}}
+            \braket{\xi_j^{(a)}}{a}
+            = \sum_{j=1}^{2^{nR}} q_j^{(a)} \braket{\xi_j^{(a)}}{a}
+            \braket{a}{\xi_j^{(a)}} \\
+            &\leq \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} \left(\ketbra{a}\right) \ket{\xi_j^{(a)}}
+            = \sum_{j=1}^{2^{nR}} \bra{\xi_j^{(a)}} P_a \ket{\xi_j^{(a)}}
+            = \sum_{j=1}^{2^{nR}} tr \left( P_a \ketbra{\xi_j^{(a)}} \right)
+            \\
+            &= tr \left( P_a \sum_{j=1}^{2^{nR}} \ketbra{\xi_j^{(a)}} \right)
+            = tr(P_a P_{\Lambda_n}) \,,
+        \end{align*}
+        where the inequality holds true since $q_j^{(a)} \leq 1$, and $P_a$
+        and $P_{\Lambda_n}$ are the projectors on $\ket{a}$ and the subspace
+        $\Lambda_n$, respectively.
+
+        \begin{remark}
+            $\ket{a}$ does not necessarily lay inside $\Lambda_n$.
+        \end{remark}
+
+        The fidelity of the coding scheme can be upper bounded by:
+        \begin{align}
+        \label{eq:Compress_UB}
+            F = \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a
+            \brakett{a}{\omega_a}{a}
+            \leq \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a tr(P_a
+            P_{\Lambda_n}) = tr\left(P_{\Lambda_n} \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a \ketbra{a} \right)
+            = tr\left(P_{\Lambda_n} \rho^{\otimes n}\right) \,.
+        \end{align}
+        \old{If we denote by $\left\{ \ket{e_i}_{i=1}^{d^n} \right\}$ the basis
+        of the eigenvectors of $\rho^{\otimes n}$, with the corresponding
+        eigenvalues $\{\mu_i\}$ which satisfy, w.l.o.g, we can rewrite the
+        upper bound of~\eqref{eq:Compress_UB} into:
+        \begin{align*}
+            F \leq tr\left(P_{\Lambda_n} \rho^{\otimes n}\right)
+            = \sum_{i=1}^{d^n} \mu_i tr \left( P_{\Lambda_n} \ketbra{e_i} \right)
+            = \sum_{i=1}^{d^n} \mu_i \brakett{e_i}{P_{\Lambda_n}}{e_i}.
+        \end{align*}
+        Now observe the following two properties:
+        \begin{align*}
+            0 &\leq \brakett{e_i}{P_{\Lambda_n}}{e_i} \leq 1 \\
+            \sum_{i=1}^{d^n} \brakett{e_i}{P_{\Lambda_n}}{e_i}
+            &= \sum_{i=1}^{d^n} \trace \left( P_{\Lambda_n} \ketbra{e_i} \right)
+            = \trace(P_{\Lambda_n} I_n) = \trace(P_{\Lambda_n}) = 2^{nR} \,.
+        \end{align*}
+
+        Hence, there are at most $2^{nR}$ non-zero (strictly positive)
+        summands in~\eqref{eq:Compress_UB}, meaning that the coding scheme
+        fidelity can be further bounded by:
+
+        \begin{align}
+        \label{eq:Compress_UB_epsilon}
+            F \leq \sum_{i=1}^{2^{nR}} \mu_i < \epsilon \,,
+        \end{align}
+        where the last inequality holds for large enough $n$ and stems from
+        the classical AEP: if we consider a classical source $\tA$ with
+        probabilities equal to the eigenvalues of $\rho$, then one sees that
+        $\{\mu_i\}$ correspond to the probabilities of sequences of $\tA$ of
+        length $n$. Since we assumed $R < S(\rho) \equiv H(\tA)$, according
+        to the (classical) AEP, the sum in~\eqref{eq:Compress_UB_epsilon}
+        goes to zero, as exponentially less than $2^{nH(\tA)}$ sequences are
+        being summed. See~\cite[ch. 3]{CoverBook}.}
+        But by the converse to the quantum AEP, this must be low.
+\end{proof}
+
 
 \section{Superdense Encoding.} 
 The idea behind superdense coding is that a local operation over $\ket{\mathbf{EPR}}=\ket{\beta_{00}}$, namely an operation on the partition held by Alice, sends it to any of the other Bell states. For example, $X \otimes I_{\text{Bob}} \EPR \rightarrow \frac{1}{\sqrt{2}}\left( \ket{01} + \ket{10} \right) = \ket{\beta_{10}} $. Thus, Alice can change the complete encoded state shared between Alice and Bob by acting only over her local system. Yet, as we have seen, for Bob to infer what that state is, he has to hold both qubits, otherwise, his local view is the uniformly mixed state over a single qubit. So the protocol works as follows:
