@@ -276,14 +276,14 @@ Observe that the fidelity of the compression is not identical to the fidelity be
 \section{Quantum Money.} 
 First application of the non-cloning theorem is quantum money, which is a scheme for banks to print money that will be hard to forge. In the protocol, any banknote (coin) is associated with a number $s$, and the bank computes $f(s)$ according to some chosen function $f$ which is hard to invert. Then it initializes a quantum state $\ket{\psi_s}$ such that the $i$-th qubit is:
 \begin{enumerate}
-  \item $\ket{0}$ if $f(s)_{2i}f(s)_{2i+1} = 00$ 
-  \item $\ket{1}$ if $f(s)_{2i}f(s)_{2i+1} = 01$ 
-  \item $\ket{+}$ if $f(s)_{2i}f(s)_{2i+1} = 10$ 
-  \item $\ket{-}$ if $f(s)_{2i}f(s)_{2i+1} = 11$ 
+  \item $\ket{0}$ if $s_{2i}s_{2i+1} = 00$ 
+  \item $\ket{1}$ if $s_{2i}s_{2i+1} = 01$ 
+  \item $\ket{+}$ if $s_{2i}s_{2i+1} = 10$ 
+  \item $\ket{-}$ if $s_{2i}s_{2i+1} = 11$ 
 \end{enumerate}
 Now the bank gives the client the pair $\left( f(s), \ket{\psi_s} \right)$ and keeps a table which, for any key $f(s)$, stores the value $s$.
 
-Now the verification of banknote is going as followes, the bank asks for the coin $\left( f(s), \ket{\psi_s} \right)$ then, by looking at the table it restore $s$.
+The verification of a banknote is as follows: the bank asks for the coin $\left( f(s), \ket{\psi_s} \right)$. Then, by looking at the table, it restores $s$ and measures the $i$th qubit in the basis according to $s_{2i}$ and compares the results to $s_{2i+1}$.
 
 \section{Superdense Encoding.} 
 The idea behind superdense coding is that a local operation over $\ket{\mathbf{EPR}}=\ket{\beta_{00}}$, namely an operation on the partition held by Alice, sends it to any of the other Bell states. For example, $X \otimes I_{\text{Bob}} \EPR \rightarrow \frac{1}{\sqrt{2}}\left( \ket{01} + \ket{10} \right) = \ket{\beta_{10}} $. Thus, Alice can change the complete encoded state shared between Alice and Bob by acting only over her local system. Yet, as we have seen, for Bob to infer what that state is, he has to hold both qubits, otherwise, his local view is the uniformly mixed state over a single qubit. So the protocol works as follows:
