@@ -128,9 +128,27 @@ In the last lectures, we saw that quantum states can be considered as resources.
 \newcommand{\ketbra}[1]{\ket{#1}\bra{#1}}
 \newcommand{\brakett}[3]{\braket{#1 | #2 | #3}}
 \newcommand{\old}[1]{}
+\newcommand{\tT}{\tilde{T}}
 
 
 \section{The Compression Theorem }
+
+\begin{theorem}[Quantum AEP]
+\label{thm:QuantumAEP}
+    Let $\varepsilon, \delta > 0$. \\
+    \textbf{Direct:}
+    for any $n$ large enough,  the typical subspace $T$ with underlying $\epsilon$ satisfies:
+    \begin{align}
+        \trace\left( \rho^{\otimes n} P_T \right) \geq 1 - \delta.
+    \end{align}
+    \textbf{Converse:}
+    for every subspace $\tT = \tT(n, \varepsilon, \delta)$ in $\cH_d^{\otimes n}$ of dimension $2^{n (S(\rho) - \epsilon)}$, there exists $n$ large enough, such that:
+    \begin{align}
+        \trace \left( \rho^{\otimes n} P_\tT \right) < \delta.
+    \end{align}
+\end{theorem}
+
+
 \begin{theorem}[The Quantum Coding Theorem, Schumacher 1995]
 \label{thm:QuantumCoding}
     Let $ \psi$ be a quantum source with density matrix $\rho$ and
