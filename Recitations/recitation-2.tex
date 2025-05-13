@@ -231,15 +231,15 @@ Observe that the fidelity of the compression is not identical to the fidelity be
             \brakett{a}{\omega_a}{a}
             \leq \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a tr(P_a
             P_{\Lambda_n}) \\ 
-            = & tr\left(P_{\Lambda_n} \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a \ketbra{a} \right)  = tr\left(P_{\Lambda_n} \rho^{\otimes n}\right) \,.
+            = & \trace \left(P_{\Lambda_n} \sum_{\left(p_a, \ket{a}\right) \in A_n} p_a \ketbra{a} \right)  = \trace \left(P_{\Lambda_n} \rho^{\otimes n}\right) \,.
         \end{align*}
         \old{If we denote by $\left\{ \ket{e_i}_{i=1}^{d^n} \right\}$ the basis
         of the eigenvectors of $\rho^{\otimes n}$, with the corresponding
         eigenvalues $\{\mu_i\}$ which satisfy, w.l.o.g, we can rewrite the
         upper bound of~\eqref{eq:Compress_UB} into:
         \begin{align*}
-            F \leq tr\left(P_{\Lambda_n} \rho^{\otimes n}\right)
-            = \sum_{i=1}^{d^n} \mu_i tr \left( P_{\Lambda_n} \ketbra{e_i} \right)
+            F \leq \trace \left(P_{\Lambda_n} \rho^{\otimes n}\right)
+            = \sum_{i=1}^{d^n} \mu_i \trace \left( P_{\Lambda_n} \ketbra{e_i} \right)
             = \sum_{i=1}^{d^n} \mu_i \brakett{e_i}{P_{\Lambda_n}}{e_i}.
         \end{align*}
         Now observe the following two properties:
