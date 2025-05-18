@@ -1,0 +1,126 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[pdftex]{graphicx} % Required for including pictures
+\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
+\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry} %margins
+%\usepackage{parskip}
+
+%\usepackage[all]{nowidow} % Tries to remove widows
+\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{braket}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+
+\usetikzlibrary{quantikz2}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{sample.bib}
+
+\usepackage{lmodern}
+\usepackage{framed}
+\usepackage{advdate}
+
+%-----------------------
+% Begin document
+%----------------------
+
+
+
+\title{ \begin{framed} Quantum Information Theory - 67749 \\ 
+Exercise 2, \today \end{framed}  }
+%\date{\today}
+\date{\vspace{-5ex}}
+\begin{document}
+
+%\begin{framed}
+\maketitle{ }    
+%\end{framed}
+
+
+\newcommand{\CCZ}{\textbf{CCZ}}
+\newcommand{\CCX}{\textbf{CCX}}
+
+
+\newcounter{enumcirc}
+\setcounter{enumcirc}{1} 
+\counterwithin{enumcirc}{section}
+
+
+\newcommand{\advanceday}[1][11]{%
+\begingroup
+\AdvanceDate[#1]%
+\today%
+\endgroup
+}%
+
+
+\newcommand{\subqCircEx}[2]{\begin{subfigure}[t]{0.5\textwidth}
+        \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1} \centering 
+        #2
+    \end{subfigure}
+}
+
+\newcommand{\qCircEx}[4]{\begin{figure*}[h!]
+    \centering
+    \subqCircEx{#1}{#2}
+    ~ 
+    \subqCircEx{#3}{#4}
+\end{figure*}
+}
+
+\newcommand{\qCircExfullline}[2]{\begin{figure*}[h!]
+    \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1}
+        \centering 
+        #2
+\end{figure*}
+}
+
+
+
+\section{Submission Guidelines.}
+\begin{itemize}
+    \item Due date - \advanceday. 
+    \item Make sure your submission is clear. Unreadable assignments will get zero score.  
+    \item Using any Generative AI tool is forbidden but not enforced. Yet, please keep in mind that we might call you for an interview about your assignment. 
+\end{itemize}
+
+\newpage
+
+\section{AEP.}
+\begin{enumerate}
+  \item Reformaulate the classical AEP using the density matrices notation. 
+\end{enumerate}
+
+\section{Fidelity.}
+\begin{enumerate}
+  \item When $\rho$ and $\sigma$ commute. 
+  \item Betweem the mixed state and any pure state.  
+  \item Use the construction presented in the proof of Uhlman's to calculate the fidelity between: $p\ket{0}\bra{0} + (1-p)\ket{+}\bra{+}$  and $(1-p)\ket{0}\bra{0} + p\ket{+}\bra{+}$. 
+\end{enumerate}
+
+\section{Entropy.}
+Compute the entropy of the following densitiy matrices. 
+\begin{enumerate}
+  \item The super position over linear subspace. (purestate). 
+  \item The uniform distribution over linear subspace.
+   
+\end{enumerate}
+
+
+\section{Coding Theorem.} 
+Let $\rho$ be the density matrix: $p \ket{\beta_{00}} $.
+\section{Quantum Teleportation.}
+Give a quantum circtus that compute the gate $\begin{bmatrix} 1 & 0 \\ 0 &  e^{i\frac{\pi}{8}} \end{bmatrix} $ up to global phase using only pauli, clifford, and measurments. 
+
+\printbibliography 
+\end{document}
+
