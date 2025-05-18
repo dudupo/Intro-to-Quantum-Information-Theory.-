@@ -1,49 +1,22 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage[pdftex]{graphicx} % Required for including pictures
-\usepackage[pdftex,linkcolor=black,pdfborder={0 0 0}]{hyperref} % Format links for pdf
-\usepackage[a4paper, lmargin=0.1666\paperwidth, rmargin=0.1666\paperwidth, tmargin=0.1111\paperheight, bmargin=0.1111\paperheight]{geometry} %margins
-%\usepackage{parskip}
-
-%\usepackage[all]{nowidow} % Tries to remove widows
-\usepackage[protrusion=true,expansion=true]{microtype} % Improves typography, load after fontpackage is selected
-
-\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{braket}
-\usepackage{subcaption}
-
-\usepackage{tikz}
-
-\usetikzlibrary{quantikz2}
-
-\usepackage[
-backend=biber,
-style=alphabetic,
-sorting=ynt
-]{biblatex}
-\addbibresource{sample.bib}
-
-\usepackage{lmodern}
 \usepackage{framed}
-\usepackage{advdate}
 
 %-----------------------
 % Begin document
 %----------------------
 
 
+\input{my-bib-file/usepackage.tex} 
 
 \title{ \begin{framed} Quantum Information Theory - 67749 \\ 
 Exercise 2, \today \end{framed}  }
-%\date{\today}
 \date{\vspace{-5ex}}
+\addbibresource{my-bib-file/sample.bib} 
+
 \begin{document}
 
-%\begin{framed}
+\input{my-bib-file/newcommands.tex} 
 \maketitle{ }    
-%\end{framed}
 
 
 \newcommand{\CCZ}{\textbf{CCZ}}
@@ -96,6 +69,15 @@ Exercise 2, \today \end{framed}  }
 \newpage
 
 \section{AEP.}
+Recall the converse part of the classical AEP lemma: 
+\begin{lemma}
+  Let $P_X$ be a pmf on $\mathcal{X}$ and let $\mathcal{B}^{(n)}$ be a set in $\mathcal{X}^n$ of size at most $2^{n\alpha}$. Then for any $\varepsilon > 0$ and $n$ large enough. 
+  \begin{equation*}
+    \begin{split}
+      \prb{X^n \in \mathcal{B}^{(n)}} = P^{\otimes n}_{X}\left( \mathcal{B}^{(n)} \right) \le \varepsilon + 2^{n(\alpha + \varepsilon - H(X))}
+    \end{split}
+  \end{equation*}
+\end{lemma}
 \begin{enumerate}
   \item Reformaulate the classical AEP using the density matrices notation. 
 \end{enumerate}
