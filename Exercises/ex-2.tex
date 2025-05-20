@@ -86,16 +86,14 @@ Recall the converse part of the classical AEP lemma\footnote{Taken from Prof. Or
 \section{Entropy.}
 
 \subsection{Entropy Upper Bound. } 
-\begin{enumerate}
-  \item Show that enteropy is bounded from above by $\log \text{ alphabet size } $. 
-  \item   \begin{align*}
+Show that both the classical entropy and the von Neumann entropy are bounded from above by $\log \text{ alphabet size }$. [Hint\footnote{Use the non-negativity of the divergence.}]
+
+     \begin{align*}
         0 &\leq S \left( \rho^A \middle\| \frac{I}{d} \right) = - S(\rho^A) - tr \left( \rho^A \log \frac{I}{d} \right) \\
         &= -S(\rho^A) - \log\frac{1}{d} \cdot tr(\rho^A) - tr(\rho^A \underbrace{\log I}_{=0})
         = -S(\rho^A) + \log d \,,
     \end{align*}
     where in the last equality we used the fact that $tr(\rho^A) = 1$ for any density matrix
-\end{enumerate}
-
 
 \subsection{Computing Entropy.}
 Compute the entropy of the following densitiy matrices. 
