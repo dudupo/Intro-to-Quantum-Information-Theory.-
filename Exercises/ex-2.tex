@@ -92,6 +92,21 @@ Compute the fidelity between $\rho$ and $\sigma$ in the following cases:
 \end{enumerate}
 
 \section{Entropy.}
+
+\subsection{Enteropy Upper Bound. } 
+\begin{enumerate}
+  \item Show that enteropy is bounded from above by $\log \text{ alphabet size } $. 
+  \item   \begin{align*}
+        0 &\leq S \left( \rho^A \middle\| \frac{I}{d} \right) = - S(\rho^A) - tr \left( \rho^A \log \frac{I}{d} \right) \\
+        &= -S(\rho^A) - \log\frac{1}{d} \cdot tr(\rho^A) - tr(\rho^A \underbrace{\log I}_{=0})
+        = -S(\rho^A) + \log d \,,
+    \end{align*}
+    where in the last equality we used the fact that $tr(\rho^A) = 1$ for any density matrix
+\end{enumerate}<++>
+
+
+\subsection{Computing Entropy.}
+
 Compute the entropy of the following densitiy matrices. 
 \begin{enumerate}
   \item The super position over linear subspace. (purestate). 
