@@ -57,10 +57,9 @@ Exercise 2, \today \end{framed}  }
 \end{figure*}
 }
 
-
 \newcommand{\Tr}{\mathbf{Tr}}
 
-\section{Submission Guidelines.}
+\section*{Submission Guidelines.}
 \begin{itemize}
     \item Due date - \advanceday. 
     \item Make sure your submission is clear. Unreadable assignments will get zero score.  
@@ -69,20 +68,20 @@ Exercise 2, \today \end{framed}  }
 
 \newpage
 
-\section{AEP.}
-Recall the converse part of the classical AEP lemma\footnote{Taken from Prof. Ordentlich}:
-\begin{lemma}
-  Let $P_X$ be a pmf on $\mathcal{X}$ and let $\mathcal{B}^{(n)}$ be a set in $\mathcal{X}^n$ of size at most $2^{n\alpha}$. Then for any $\varepsilon > 0$ and $n$ large enough. 
-  \begin{equation*}
-    \begin{split}
-      \prb{X^n \in \mathcal{B}^{(n)}} = P^{\otimes n}_{X}\left( \mathcal{B}^{(n)} \right) \le \varepsilon + 2^{n(\alpha + \varepsilon - H(X))}
-    \end{split}
-  \end{equation*}
-\end{lemma}
-\begin{enumerate} 
-  \item Rewrite the classical AEP using the density matrix notation, namely point out each entity defined in the above statement and link it to its analogy in the QAEP lemma. [Hint\footnote{A good answer would be a single paragraph long.}]
-\end{enumerate}
-
+%\section{AEP.}
+%Recall the converse part of the classical AEP lemma\footnote{Taken from Prof. Ordentlich}:
+%\begin{lemma}
+  %Let $P_X$ be a pmf on $\mathcal{X}$ and let $\mathcal{B}^{(n)}$ be a set in $\mathcal{X}^n$ of size at most $2^{n\alpha}$. Then for any $\varepsilon > 0$ and $n$ large enough. 
+  %\begin{equation*}
+    %\begin{split}
+      %\prb{X^n \in \mathcal{B}^{(n)}} = P^{\otimes n}_{X}\left( \mathcal{B}^{(n)} \right) \le \varepsilon + 2^{n(\alpha + \varepsilon - H(X))}
+    %\end{split}
+  %\end{equation*}
+%\end{lemma}
+%\begin{enumerate} 
+  %\item Rewrite the classical AEP using the density matrix notation, namely point out each entity defined in the above statement and link it to its analogy in the QAEP lemma. [Hint\footnote{A good answer would be a single paragraph long.}]
+%\end{enumerate}
+%
 
 \section{Entropy.}
 
@@ -93,16 +92,52 @@ Recall the converse part of the classical AEP lemma\footnote{Taken from Prof. Or
 
 
   \item \textbf{Entropy Upper Bound.}
-    Show that both the classical entropy and the von Neumann entropy are bounded from above by $\log \text{ alphabet size}$. Prove it in two ways: first by convexity and second by using the non-negativity of the divergence.
 
-    \paragraph{ }
+   \begin{enumerate}
+     \item Show that the classical entropy is bounded from above by the logarithm of the dimension of the alphabet. Use the non-negativity of the divergence and its relation to the entropy.
+
+
+    \item Similarly to the previews section, bound the von Neumann entropy using the non-negativity of the divergence.
+
+
+  \end{enumerate}
+
+  \item \textbf{Mutual Information Upper Bound.} 
+    Let $d_{A}, d_{B}$ be the dimensions of systems $\mathcal{H}_{A}, \mathcal{H}_{B}$. Prove that $S(A;B) \le 2\min \{S(A), S(B) \}$.
+
+
+
+
+  \item \textbf{Mutual Information Chain Rule.} Prove the chain rule for the mutual infomration:
+    \begin{equation*}
+      \begin{split}
+        S(AB;C) = S(A;B) + S(B;C|A) 
+      \end{split}
+    \end{equation*}
+
+
+  \item \textbf{Entropy of Reduced Entangled State.} Consider the sate $\rho$ over the system $\mathcal{H}_{A} \otimes \mathcal{H}_{B}$.
+    \begin{enumerate}
+      \item Prove that if $S(A) \ge S(AB)$ then $\rho$ is entangled.   
+
+
+      \item  Show, that the condition is not necessary, that is, give an example of an entangled state for which the reduced state $\rho_A$ has lower entropy than $\rho$. 
+
+
+    \end{enumerate}
+
+
+  \item \textbf{Conditional Mutual Information.} consider a joint system $ABX$ where $X$ is classical, show that the conditional mutual information $S(A;B|X)$ can be written as $\sum_x {p(x) S(A;B|X=x)}$, same as classical conditional MI.
+
+    
+
 
   \item \textbf{Classical-Quantum States}. Recall the monotonicity of entropy with respect to revealing classical information.
      \begin{claim}
 Let $X$ be a classical random variable, and let $\mathcal{H}_B$ be a subsystem for which, upon $X$'s value, the state $\rho_{x}$ is induced over $B$. Then: 
        \[ S(B) \leq S(X,B), \]    
     with equality if and only if the states $\rho_x$ are orthogonal, i.e., they have supports on orthogonal spaces.\end{claim}
-    In the lecture, we saw the equality when the quantum states induced on $B$ have orthogonal supports. Prove the inequality in the general case. [Hint\footnote{Start by proving that if $f : \mathbb{R} \rightarrow \mathbb{R}$ is convex, then $A \mapsto \Tr f(A)$, \textbf{over the Hermitians}, is also convex.}]
+In the lecture, we saw the equality when the quantum states induced on $B$ have orthogonal supports. Prove the inequality in the general case. Hint: Start by proving that if $f : \mathbb{R} \rightarrow \mathbb{R}$ is convex, then $A \mapsto \Tr f(A)$ is also convex.
 
 \end{enumerate}
 
@@ -117,16 +152,18 @@ Compute the entropy of the following densitiy matrices.
 
   \item  Consider the fully entangled state $\ket{\Omega} = \sum_{x}{\ket{x,x}}$ (up to normalization) over the system $\mathcal{H}_{A} \otimes \mathcal{H}_{B}$. Compute the entropy $S(A,B)$ and the conditional entropy $S(A|B)$.
   
-  
 
 \end{enumerate}
+
 \section{Fidelity.}
 Compute the fidelity between $\rho$ and $\sigma$ in the following cases: 
 \begin{enumerate}
   \item When $\rho$ and $\sigma$ commute. 
 
 
+
   \item When $\rho$ is mixed and $\sigma$ is pure.  
+
 
   \item When $\rho = \alpha I + \beta X $ and $\sigma = \gamma I + \delta Z$.
   \begin{remark}
@@ -141,5 +178,11 @@ Observes that the normalization condition $\Tr \rho = 1$ implies $\alpha = \gamm
 %Let $\rho$ be the density matrix: $p \ket{\beta_{00}}\bra{\beta_{00}} + \frac{1}{3}(1-p)\sum_{i \neq 00}{\ket{\beta_{ij}}\bra{\beta_{ij}}}$.
 
 \printbibliography 
+
+\section{Schmedit.}
+Prove that a pure state is entangled if and only if its Schmidt number is greater than one.
+
+
+
 \end{document}
 
