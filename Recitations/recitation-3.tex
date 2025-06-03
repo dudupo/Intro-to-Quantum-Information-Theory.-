@@ -467,99 +467,6 @@ Note that the subtraction of any two $l$-length vertical cycles is a code word o
 %
 %By quadric the dimension of the repetition code one can find those state which at least two pauli are needed to applay for flipping either the bit or the phase of the logic state. Clearly any phase flip 
  
-\section{Quantum Expander Codes.}
-%As similar to the classical case, the next natural question to ask is whether there are codes with positive rate. The quantum expanders were the first quantum LDPC codes to achieve a square root distance and positive rate \cite{Tillich_2014, Leverrier_2015}. The leading insight was the idea that the Toric code could be represented as a variant product of the repetition code.  For example, consider the cross restriction in figure \cref{fig:Toric}, that restriction can be obtained by gluing two vertices of two different cycle graphs. 
-As similar to the classical case, the next natural question to ask is whether there are codes with positive rates. The quantum expanders were the first quantum LDPC codes to achieve a square-root distance and positive rate \cite{Tillich_2014, Leverrier_2015}. The leading insight was the idea that the Toric code could be represented as a variant product of the repetition code. For example, consider the cross restriction in Figure \cref{fig:Toric}; that restriction can be obtained by gluing two vertices of two different cycle graphs.
-
-\begin{definition}
-  For any two matrices $A,B$, with the same number of rows, denote by $\left[ A,B \right]$ the matrix obtained by attach $B$ next to $A$ from right.  Let $H_{1}, H_{2} \in \mathbb{F}_{2}^{n\times r}$ be the parity check matrices. Define the bit and the phase parity checks matrices to be:          
-\begin{equation*}
-  \begin{split}
-    H_{X} &= \left[ H_{1} \otimes I_{r} \ \  I_{n} \otimes H^{\top}_{2} \right] \\ 
-    H_{Z} &= \left[ I_{r} \otimes H_{2} \ \  H_{1}^{\top} \otimes I_{n} \right] \\ 
-  \end{split}
-  \label{equ:css}
-\end{equation*}
-The matrices are orthogonal to each other as $H_{X}H_{Z}^{\top} = H_{1}\otimes H^{\top}_{2} + H_{1}\otimes H^{\top}_{2} = 0$ and therefore the pair define a valid CSS code. We will call to that code the Hyperproduct and denote it by $Q\left( H_{1} \times H_{2} \right)$.
-\end{definition}
-Obliviously, if $H_{1},H_{2},H_{1}^{\top},H_{2}^{\top}$ are parity checks matrices of an LDPC codes, so are $H_{X},H_{Z}$ as their maximal row weight is at most two times larger.   
-%\ref{equ:css}
-
-% That insight raise the following perspective. The Toric code could be thought as tanner code defined on product of two cycles. If the checks in the repetition code are of the form $H_i =  x_i + x_{i+1}$  then in the Toric code the checks are $x_{i,j}+ x_{i, j+1} + x_{i+1, j} + x_{i+1,j+1}$. Namely any restriction over the edge in the Toric code  $x_{e_{0}}+ x_{e_{1}} + x_{e_{2}} + x_{e_{3}} = 0$ is obtained by taking two restrictions of the repetition code and multiple them.
-
-\begin{example}
-  The Toric code could be thought as the Hyperproduct of the repetition code with himself. The parity check matrices of the codes are given follow. The left $3 \times 3$ matrix corresponds to the repetition code while the right $18 \times  9$ corresponds to the vertices check of the Toric code.  
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{example-hyperproduct.png}
-  %\caption{<+caption text+>}
-  %\label{fig:<+label+>}
-\end{figure}
-
-\end{example}
-\begin{claim}
-  \label{claim:kerdim}
-  Let  $A,B \in \mathbb{M}_{n\times r_{1}}, \mathbb{M}_{n\times r_{2}}$ then  $\dim \ker [A ,B]$ is $ \dim \ker A + n $. 
-\end{claim}
-
-\begin{proof}
-  The proof is omitted. 
-\end{proof}
-
-\begin{claim}
-  Let $k_{1},k_{2}$ be the demission of the codes with the full rank  parity check matrices $H_{1},H_{2}$. Then the dimension of the Hyperproduct code is $ \ge k_{1}k_{2}$. 
-\end{claim}
-
-\begin{proof}
-  %We will find the dimensions of each of the classics codes defined by $H_{X}$ and $H_{Z}$. Notice that length of the code, assuming the fullness of the ranks, is $n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right)$. Note that for any $u,v$ such $H_{1}u = 0$ and $H_{2}^{\top}v =0$ it holds that $[u\otimes e_{i} \ e_{j}\otimes v]$ is a codeword, where $e_{i},e_{j}$ are taken from the standard basis of $[n],[n-k_{2}]$. Thus the dimension of $\ker H_{X}$ is $k_{1}n + (n-k_{1})(n-k_{2})$. 
-  %By the same arguments we have that $\dim C_{Z} = k_{2}n + (n-k_{1})(n-k_{2})$. 
-
-  We will find the dimensions of each of the classical codes defined by $\ker H_{X}$ and $ \ker H_{Z}$. Notice that the length of the $H \otimes I_{n}$ equals $n\times n = n^2$, And  assuming the fullness of the ranks, the length of $ I_{r_{1}} \otimes  H_{2}^{\top} $  is $ r_{1}\cdot r_{2}$. Thus the length of $ \ker H_{X}$ is  $n^{2} + r_{1}r_{2}$ 
-  %(n-k_{1}) \cdot \left( n -k_{2}\right)$. 
-  Now, recall that for any matrix $A$ it holds that $\dim \ker \left( A \otimes I_{l} \right) = l \cdot \dim \ker A$. Therefore using \cref{claim:kerdim} we obtain that the dimension of $\ker H_{X}$ is $k_{1}n + r_{1}r_{2}$ 
-  %(n-k_{1})(n-k_{2})$. Using  
-
-  By the same arguments we have that $\dim C_{Z} = k_{2}n + r_{1}r_{2}$ % (n-k_{1})(n-k_{2})$.
-Thus the dimension of the quantum code is:
-  \begin{equation*}
-    \begin{split}
-      \dim Q\left( C_{X}, C_{Z} \right) &= \dim C_{X} + \dim C_{Z} - \left(  n^{2} + (n-k_{1})(n-k_{2})  \right) \\ 
-      & = \left( k_{1} + k_{2} \right)n + 2(n-k_{1})(n-k_{2}) -\left(  n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right) \right) \\
-      & =k_{1}k_{2} 
-    \end{split}
-  \end{equation*}
-\end{proof}
-
-\begin{remark}
-  \label{remark:pun}
-  Let $H_{1}^{\prime}$ be a parity check matrix obtained by puncturing columns from $H_{1}$, denote by $k^{\prime}_{1}$ the dimension of that code. Then the Hyperproduct $Q(H_{1}^{\prime}\times H_{2})$ is a CSS code with dimension $k^{\prime}_{1}k_{2}$. Moreover if the number of columns left after the puncturing is less the distance of $\ker H_{1}$ then it must to holds that $k^{\prime}_{1} = 0 \Rightarrow \dim Q(H_{1}^{\prime} \times H_{2}) = 0$. Otherwise, one can take a non trivial codeword of $\ker H^{\prime}_{1}$ and extending it to a valid codeword of $\ker H_{1}$ by set any punctured coordinate of it to zero. The yielded codeword has weight less than $d$ which is contradiction.  
-\end{remark}
-
-\begin{claim}
-  \label{claim:Hdis}
-  Denote by $d$ the minimal distance of $\ker H_{1}$. Any codeword $x$ of $C_{X} = \ker H_{X}$ with edge at most $d$ belongs to $C_{Z}^{\perp}$.  
-\end{claim}
-
-\begin{proof}
-  Define by $H^{\prime}_{1}$ the matrix which obtained by puncturing from $H_{1}$ the columns  associated with the coordinates $e_{i}$ such that subspace corresponding to $ e_{i} \otimes I_{n} $ doesn't support $x$. Denote the by $S$ the set of the reaming coordinates.  For example if $ H_{1} \otimes I_{n} = I_{2} \otimes I_{2}$ and $x = [1,0,0,0]$ then $H^{\prime}_{1} $ is the unit matrix $[1 , 0]^\top$ obtained by puncturing the second column of $H_{1} = I_{2}$, and $S= \{ e_{1} \} $ .  
-
-
-  As $|x| < d $ we have that $|S| < d$, Namely $H^{\prime}_{1}$ supported on less than $d$ coordinates and therefore $\dim Q\left( H^{\prime}_{1} \times H_{2} \right)= k^{\prime}_{1}k_{2} = 0$.  Thus, by the fact that for any CSS code $\dim C = \dim C_{X} - \dim C_{Z}^\perp$ it follows that $\dim \ker H_{X}^{\prime}  = \dim \ker H_{Z}^{\prime \perp}$ $ \Rightarrow \ker H_{X}^{\prime}  = \ker H_{Z}^{\prime \perp}$.  Denote by $x^{\prime}$ the restriction of $x$ to the columns of $H_{X}^{\prime}$ and clearly, by the definition of the construction,  $x^{\prime}$ is a codeword of $\ker H_{X}^{\prime}$. Thus $x^{\prime}$ is also codeword of $\ker H_{Z}^{\prime \perp}$ and by the same argument, $x$ is also a codeword of $\ker H_{Z}^{\prime \perp}$. 
-\end{proof}
-
-Immediately from \cref{claim:Hdis} we obtain that existences of quantum LDPC codes with positive rate and $\Theta\left( \sqrt{n} \right)$ distance by taking the Hyperproduct of two classical expender codes.   
-
-\begin{theorem}
-  There exists an infinity family of QLDPC codes with positive rate and $\Theta(\sqrt{n})$ distance.   
-\end{theorem}
-
-%\section{Quantum Codes.}
-%\begin{definition}
-%  A $\left[\left[ n,k,d \right]\right]$ is a quantum code over $n$ qubits, that encode a subspace at demission $k$ and any fault composed by a product of at most $d/2$ Pauli operators. 
-%\end{definition}
-%
-
 
 
 
@@ -658,6 +565,100 @@ Now, we will use the union bound to show that any $x \in \mathbb{F}_{2}^{k}$, $A
 \end{equation*}
 Let $k = \rho n$ and note that the statement holds when $\rho \ge \left(\frac{1}{2} - \delta \right)^{2}$. In other words, for any $k = \Theta(n)$, there exists a positive $\delta$ such that with high probability, the distance of $\Ima$ is at least $\delta n$.
 \end{proof}
+
+\section{Quantum Expander Codes.}
+As similar to the classical case, the next natural question to ask is whether there are codes with positive rates. The quantum expanders were the first quantum LDPC codes to achieve a square-root distance and positive rate \cite{Tillich_2014, Leverrier_2015}. The leading insight was the idea that the Toric code could be represented as a variant product of the repetition code. For example, consider the cross restriction in Figure \cref{fig:Toric}; that restriction can be obtained by gluing two vertices of two different cycle graphs.
+
+\begin{definition}
+  For any two matrices $A,B$, with the same number of rows, denote by $\left[ A,B \right]$ the matrix obtained by attach $B$ next to $A$ from right.  Let $H_{1}, H_{2} \in \mathbb{F}_{2}^{n\times r}$ be the parity check matrices. Define the bit and the phase parity checks matrices to be:          
+\begin{equation*}
+  \begin{split}
+    H_{X} &= \left[ H_{1} \otimes I_{r} \ \  I_{n} \otimes H^{\top}_{2} \right] \\ 
+    H_{Z} &= \left[ I_{r} \otimes H_{2} \ \  H_{1}^{\top} \otimes I_{n} \right] \\ 
+  \end{split}
+  \label{equ:css}
+\end{equation*}
+The matrices are orthogonal to each other as $H_{X}H_{Z}^{\top} = H_{1}\otimes H^{\top}_{2} + H_{1}\otimes H^{\top}_{2} = 0$ and therefore the pair define a valid CSS code. We will call to that code the Hyperproduct and denote it by $Q\left( H_{1} \times H_{2} \right)$.
+\end{definition}
+Obliviously, if $H_{1},H_{2},H_{1}^{\top},H_{2}^{\top}$ are parity checks matrices of an LDPC codes, so are $H_{X},H_{Z}$ as their maximal row weight is at most two times larger.   
+%\ref{equ:css}
+
+
+\begin{example}
+  The Toric code could be thought as the Hyperproduct of the repetition code with himself. The parity check matrices of the codes are given follow. The left $3 \times 3$ matrix corresponds to the repetition code while the right $18 \times  9$ corresponds to the vertices check of the Toric code.  
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{example-hyperproduct.png}
+  %\caption{<+caption text+>}
+  %\label{fig:<+label+>}
+\end{figure}
+
+\end{example}
+\begin{claim}
+  \label{claim:kerdim}
+  Let  $A,B \in \mathbb{M}_{n\times r_{1}}, \mathbb{M}_{n\times r_{2}}$ then  $\dim \ker [A ,B]$ is $ \dim \ker A + n $. 
+\end{claim}
+
+\begin{proof}
+  The proof is omitted. 
+\end{proof}
+
+\begin{claim}
+  Let $k_{1},k_{2}$ be the demission of the codes with the full rank  parity check matrices $H_{1},H_{2}$. Then the dimension of the Hyperproduct code is $ \ge k_{1}k_{2}$. 
+\end{claim}
+
+\begin{proof}
+  %We will find the dimensions of each of the classics codes defined by $H_{X}$ and $H_{Z}$. Notice that length of the code, assuming the fullness of the ranks, is $n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right)$. Note that for any $u,v$ such $H_{1}u = 0$ and $H_{2}^{\top}v =0$ it holds that $[u\otimes e_{i} \ e_{j}\otimes v]$ is a codeword, where $e_{i},e_{j}$ are taken from the standard basis of $[n],[n-k_{2}]$. Thus the dimension of $\ker H_{X}$ is $k_{1}n + (n-k_{1})(n-k_{2})$. 
+  %By the same arguments we have that $\dim C_{Z} = k_{2}n + (n-k_{1})(n-k_{2})$. 
+
+  We will find the dimensions of each of the classical codes defined by $\ker H_{X}$ and $ \ker H_{Z}$. Notice that the length of the $H \otimes I_{n}$ equals $n\times n = n^2$, And  assuming the fullness of the ranks, the length of $ I_{r_{1}} \otimes  H_{2}^{\top} $  is $ r_{1}\cdot r_{2}$. Thus the length of $ \ker H_{X}$ is  $n^{2} + r_{1}r_{2}$ 
+  %(n-k_{1}) \cdot \left( n -k_{2}\right)$. 
+  Now, recall that for any matrix $A$ it holds that $\dim \ker \left( A \otimes I_{l} \right) = l \cdot \dim \ker A$. Therefore using \cref{claim:kerdim} we obtain that the dimension of $\ker H_{X}$ is $k_{1}n + r_{1}r_{2}$ 
+  %(n-k_{1})(n-k_{2})$. Using  
+
+  By the same arguments we have that $\dim C_{Z} = k_{2}n + r_{1}r_{2}$ % (n-k_{1})(n-k_{2})$.
+Thus the dimension of the quantum code is:
+  \begin{equation*}
+    \begin{split}
+      \dim Q\left( C_{X}, C_{Z} \right) &= \dim C_{X} + \dim C_{Z} - \left(  n^{2} + (n-k_{1})(n-k_{2})  \right) \\ 
+      & = \left( k_{1} + k_{2} \right)n + 2(n-k_{1})(n-k_{2}) -\left(  n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right) \right) \\
+      & =k_{1}k_{2} 
+    \end{split}
+  \end{equation*}
+\end{proof}
+
+\begin{remark}
+  \label{remark:pun}
+  Let $H_{1}^{\prime}$ be a parity check matrix obtained by puncturing columns from $H_{1}$, denote by $k^{\prime}_{1}$ the dimension of that code. Then the Hyperproduct $Q(H_{1}^{\prime}\times H_{2})$ is a CSS code with dimension $k^{\prime}_{1}k_{2}$. Moreover if the number of columns left after the puncturing is less the distance of $\ker H_{1}$ then it must to holds that $k^{\prime}_{1} = 0 \Rightarrow \dim Q(H_{1}^{\prime} \times H_{2}) = 0$. Otherwise, one can take a non trivial codeword of $\ker H^{\prime}_{1}$ and extending it to a valid codeword of $\ker H_{1}$ by set any punctured coordinate of it to zero. The yielded codeword has weight less than $d$ which is contradiction.  
+\end{remark}
+
+\begin{claim}
+  \label{claim:Hdis}
+  Denote by $d$ the minimal distance of $\ker H_{1}$. Any codeword $x$ of $C_{X} = \ker H_{X}$ with edge at most $d$ belongs to $C_{Z}^{\perp}$.  
+\end{claim}
+
+\begin{proof}
+  Define by $H^{\prime}_{1}$ the matrix which obtained by puncturing from $H_{1}$ the columns  associated with the coordinates $e_{i}$ such that subspace corresponding to $ e_{i} \otimes I_{n} $ doesn't support $x$. Denote the by $S$ the set of the reaming coordinates.  For example if $ H_{1} \otimes I_{n} = I_{2} \otimes I_{2}$ and $x = [1,0,0,0]$ then $H^{\prime}_{1} $ is the unit matrix $[1 , 0]^\top$ obtained by puncturing the second column of $H_{1} = I_{2}$, and $S= \{ e_{1} \} $ .  
+
+
+  As $|x| < d $ we have that $|S| < d$, Namely $H^{\prime}_{1}$ supported on less than $d$ coordinates and therefore $\dim Q\left( H^{\prime}_{1} \times H_{2} \right)= k^{\prime}_{1}k_{2} = 0$.  Thus, by the fact that for any CSS code $\dim C = \dim C_{X} - \dim C_{Z}^\perp$ it follows that $\dim \ker H_{X}^{\prime}  = \dim \ker H_{Z}^{\prime \perp}$ $ \Rightarrow \ker H_{X}^{\prime}  = \ker H_{Z}^{\prime \perp}$.  Denote by $x^{\prime}$ the restriction of $x$ to the columns of $H_{X}^{\prime}$ and clearly, by the definition of the construction,  $x^{\prime}$ is a codeword of $\ker H_{X}^{\prime}$. Thus $x^{\prime}$ is also codeword of $\ker H_{Z}^{\prime \perp}$ and by the same argument, $x$ is also a codeword of $\ker H_{Z}^{\prime \perp}$. 
+\end{proof}
+
+Immediately from \cref{claim:Hdis} we obtain that existences of quantum LDPC codes with positive rate and $\Theta\left( \sqrt{n} \right)$ distance by taking the Hyperproduct of two classical expender codes.   
+
+\begin{theorem}
+  There exists an infinity family of QLDPC codes with positive rate and $\Theta(\sqrt{n})$ distance.   
+\end{theorem}
+
+%\section{Quantum Codes.}
+%\begin{definition}
+%  A $\left[\left[ n,k,d \right]\right]$ is a quantum code over $n$ qubits, that encode a subspace at demission $k$ and any fault composed by a product of at most $d/2$ Pauli operators. 
+%\end{definition}
+%
+
+
+
 %
 %\subsubsection{Note On Quantum Polynomial Code.} 
 %Let's define the code $C$ such that any state in $C$ is a coset of the polynomials at degree at most $d$ shifted by $x \in \mathbb{F}_{p}$. In other words the codeword associated with $x$ is the state $\ket{\underline{c}} = \sum_{ \substack{ f \in \mathbb{F}_{d}[x] \\  f(0) = 0}}{ \ket{ c + f}} $. The inner product between any $d$-degree polynomial with zero free coefficient is:
