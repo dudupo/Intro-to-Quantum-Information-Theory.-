@@ -74,6 +74,10 @@ In the last lectures, we saw that quantum states can be considered as resources,
 \newcommand{\trace}{ \mathbf{Tr} }
 
 
+
+
+\part{Classicl Error Correction Code.}
+
   \section{Codes in General. Notations and Definitions.}
   Here we focus only on linear binary codes, which one could think about as linear subspaces of $\mathbb{F}_{2}^{n}$. A common way to measure resilience is to ask how many bits an evil entity needs to flip such that the corrupted vector will be closer to another vector in that space than the original one. Those ideas were formulated by Hamming \cite{Hamming}, who presented the following definitions. 
   \begin{definition} \label{bi-code} Let $n \in \mathbb{N}$ and $\rho, \delta\in \left( 0,1 \right)$. We say that $C$ is a \textbf{binary linear code} with parameters $[n, \rho n, \delta n]$. If $C$ is a subspace of $\mathbb{F}_{2}^{n}$, and the dimension of $C$ is at least $\rho n$. In addition, we call the vectors belong to $C$ \textit{codewords} and define the distance of $C$ to be the minimal number of different bits between any codewords pair of $C$.   
@@ -173,6 +177,401 @@ Furthermore, analyzing the repetition code gives a clue as to how, in certain ca
 
 %But on the other hand any vertex in $V_{00}$ can't be connected to $V_{11}$, Thus we obtain that either all the vertices in $V_{11}$ tr that the graph is not connected. The distance of the code is $\frac{1}{2}\sum{|V_{i}|\cdot |i|} = \frac{1}{2}2 \cdot n = n$.      
 % The idea  
+
+
+\part{Quantum Error Correction Codes.}
+\section{Introduction.}
+It is widely believed that quantum machines have a significant advantage over classical machines in a wide range of computational tasks \cite{grover1996fast}, \cite{ahuja1999quantum}. Simple algorithms which can be interpreted as the quantum version of scanning all the options, reducing the running time by the square root of the classical magnitude.
+Nevertheless, Shor has demonstrated a polynomial-depth quantum circuit that solves the hidden abelian subgroup problem \cite{Shor_1997}, which is considered a breakthrough, as it made the computer science community believe that a quantum computer could offer an exponential advantage.
+
+Despite a consensus on the superiority of the ideal quantum computing model, it is still uncertain whether it is possible to implement such a machine in a noisy environment.
+Still, simply pointing out the existence of noise is not sufficient to negate the feasibility of computation. Evidence of this is that classical computers also experience a certain rate of errors. Therefore, to fully comprehend the difficulty, let us compare two main factors that made it a challenging task.
+
+
+First is the magnitude of the error rate; classical computers also have errors, and sometimes we witness system failures (e.g. the blue screen). The error rate of modern computers is so low that the probability of errors propagating stays negligible, even if the length of the computation is polynomial in the scale of what is considered a reasonable input size. It's worth mentioning that in exascale computing, when supercomputers perform around $10^{18}$ operations per second, it is difficult to overlook faults. In quantum computing, we become aware of their existence much earlier.
+ 
+
+The second difference, which is a subtle point, is that quantum states are susceptible to additional types of errors. In addition to the possibility of bit-flip errors, a quantum state may also experience a change in phase. For example, consider the initial state $\ket{+} = \frac{1}{\sqrt{2}}\left( \ket{0} + \ket{1} \right)$, and suppose that due to noise the state is transformed into $\frac{1}{\sqrt{4}}\left( \sqrt{3}\ket{0} + \ket{1} \right)$. Classical circuits are oblivious to such faults, meaning that their operation would remain unchanged as no error has occurred. Quantum circuits, however, are usually affected and may fail. Furthermore, when designing a decoder for quantum error correction codes, one must ensure that the decoding process does not introduce bit-flip errors if a classical code is used to protect against phase flips.
+
+\input{~/workspace/Academic/projects/master-thesis/qnoise.tex} 
+
+However, even though quantum noise is so violent, it has been proven that any ideal circuit of polynomial depth can be transformed into a robust circuit at poly-logarithmic cost \cite{aharonov1999faulttolerant}. In other words, there is a threshold: if physicists provide qubits and a finite gate set with a noise rate below that threshold, then BQP, the class of polynomial-time ideal quantum computation, is feasible and can be computed on a realistic machine.
+
+
+The basic idea in \cite{aharonov1999faulttolerant} was to show the existence of quantum error correction codes, which would enable logic operations to be performed in a way that prevents errors from propagating. This process involves separating the operation into two stages: the operation itself and an error correction stage. This comes with an additional cost in terms of space and time, but it can reduce the probability of the final state being faulty. The trade-off between the resources needed and the rate of decrease defines the threshold. If the balance is positive, then the process can be repeated in a recursive manner, and after log-log iterations, the failure probability will decay to zero. At the same time, the circuit will scale to a maximum of poly-logarithmic width and depth.
+
+
+Let's return to the repetition code presented in Chapter 2. We would like to have an analog; a first and natural attempt might consider duplicating copies of the state. Unfortunately, copying a general state is not a linear operation and therefore cannot be done in the circuit model (or any other believed to be feasible). In particular, there is no circuit $U$ which can simultaneously duplicate the states $\ket{0}, \ket{1}, \ket{+}, \ket{-}$.
+
+To overcome the issue, Shor came up with the nine-qubit code \cite{Ninequ}, which at first glance might seem a naive straightforward implementation of ``duplication'', but instead uses a clever insight about quantumness in general. Any operation can be seen as a linear (and even unitary) operation over a subspace embedded in a large enough dimension. The encoding is given as follows: 
+\begin{equation*}
+  \begin{split}
+    |\overline{0}\rangle&=\frac{1}{2\sqrt{2}}\left(|000\rangle+|111\rangle\right)^{\otimes3}\\
+    |\overline{1}\rangle&=\frac{1}{2\sqrt{2}}\left(|000\rangle-|111\rangle\right)^{\otimes3}~.
+  \end{split}
+\end{equation*}
+
+
+For convenience, let us use the notation $\ket{\mathbf{GHZ}^{\pm}} =  \ket{0^{m}} \pm  \ket{1^{m}}$. We can also consider the Shor code over $m^{2}$ qubits, which is defined as above, such that any logical state contains $m$ products over $m$ qubits. Therefore, the state $\ket{\overline{0}}$ over $m^{2}$ qubits can be written as $\ket{\mathbf{GHZ}^{+}}^{m}$. We are now ready to prove a statement regarding the robustness.
+\begin{lemma}
+  The Shor code over $9$ qubits enable to correct a single either bit or phase flip.  
+\end{lemma}
+It is evident that a single bit-flip error can be handled in the same way as in the conventional case. The decoder will check if any of the triples have the same value, and if not, it will correct it by majority. To create a decoder that can also correct a phase-flip error, we need the following statement. In this chapter, we denote the Hadamard gate over $m$ qubits as $H^m$.
+\begin{claim}
+   $H^{m}\ket{\mathbf{GHZ}^{\pm}} = \sum_{ x \cdot \mathbf{1} =_2 \pm }{\ket{x} }$
+\end{claim}
+
+\begin{proof}
+
+  \begin{equation*}
+    \begin{split}
+      H^{m}\ket{\mathbf{GHZ}^{\pm}} & = H^{m}\ket{0^{m}} \pm  H^{m}\ket{1^{m}} = \sum_{x \in \mathbb{F}_{2}^{m}}{\ket{x}} \pm  \sum_{x \in \mathbb{F}_{2}^{m}}{\left( -1 \right)^{x \cdot \mathbf{1}} \ket{x}} \\ & = \sum_{x \in \mathbb{F}_{2}^{m}}{ \left( 1 \pm \left( -1 \right)^{x \cdot \mathbf{1}}  \right) \ket{x} } =  \sum_{x \cdot \mathbf{1} =_2 \pm }{\ket{x} }
+    \end{split}
+  \end{equation*}
+\end{proof}
+
+Now it is clear how to correct a phase flip. One can apply the Hadamard transform and compute the parity of each triple. By the assumption that only a single phase flip may occur, either all the triples have the same parity or the faulted one has an opposite parity and needs to be corrected. Thus, we obtain an $\left[ \left[ 9,1,3 \right] \right]$ quantum error correction code. Asymptotically, this is an $\left[ \left[ m^{2}, 1, m \right] \right]$ code.
+
+\section{CSS Codes.}
+
+The Shor code is a specific case of the more general CSS (Calderbank-Shor-Steane) code \cite{Calderbank_1996}. A family composed by two binary codes $C_{X}, C_{Z}$ such that $C_{Z}^{\perp} \subset C_{X}$. 
+
+\input{~/workspace/Academic/projects/master-thesis/css.tex}
+
+  \section{qLDPC Codes.}
+  As exactly as in the classic case, qLDPC codes are codes in which any check act non trivially on at most a constant number of qubits, It was proved that using a good Quantum LDPC code one can achieve a fault tolerance threshold theorem at the cost of only constant overhead\footnote{under the assumption of having an efficient decoder.} \cite{gottesman2014faulttolerant}. We are now about to embark on a detailed review of the first quantum LDPC code \cite{Dennis_2002}. 
+
+  Recall that one way to present a code is by define the parity check matrix, Consider the $l\times l$ Tours, namely the Cayley graph of the group product  $\mathbb{Z}_{l} \times \mathbb{Z}_{l}$. Associate any coordinate (bit/qubit) with an edge on the Tours. And consider the following two restrictions:
+
+  \begin{enumerate}
+    \item Each vertex requires form its local view, the bits lay on its supported edges, To has an even party. We will refer to this type of check as \textit{cross check}. 
+    \item Similarly, each face requires the same from its supported edges, but computes the parity in a different (specific) base. That it, the face first rotates the qubits by applying the Hadamard transform on them, and then computes their XOR. Finally, the qubits are rotated back to the computation base. We shall refer to this type of check as \textit{face check}.
+  \end{enumerate}
+
+  \begin{center}
+    \begin{figure}[H]
+  \begin{tikzpicture}
+  \draw[step=1cm,gray,very thin] (0,0) grid (5,5);
+  \foreach \x in {0,1,2,3,4,5}
+  \foreach \y in {0,1,2,3,4,5}
+  {
+  \node[draw,circle,inner sep=2pt,fill] at (\x,\y) {};
+}
+\draw[ -> ]  (0,0) to [out=50, in=130] (0,5);
+\draw[ -> ]  (1,0) to [out=50, in=130] (1,5);
+\draw[ -> ]  (2,0) to [out=50, in=130] (2,5);
+\draw[ -> ]  (3,0) to [out=50, in=130] (3,5);
+\draw[ -> ]  (4,0) to [out=50, in=130] (4,5);
+\draw[ -> ]  (5,0) to [out=50, in=130] (5,5);
+\draw[ -> ]  (0,5) to [out=130, in=220] (5,5);
+\draw[ -> ]  (0,4) to [out=130, in=220] (5,4);
+\draw[ -> ]  (0,3) to [out=130, in=220] (5,3);
+\draw[ -> ]  (0,2) to [out=130, in=220] (5,2);
+\draw[ -> ]  (0,1) to [out=130, in=220] (5,1);
+\draw[ -> ]  (0,0) to [out=130, in=220] (5,0);
+
+\node[draw,circle,inner sep=2pt,fill] at (9,2) {};
+\node[draw,circle,inner sep=2pt,fill] at (10,2) {};
+\node[draw,circle,inner sep=2pt,fill] at (8,2) {};
+\node[draw,circle,inner sep=2pt,fill] at (9,1) {};
+\node[draw,circle,inner sep=2pt,fill] at (9,3) {};
+\draw[ -> ]  (9,2) to (10,2);
+\draw[ -> ]  (9,2) to (8,2);
+\draw[ -> ]  (9,2) to (9,1);
+\draw[ -> ]  (9,2) to (9,3);
+%\draw[ -> ]  (9,2) to (5,0);
+
+\node[draw,circle,inner sep=2pt,fill] at (10,1) {};
+\node[draw,circle,inner sep=2pt,fill] at (11,1) {};
+\node[draw,circle,inner sep=2pt,fill] at (10,0) {};
+\node[draw,circle,inner sep=2pt,fill] at (11,0) {};
+\draw[ -> ]  (10,1) to (11,1);
+\draw[ -> ]  (10,1) to (10,0);
+\draw[ -> ]  (10,0) to (11,0);
+\draw[ -> ]  (11,1) to (11,0);
+\end{tikzpicture}
+\caption{On the left is the Toric Graph. On the right are cross and face checks.}
+\label{fig:Toric}
+\end{figure}
+\end{center}
+%For example consider some vertex $v$ on the Torus, and let $\ket{\psi} = \sum_{x}{ \ket{\cdots x_{e_0}x_{e_1}x_{e_2}x_{e_3}  \cdots}}$ when $e_{0},e_{1},e_{2},e_{3}$ are the edges compose the local view of $v$. Then in any ket can be in the support of $\ket{\psi}$ only if the parity of $e_{0},e_{1},e_{2},e_{3}$ is even.
+%\subsection{Note on the Toric in the presence of noise.} 
+
+\begin{claim}
+  The $l \times l$  Toric code is a CSS code, with dimension $2$ and distance $\Theta\left( l \right)$.   
+\end{claim}
+\begin{proof}
+  Consider a pair of cross and a face checks. If they are not intersect (share edges) then, obviously, they commute. So suppose they share an edge. Now there are a finite number of cases ($4$) in which a cross check can intersect a face, and for all of them we have they must to intersect in an exactly two edges. Therefore the crosses checks commute with all the faces checks. 
+
+  Now, denote by $C_{X}$ and $C_{Z}$ the linear codes defined by the crosses and faces checks. Observes that $C_{X}$ contain all the subgraph of the tours which have only evens degree, namely all the loops. The following claim will be used to show that all the low weight loops (squeezable loops) are in $C_{Z}^{\perp}$. 
+  \begin{claim} \label{claim:square}
+    Let $c$ be an assignment of ones on a unite square, namely a closed loop at length $4$, then $c \in C_{Z}^{\perp}$.  
+  \end{claim}
+  \begin{proof}
+    Denote by $c^{\prime}$ a codeword of $C_{Z}$, therefore the parity sum induced by $c^{\prime}$ on any square equals zero, Particularly the induced parity on the square supporting $c$ is zero. But that parity is exactly $c\cdot c^{\prime}$. As it true for any $c^{\prime} \in C_{Z}$ we obtain that $c \in C_{Z}^{\perp}$.  
+  \end{proof}
+  \begin{claim}[Veblen's theorem] \label{claim:velen}
+    The set of even subgraph is a linear space spanned by simple cycles (vertices degree equals exactly 2).
+  \end{claim}
+  \begin{proof}
+    Let $P \subset E$ be an even subgraph then it must to have a simple cycle denote it by $P^{\prime}$, now notice that $P/P^\prime$ is also an even subgraph. To see that consider a vertex $v$, As $P^{\prime}$ is simple cycle, substituting $P^{\prime}$ is either not effect the degree of $v$ in $P/P^{\prime}$ or it decrees $v$ degree by exactly $2$ so $d_{P/P^{\prime}}\left( v \right) = d_{P}\left( v \right) - 2$. In both cases $d_{P/P^{\prime}}\left( v \right)$ is even.
+    By repeating recursively until $P/P^{\prime} = \{ \emptyset \}$ we get a decomposition of $P$ into a sum of simple cycles.   
+  \end{proof}
+
+  \begin{claim}
+    \label{claim:inter}
+Associate with any vertex of the Torus a coordinate in $\mathbb{Z}_{l} \times \mathbb{Z}_{l}$. Consider a simple cycle $P$ subset of the Torus. Denote $P$ by the vertices composing it $v_{0}v_{1}..v_{k}$ arranged in order. Consider a vertex $v_{i} \in P$  and denote $v = \left( x,y \right) \in $$ \mathbb{Z}_{l} \times \mathbb{Z}_{l}$. Then there exists a vertex $u \in P$, $ u \neq v_{i-1}v_{i+1}$ that shares one of the coordinates of $v$. Put differently, there exists $z$ such that either  $u = \left( z,y \right)$ or $u = \left( x,z \right)$.
+  \end{claim}
+
+  \begin{proof} 
+Assume without loss of generality that $v_{i-1} = \left( x, y -1 \right)$. Now denote by $f$ the projection on the second coordinate, $f(a,b)= b$. and observe that for any $j$ the distance $f\left( v_{j+1}\right) - \left( v_{j}  \right)$ satisfies:
+    \begin{equation*}
+      \begin{split}
+      f\left( v_{j+1}\right) - f \left( v_{j}  \right) = 
+        \begin{cases}
+          \pm \left( l - 1 \right)  & v_{j} = \left( \cdot, l -1 \right), v_{j+1} = \left( \cdot, 0  \right)  \\
+          \in \{ \pm 1 , 0\} & \text{else}
+        \end{cases}
+      \end{split}
+    \end{equation*}
+    So if there is no $u \neq v_{i}$ such that $f(u) = f(v_{i}) = f(v_{i-1})+1$ then there must to be an edge $\{v_{j},v_{j+1}\}$, $v_{j} = \left( \cdot, l -1 \right)$, $ v_{j+1} = \left( \cdot, 0  \right)$ such $P$ pass trough it. So  
+    \begin{equation*}
+      \begin{split}
+        f\left( v_{i-1} \right) & \le f\left( v_{i+1} \right) +  |f\left( v_{i+2} \right) -  f\left( v_{i+1} \right)| + .. + -\left( l - 1 \right) \\ 
+        & \le f(v_{i+1}) - |P| - \left(l-1\right)  
+      \end{split}
+    \end{equation*}
+    But $|P| \le l$. 
+  \end{proof}
+  \begin{figure}[h]
+ \begin{tikzpicture}
+    \draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+ (1,0) to[out=90,in=90] (5,0);
+    \draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+ (5,0) to[out=270,in=270] (1,-0.3);
+ \filldraw[black] (1,0) circle (2pt) node[anchor=west]{$v_{i+1}$};
+ \filldraw[black] (1,-0.3) circle (2pt) node[anchor=west]{$v_{i}$};
+ \filldraw[black] (5,0) circle (2pt) node[anchor=west]{$u$};
+\draw[draw=gray] (0,-3) rectangle ++(7,7);
+
+\draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+ (9,0) to[out=90,in=270] (11,4);
+    \draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+ (11,-3) to[out=90,in=270] (9,-0.3);
+ \filldraw[black] (9,0) circle (2pt) node[anchor=west]{$v_{i+1}$};
+ \filldraw[black] (9,-0.3) circle (2pt) node[anchor=west]{$v_{i}$};
+ %\filldraw[black] (13,0) circle (2pt) node[anchor=west]{$u$};
+\draw[draw=gray] (8,-3) rectangle ++(7,7);
+
+
+    %\draw [thick, decorate, decoration={random steps,segment length=10pt,amplitude=2pt}]
+ %(0,0) to[out=0,in=0] (0,4);
+  \end{tikzpicture}
+\caption{
+A simple cycle $P$ that passes through a vertex $u$, with the same $y$-coordinate as $v_i$, on the left versus a cycle path for which there is no such $u$.
+}
+\end{figure}
+
+  \begin{definition}
+    Horizontal and Vertical diameters. Let $P$ be defined again as exactly as in \cref{claim:inter}. We will say that the \textit{horizontal diameter} of $P$ is: 
+    \begin{equation*}
+      \begin{split}
+        \max_{v,u\in P} \min{ \left\{  | v_{x} -u_{x}|, |v_{x} + l + u_{x}| \right\} }  
+      \end{split}
+    \end{equation*}
+    Similarly, we define the vertical diametr to be: 
+    \begin{equation*}
+      \begin{split}
+        \max_{v,u\in P} \min{ \left\{  | v_{y} -u_{y}|, |v_{y} + l + u_{y}| \right\} }  
+      \end{split}
+    \end{equation*}
+  \end{definition}
+
+  \begin{claim} \label{claim:reduce}
+If $P$ is a non empty simple cycle with vertical and horizontal diameters $d_{1}, d_{2}$, then it can either be a square or can be decomposed into two simple cycles $P_{1},P_{2}$ with either the vertical diameter of both of them being strictly less than $d_{1}$ and their horizontal diameters being at most $d_{2}$, or the horizontal diameter of both of them being strictly less than $d_{2}$ and their vertical diameters being at most $d_{1}$.
+  \end{claim}
+
+  \begin{proof} 
+%    Assuming $P$ is not a square, it must have either a vertical or horizontal diameter greater than $1$. Let us assume, without loss of generality, that the vertical diameter is greater than $1$. Denote by $v_{0}v_{1}..v_{k}$ the vertices compose $P$, and assume that $v_{i},v_{j}$ are the vertices at maximal distace. Now Pick the first vertex $v_{i^\prime}$ form left to $v_{i}$ such that $v_{i^\prime , y} \neq v_{i,y}$. By \cref{claim:inter} there is at least one vertex $v_{l}$ in $P$ such that $v_{i,y} = v_{l,y}$ takes the one who closet in horizontal distance to $v_{i}$. Now denote by $P^{\uparrow}$ the path $v_{i},v_{i+1}..v_{l-1},v_{l}$ and by $P^{\downarrow}$ the path $v_{l},v_{l+1}..v_{i-1},v_{i}$. Denote by $L$ the stright line $v_{i},\left( v_{i,x}+1, v_{i,y} \right), \left( v_{i,x}+2, v_{i,y} \right), .. v_{l}$. 
+%    Assume that both $P^{\uparrow}\cup L$,$P^{\downarrow}\cup L$ are simple cycles, Clearly the vertical diameter is lower by exectly $1$ than the vertical diameter of $P$, also the horizontal distance between any point on $L$ to other point on $P$ is lower than the horizontal distance of between the end of $L$ (namely $\{v_{i},v_{l}\}$), to the same point. Therfore In that case we have the claim.   
+%    So it's left to show that $P^{\uparrow}\cup L$,$P^{\downarrow}\cup L$ must to be a simple cycles. Suppose that $P^{\uparrow}\cup L$ is not a simple cycle. So the path $v_{i},v_{i+1}..v_{l-1},v_{l}.. \left( v_{i,x}+2, v_{i,y} \right), \left( v_{i,x}+1, v_{i,y} \right)v_{i}$  must to contain an inner loop. Obivesly the loop can't be supported on $P^{\uparrow}$ alone, because $P^{\uparrow} \subset P$ so the inner loop would has to be contained also in $P$ in controdiction for $P$ be a simple cycle. Thefore, the inner loop is also supported on $L$, So it follows that there is an vertex in $L$ a vertex with degree $>2$ in $P^{\uparrow}\cup L$, namely a vetex $u \neq v_{i},v_{l}$ such that $u_{y} = v_{i,y}$, and also $u \in P$. But by the construction of $L$, $|u_{x} - v_{i,x}| < |v_{l,x} - v_{i,x}|$ in contradiction to the fact that $v_{l}$ chosen to miniazie an horizontal distance.  
+%
+If $P$ is not a square, it must have either a vertical or horizontal diameter greater than $1$. We will assume, without loss of generality, that the vertical diameter is greater than $1$. Let $v_{0}v_{1}..v_{k}$ be the vertices that compose $P$, and let $v_{i},v_{j}$ be the vertices at maximal distance. We will pick the first vertex $v_{i^\prime}$ from the left of $v_{i}$ such that $v_{i^\prime , y} \neq v_{i,y}$. By \cref{claim:inter}, there must be at least one vertex $v_{l}$ in $P$ such that $v_{i,y} = v_{l,y}$ and is the closest in horizontal distance to $v_{i}$. We will denote by $P^{\uparrow}$ the path $v_{i},v_{i+1}..v_{l-1},v_{l}$ and by $P^{\downarrow}$ the path $v_{l},v_{l+1}..v_{i-1},v_{i}$. We will also denote by $L$ the straight line $v_{i},\left( v_{i,x}+1, v_{i,y} \right), \left( v_{i,x}+2, v_{i,y} \right), .. v_{l}$. 
+
+Observes that the vertical diameter will be lower by exactly $1$ than the vertical diameter of $P$, and the horizontal distance between any point on $L$ to other point on $P$ will be lower than the horizontal distance of between the end of $L$ (namely $\{v_{i},v_{l}\}$), to the same point. So if $P^{\uparrow}\cup L$,$P^{\downarrow}\cup L$ are simple cycles then we get the desire. 
+Suppose that $P^{\uparrow}\cup L$ is not a simple cycle. This means that the path $v_{i},v_{i+1}..v_{l-1},v_{l}.. \left( v_{i,x}+2, v_{i,y} \right), \left( v_{i,x}+1, v_{i,y} \right)v_{i}$ must contain an inner loop. This loop cannot be supported on $P^{\uparrow}$ alone, because $P^{\uparrow} \subset P$ so the inner loop would have to be contained also in $P$, which is a contradiction. Therefore, the inner loop is also supported on $L$, so it follows that there is a vertex in $L$ with degree $>2$ in $P^{\uparrow}\cup L$, namely a vetex $u \neq v_{i},v_{l}$ such that $u_{y} = v_{i,y}$, and also $u \in P$. But by the construction of $L$, $|u_{x} - v_{i,x}| < |v_{l,x} - v_{i,x}|$, which is a contradiction to the fact that $v_{l}$ was chosen to minimize the horizontal distance. Thus, we have our claim.
+  \end{proof}
+
+%  Now we are ready to proof the claim. Let $c\in C_{X}$ such that $|c| < l$. By \cref{claim:velen}, $c$ decompise into simple cycles. Any of them at weight less than $l$. By applaying $\cref{claim:reduce}$ we have that any of them can decompise into sum of unite squres. But, by \cref{claim:square}, unit squres are in $C_{Z}^{\perp}$ and therfore $c \in C^{\perp}$. 
+
+We have now established that $c \in C_{X}$ with $|c| < l$ can be decomposed into simple cycles, each of which has a weight less than $l$. Applying \cref{claim:reduce} recursively, we can further decompose each of these cycles into a sum of unit squares. However, \cref{claim:square} states that unit squares are in $C_{Z}^{\perp}$, so $c \in C^{\perp}$.
+    \begin{wrapfigure}{R}{2cm}
+%\begin{tikzpicture}
+%    \draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+% (1,0) to[out=90,in=90] (3,0);
+%    \draw [thick, decorate, decoration={random steps,segment length=3pt,amplitude=1pt}]
+% (3,0) to[out=270,in=270] (1,0);
+% \filldraw[black] (1,0) circle (2pt) node[anchor=east]{$v$};
+% \filldraw[black] (3,0) circle (2pt) node[anchor=west]{$u$};
+%\draw (1,0) -- (3,0);
+%  \end{tikzpicture}
+\end{wrapfigure}
+%If $P$ is a non empty simple cycle with vertical and horizontal diameters $d_{1}, d_{2}$, then it can either be a square or can be decomposed into two simple cycles $P_{1},P_{2}$ with either the vertical diameter of both of them being strictly less than $d_{1}$ and their horizontal diameters being at most $d_{2}$, or the horizontal diameter of both of them being strictly less than $d_{2}$ and their vertical diameters being at most $d_{1}$.
+%
+  %\end{proof}
+
+%  \begin{claim}
+%  Any Simple cycle can be decmopise as sum of unite squares.     
+%  \end{claim}
+%
+%  Let $c \in C_{X}$ at weight at most $l$ and by $G = (V,E)$ the Cayley graph of the tours, we will refer to each of the two generators of $G$ as directions. We will say that a tuple of edges $\{e_{1},e_{2}\}$ is corner of $c$ if they are both non zero coordinates of $c$ and in addition they match to different directions\footnote{On planner drawing, corner is just an horizontal edge followed by vertical edge}.        
+% 
+\end{proof}
+Note that the subtraction of any two $l$-length vertical cycles is a code word of $C_Z'$ (one can be obtained by adding unit rectangles to the other). Therefore, we have only two non-trivial cosets in $C_X/C_Z'$. Hence, the dimension of the code is two. 
+
+%The Toric code is a topological quantum error-correcting code that encodes a single qubit of information into a two-dimensional lattice of qubits. It is a stabilizer code, meaning that it uses a set of commuting operators to detect and correct errors. The code is based on the mathematical structure of a torus, and its properties make it a powerful tool for quantum computing. It is also a fault-tolerant code, meaning that it can correct errors even when some of the qubits are faulty.
+%
+%\begin{center}
+%  \begin{tikzpicture}
+%    \input{shor_decoder.tikz}
+%  \end{tikzpicture}
+%\end{center}
+
+%\begin{algorithm}[H]
+%  \caption{Shor code decoder.}
+%    \label{alg:shordecoder}
+%    \KwData{ $ \ket{\psi} \in \mathbb{C}_{2}^{9}$ }
+%    \KwResult{ Correct a single fault. }
+%    Let $D$ be a decoder for the classic repetition code over $3$ qubits. \\ 
+%    Let $\ket{x_{1}x_{2}x_{3}} \leftarrow \ket{\psi}$ \\ 
+%
+%    $ L \leftarrow \text{Array} \{ \} $\\
+%    \For { $ v \in V$} {
+%      $c^{\prime}_{v} \leftarrow \arg\min {\left\{  y \in C_{0} : |y + x|_{v} |  \right\} } $\\
+%      $ L_{v} \leftarrow c^{\prime}_{v}$
+%    }
+%    $ z \leftarrow \sum_{v \in V}{c^{\prime}_{v}} $\\
+%    \eIf{ $ |z| < \tau \frac{n}{f\left( n \right)} $}{
+%      \While{ $|z| > 0$ }{
+%	find $v$ and $c \in C_{0}$ such that $|z + c_{v}| < |z|$\\
+%	$z \leftarrow z + c_{v}$ \\
+%	$ L_{v} \leftarrow  L_{v} + c_{v}$
+%      }
+%    }{
+%      reject. 
+%    }
+%    \Return  $S(L) $
+%
+%  \end{algorithm}
+
+%
+%By quadric the dimension of the repetition code one can find those state which at least two pauli are needed to applay for flipping either the bit or the phase of the logic state. Clearly any phase flip 
+ 
+\section{Quantum Expander Codes.}
+%As similar to the classical case, the next natural question to ask is whether there are codes with positive rate. The quantum expanders were the first quantum LDPC codes to achieve a square root distance and positive rate \cite{Tillich_2014, Leverrier_2015}. The leading insight was the idea that the Toric code could be represented as a variant product of the repetition code.  For example, consider the cross restriction in figure \cref{fig:Toric}, that restriction can be obtained by gluing two vertices of two different cycle graphs. 
+As similar to the classical case, the next natural question to ask is whether there are codes with positive rates. The quantum expanders were the first quantum LDPC codes to achieve a square-root distance and positive rate \cite{Tillich_2014, Leverrier_2015}. The leading insight was the idea that the Toric code could be represented as a variant product of the repetition code. For example, consider the cross restriction in Figure \cref{fig:Toric}; that restriction can be obtained by gluing two vertices of two different cycle graphs.
+
+\begin{definition}
+  For any two matrices $A,B$, with the same number of rows, denote by $\left[ A,B \right]$ the matrix obtained by attach $B$ next to $A$ from right.  Let $H_{1}, H_{2} \in \mathbb{F}_{2}^{n\times r}$ be the parity check matrices. Define the bit and the phase parity checks matrices to be:          
+\begin{equation*}
+  \begin{split}
+    H_{X} &= \left[ H_{1} \otimes I_{r} \ \  I_{n} \otimes H^{\top}_{2} \right] \\ 
+    H_{Z} &= \left[ I_{r} \otimes H_{2} \ \  H_{1}^{\top} \otimes I_{n} \right] \\ 
+  \end{split}
+  \label{equ:css}
+\end{equation*}
+The matrices are orthogonal to each other as $H_{X}H_{Z}^{\top} = H_{1}\otimes H^{\top}_{2} + H_{1}\otimes H^{\top}_{2} = 0$ and therefore the pair define a valid CSS code. We will call to that code the Hyperproduct and denote it by $Q\left( H_{1} \times H_{2} \right)$.
+\end{definition}
+Obliviously, if $H_{1},H_{2},H_{1}^{\top},H_{2}^{\top}$ are parity checks matrices of an LDPC codes, so are $H_{X},H_{Z}$ as their maximal row weight is at most two times larger.   
+%\ref{equ:css}
+
+% That insight raise the following perspective. The Toric code could be thought as tanner code defined on product of two cycles. If the checks in the repetition code are of the form $H_i =  x_i + x_{i+1}$  then in the Toric code the checks are $x_{i,j}+ x_{i, j+1} + x_{i+1, j} + x_{i+1,j+1}$. Namely any restriction over the edge in the Toric code  $x_{e_{0}}+ x_{e_{1}} + x_{e_{2}} + x_{e_{3}} = 0$ is obtained by taking two restrictions of the repetition code and multiple them.
+
+\begin{sagesilent}
+latex.matrix_delimiters('[', ']')
+M = matrix(GF(2), [1 for _ in range(3)])
+repetition = codes.LinearCode(M)
+H = repetition.parity_check_matrix().stack( matrix(GF(2), [1,1,0]))
+H1 = identity_matrix(3).tensor_product(H).augment( H.transpose().tensor_product(identity_matrix(3)))
+Hstr = latex(H)
+H1str = latex(H1)
+\end{sagesilent}
+
+\begin{example}
+  The Toric code could be thought as the Hyperproduct of the repetition code with himself. The parity check matrices of the codes are given follow. The left $3 \times 3$ matrix corresponds to the repetition code while the right $18 \times  9$ corresponds to the vertices check of the Toric code.  
+\end{example}
+
+\begin{equation*}
+  \begin{split}
+    \sagestr{Hstr} \sagestr{H1str} 
+  \end{split}
+\end{equation*}
+
+
+\begin{claim}
+  \label{claim:kerdim}
+  Let  $A,B \in \mathbb{M}_{n\times r_{1}}, \mathbb{M}_{n\times r_{2}}$ then  $\dim \ker [A ,B]$ is $ \dim \ker A + n $. 
+\end{claim}
+
+\begin{proof}
+  The proof is omitted. 
+\end{proof}
+
+\begin{claim}
+  Let $k_{1},k_{2}$ be the demission of the codes with the full rank  parity check matrices $H_{1},H_{2}$. Then the dimension of the Hyperproduct code is $ \ge k_{1}k_{2}$. 
+\end{claim}
+
+\begin{proof}
+  %We will find the dimensions of each of the classics codes defined by $H_{X}$ and $H_{Z}$. Notice that length of the code, assuming the fullness of the ranks, is $n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right)$. Note that for any $u,v$ such $H_{1}u = 0$ and $H_{2}^{\top}v =0$ it holds that $[u\otimes e_{i} \ e_{j}\otimes v]$ is a codeword, where $e_{i},e_{j}$ are taken from the standard basis of $[n],[n-k_{2}]$. Thus the dimension of $\ker H_{X}$ is $k_{1}n + (n-k_{1})(n-k_{2})$. 
+  %By the same arguments we have that $\dim C_{Z} = k_{2}n + (n-k_{1})(n-k_{2})$. 
+
+  We will find the dimensions of each of the classical codes defined by $\ker H_{X}$ and $ \ker H_{Z}$. Notice that the length of the $H \otimes I_{n}$ equals $n\times n = n^2$, And  assuming the fullness of the ranks, the length of $ I_{r_{1}} \otimes  H_{2}^{\top} $  is $ r_{1}\cdot r_{2}$. Thus the length of $ \ker H_{X}$ is  $n^{2} + r_{1}r_{2}$ 
+  %(n-k_{1}) \cdot \left( n -k_{2}\right)$. 
+  Now, recall that for any matrix $A$ it holds that $\dim \ker \left( A \otimes I_{l} \right) = l \cdot \dim \ker A$. Therefore using \cref{claim:kerdim} we obtain that the dimension of $\ker H_{X}$ is $k_{1}n + r_{1}r_{2}$ 
+  %(n-k_{1})(n-k_{2})$. Using  
+
+  By the same arguments we have that $\dim C_{Z} = k_{2}n + r_{1}r_{2}$ % (n-k_{1})(n-k_{2})$.
+Thus the dimension of the quantum code is:
+  \begin{equation*}
+    \begin{split}
+      \dim Q\left( C_{X}, C_{Z} \right) &= \dim C_{X} + \dim C_{Z} - \left(  n^{2} + (n-k_{1})(n-k_{2})  \right) \\ 
+      & = \left( k_{1} + k_{2} \right)n + 2(n-k_{1})(n-k_{2}) -\left(  n^{2} +  (n-k_{1}) \cdot \left( n -k_{2}\right) \right) \\
+      & =k_{1}k_{2} 
+    \end{split}
+  \end{equation*}
+\end{proof}
+
+\begin{remark}
+  \label{remark:pun}
+  Let $H_{1}^{\prime}$ be a parity check matrix obtained by puncturing columns from $H_{1}$, denote by $k^{\prime}_{1}$ the dimension of that code. Then the Hyperproduct $Q(H_{1}^{\prime}\times H_{2})$ is a CSS code with dimension $k^{\prime}_{1}k_{2}$. Moreover if the number of columns left after the puncturing is less the distance of $\ker H_{1}$ then it must to holds that $k^{\prime}_{1} = 0 \Rightarrow \dim Q(H_{1}^{\prime} \times H_{2}) = 0$. Otherwise, one can take a non trivial codeword of $\ker H^{\prime}_{1}$ and extending it to a valid codeword of $\ker H_{1}$ by set any punctured coordinate of it to zero. The yielded codeword has weight less than $d$ which is contradiction.  
+\end{remark}
+
+\begin{claim}
+  \label{claim:Hdis}
+  Denote by $d$ the minimal distance of $\ker H_{1}$. Any codeword $x$ of $C_{X} = \ker H_{X}$ with edge at most $d$ belongs to $C_{Z}^{\perp}$.  
+\end{claim}
+
+\begin{proof}
+  Define by $H^{\prime}_{1}$ the matrix which obtained by puncturing from $H_{1}$ the columns  associated with the coordinates $e_{i}$ such that subspace corresponding to $ e_{i} \otimes I_{n} $ doesn't support $x$. Denote the by $S$ the set of the reaming coordinates.  For example if $ H_{1} \otimes I_{n} = I_{2} \otimes I_{2}$ and $x = [1,0,0,0]$ then $H^{\prime}_{1} $ is the unit matrix $[1 , 0]^\top$ obtained by puncturing the second column of $H_{1} = I_{2}$, and $S= \{ e_{1} \} $ .  
+
+
+  As $|x| < d $ we have that $|S| < d$, Namely $H^{\prime}_{1}$ supported on less than $d$ coordinates and therefore $\dim Q\left( H^{\prime}_{1} \times H_{2} \right)= k^{\prime}_{1}k_{2} = 0$.  Thus, by the fact that for any CSS code $\dim C = \dim C_{X} - \dim C_{Z}^\perp$ it follows that $\dim \ker H_{X}^{\prime}  = \dim \ker H_{Z}^{\prime \perp}$ $ \Rightarrow \ker H_{X}^{\prime}  = \ker H_{Z}^{\prime \perp}$.  Denote by $x^{\prime}$ the restriction of $x$ to the columns of $H_{X}^{\prime}$ and clearly, by the definition of the construction,  $x^{\prime}$ is a codeword of $\ker H_{X}^{\prime}$. Thus $x^{\prime}$ is also codeword of $\ker H_{Z}^{\prime \perp}$ and by the same argument, $x$ is also a codeword of $\ker H_{Z}^{\prime \perp}$. 
+\end{proof}
+
+Immediately from \cref{claim:Hdis} we obtain that existences of quantum LDPC codes with positive rate and $\Theta\left( \sqrt{n} \right)$ distance by taking the Hyperproduct of two classical expender codes.   
+
+\begin{theorem}
+  There exists an infinity family of QLDPC codes with positive rate and $\Theta(\sqrt{n})$ distance.   
+\end{theorem}
+
+%\section{Quantum Codes.}
+%\begin{definition}
+%  A $\left[\left[ n,k,d \right]\right]$ is a quantum code over $n$ qubits, that encode a subspace at demission $k$ and any fault composed by a product of at most $d/2$ Pauli operators. 
+%\end{definition}
+%
+
+
+
 
 
 \part{Appendix.}
