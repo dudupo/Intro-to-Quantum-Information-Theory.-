@@ -119,55 +119,16 @@ The constructions require two main ingredients: a graph $\Gamma$, and for simpli
 Consider the Petersen graph $\Gamma$, which is a regular graph with degree $3$. Let $C_{0}$ be the set of all words with even parity. It follows that $C_{0}$ contains all even-length binary strings of length $3$: $000$, $110$, $101$, and $011$. However, the size of $\mathcal{T}(\Gamma, C_{0})$ is significantly larger, as shown in Figure \cref{fig:pet}. Specifically, any rotation of the inner and outer cycles simultaneously gives rise to another valid codeword, so any assignments that are not invariant under these rotations would produce five additional valid codewords.
 
   \end{example}
-\begin{sagesilent}
-   
-  
-ggs = peter_graphs()
-ff = cycle_graph()
-for gg in ggs:
-  gg.set_latex_options(
-          edge_label_sloped = False,
-          edge_labels=True,
-          edge_thickness=0.005,
-          vertex_labels=False,
-          vertex_size= 0.01,
-          format='dot2tex',
-          prog='crico',
-          graphic_size=(7,7),
-          edge_fills=False,
-      )
-ff.set_latex_options(
-          edge_label_sloped = False,
-          edge_labels=True,
-          edge_thickness=0.005,
-          vertex_labels=False,
-          vertex_size= 0.01,
-          format='dot2tex',
-          prog='crico',
-          graphic_size=(30,8),
-          edge_fills=False,
-      )
- 
-ops = [ gg.latex_options() for gg in ggs ] 
-ops2 = ff.latex_options()
 
-graphs_tex =  ' \ \ \ '.join([  str(op.tkz_picture())  for op in ops[:3 ]])
-graphs_tex_2 = ' \ \ \ \ \ ' +  ' \ \ \ '.join([  str(op.tkz_picture())  for op in ops[3:]])
-graphs_tex_ff  = str(ops2.tkz_picture())
-\end{sagesilent}
-
-\begin{center}
   \begin{figure}[h]
-    \scalebox{0.65}{
-      \sagestr{graphs_tex} 
-    } 
-    \scalebox{0.65}{
-      \sagestr{graphs_tex_2}
-   }
-  \caption{Peterson Graph.} 
-  \label{fig:pet}
-\end{figure}
-\end{center}
+    \centering
+    \includegraphics{peterson.png}
+    \caption{Peterson Graph.}
+    \label{fig:pet}
+  \end{figure}
+
+
+%\end{center}
   %It's also worth mentioning that the first construction of good classical codes, due to Sipser and Shpilman, are Tanner codes over expanders graphs \cite{ExpanderCodes}.
   \begin{lemma}
 \label{tanrate} Tanner codes have a rate of at least $2\rho - 1$.
@@ -225,7 +186,7 @@ Furthermore, analyzing the repetition code gives a clue as to how, in certain ca
 This bound is known as the Expander Mixining Lemma. We refer the reader to \cite{hoory2006expander} for more deatilied survery. 
 \begin{figure}[h]
   \label{fig:expander}
-\input{~/workspace/academic/projects/NLTES_project/ltc_ldpc/network2.tex} 
+\input{~/workspace/Academic/projects/NLTES_project/ltc_ldpc/network2.tex} 
 \caption{Expander Graph. Any small set of vertices, like the isolated set on the left, has more edges leaving it than intermediate edges. The exact amount is controlled by the expansion factor.}
 \end{figure}
   \begin{theorem*} Theorem, let $C$ be the Tanner Code defined by the small code $C_{0} = [\Delta,\delta\Delta, \rho\Delta ]$ such that $\rho \ge \frac{1}{2}$ and the expander graph $G$ such that $\delta\Delta \ge \lambda$. $C$ is a good  LDPC code.
