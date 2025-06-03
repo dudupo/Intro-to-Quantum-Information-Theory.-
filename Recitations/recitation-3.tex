@@ -1,0 +1,324 @@
+%--------------------
+% Packages
+% -------------------
+\documentclass[12pt,a4paper]{article}
+
+\input{my-bib-file/usepackage.tex} 
+
+\usepackage{framed}
+
+\title{ \begin{framed} Quantum Information Theory - 67749 \\ 
+Recitation 3, \today \end{framed}  }
+%\date{\today}
+\date{\vspace{-5ex}}
+
+
+\addbibresource{my-bib-file/sample.bib} 
+
+\begin{document}
+
+\input{my-bib-file/newcommands.tex} 
+%\begin{framed}
+\maketitle{ }    
+%\end{framed}
+
+
+
+\newcommand{\CCZ}{\textbf{CCZ}}
+\newcommand{\CCX}{\textbf{CCX}}
+
+
+\newcounter{enumcirc}
+\setcounter{enumcirc}{1} 
+\counterwithin{enumcirc}{section}
+
+
+\newcommand{\advanceday}[1][21]{%
+\begingroup
+\AdvanceDate[#1]%
+\today%
+\endgroup
+}%
+
+
+\newcommand{\subqCircEx}[2]{\begin{subfigure}[t]{0.5\textwidth}
+        \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1} \centering 
+        #2
+    \end{subfigure}
+}
+
+\newcommand{\qCircEx}[4]{\begin{figure*}[h!]
+    \centering
+    \subqCircEx{#1}{#2}
+    ~ 
+    \subqCircEx{#3}{#4}
+\end{figure*}
+}
+
+\newcommand{\qCircExfullline}[2]{\begin{figure*}[h!]
+    \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1}
+        \centering 
+        #2
+\end{figure*}
+}
+
+\section{Recitation Overview - Quantum Error Correction Codes.}
+
+In the last lectures, we saw that quantum states can be considered as resources, presenting the quantum AEP concept and the compression theorem. In this recitation, we continue that line. We'll start by completing the compression theorem proof. Then we will present (and represent) simple applications of quantum states, including going over superdense decoding and quantum teleportation again, and presenting gate teleportation and quantum money. Then we will strengthen our understanding of mixed states by presenting and proving Uhlmann's theorem. Finally, we will discuss EPR distillation (entanglement purification), a process by which one tries to extract from a noisy EPR mixture much better EPR pairs.
+
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\ketbra}[1]{\ket{#1}\bra{#1}}
+\newcommand{\brakett}[3]{\braket{#1 | #2 | #3}}
+\newcommand{\old}[1]{}
+\newcommand{\tT}{\tilde{T}}
+\newcommand{\trace}{ \mathbf{Tr} }
+
+
+  \section{Codes in General. Notations and Definitions.}
+  Here we focus only on linear binary codes, which one could think about as linear subspaces of $\mathbb{F}_{2}^{n}$. A common way to measure resilience is to ask how many bits an evil entity needs to flip such that the corrupted vector will be closer to another vector in that space than the original one. Those ideas were formulated by Hamming \cite{Hamming}, who presented the following definitions. 
+  \begin{definition} \label{bi-code} Let $n \in \mathbb{N}$ and $\rho, \delta\in \left( 0,1 \right)$. We say that $C$ is a \textbf{binary linear code} with parameters $[n, \rho n, \delta n]$. If $C$ is a subspace of $\mathbb{F}_{2}^{n}$, and the dimension of $C$ is at least $\rho n$. In addition, we call the vectors belong to $C$ \textit{codewords} and define the distance of $C$ to be the minimal number of different bits between any codewords pair of $C$.   
+  \end{definition}
+  From now on, we will use the term code to refer to linear binary codes, as we don't deal with any other types of codes. Also, even though it is customary to use the above parameters to analyze codes, we will use their percent forms called the relative distance and the rate of code, matching $\delta$ and $\rho$ correspondingly.     
+  \begin{definition} \label{family} A \textbf{family of codes} is an infinite series of codes. Additionally, suppose the rates and relative distances converge into constant values $\rho,\delta$. In that case, we abuse the notation and call that family of codes a code with $[n, \rho n, \delta n]$ for fixed $\rho, \delta\in [ 0,1 )$, and infinite integers $n \in \mathbb{N}$.     
+  \end{definition}
+  Notice that the above definition contains codes with parameters attending to zero. From a practical view, it means that either we send too many bits, more than a constant amount, on each bit in the original message. Or that for big enough $n$, adversarial, limited to changing only a constant fraction of the bits, could disrupt the transmission. That distinction raises the definition of good codes.
+
+  \begin{definition} \label{good-code} We will say that a family of codes is a \textbf{good code} if its parameters converge into positive values. 
+  \end{definition}
+
+  \section{Singleton Bound}  
+  To get a feeling of the behavior of the distance-rate trade-of, Let us consider the following two codes; each demonstrates a different extreme case. First, define the repetition code $C_{r} \subset \mathbb{F}_{2}^{n \cdot r}$, In which, for a fixed integer $r$, any bit of the original string is duplicated $r$ times. Second, consider the parity check code $C_{p} \subset \mathbb{F}_{2}^{n+1}$, in which its codewords are only the vectors with even parity. Let us analyze the repetition code. Clearly, any two $n$-bits different messages must have at least a single different bit. Therefore their corresponding encoded codewords have to differ in at least $r$ bits. Hence, by scaling $r$, one could achieve a higher distance as he wishes. Sadly the rate of the code decays as $n/nr = 1/r$. In contrast, the parity check code adds only a single extra bit for the original message. Therefore scaling $n$ gives a family which has a rate attends to $\rho \rightarrow 1$. However, flipping any two different bits of a valid codeword is conversing the parity and, as a result, leads to another valid codeword.
+
+  To summarize the above, we have that, using a simple construction, one could construct the codes $[r, 1, r]$, $[r, r-1, 2]$. Each has a single perfect parameter, while the other decays to the worst.\ifdefined\LDPCLTC In the next section, we will review the Singleton bound, which states that for any code (not necessarily good), there must be a zero-sum game between the relative distance and the rate.
+\fi % 
+
+  Besides being the first bound, Singleton bound demonstrates how one could get results by using relatively simple elementary arguments. It is also engaging to ask why the proof yields a bound that, empirically, seems far from being tight.
+  \begin{theorem*}[Singleton Bound.]\label{theorem*:Sing}  For any linear code with parameter $[n,k,d]$, the following inequality holds:
+  \begin{equation*}
+    k+ d \le n + 1
+  \end{equation*} 
+  \end{theorem*}
+
+\begin{proof} Since any two codewords of $C$ differ by at least $d$ coordinates, we know that by ignoring the first $d-1$ coordinate of any vector, we obtain a new code with one-to-one corresponding to the original code. In other words, we have found a new code with the same dimension embedded in $\mathbb{F}_{2}^{n-d+1}$. Combine the fact that dimension is, at most, the dimension of the container space, we get that:  
+  \begin{equation*}
+    \begin{split}
+      \dim C &= 2^{k} \le 2^{n-d+1} \Rightarrow k+d \le n + 1
+    \end{split}
+  \end{equation*}
+\end{proof}
+
+It is also well known that the only binary codes that reach the bound are: $[n,1,n]$, $[n,n-1,2]$,$[n,n,1]$ \cite{eczoo_mds}. In particular, there are no good binary codes that obtain equality(And no binary code which get close to the equality exits). Let's review the polynomial code family \cite{Reed1960PolynomialCO}, which is a code over none binary field that achieve the Singleton Bound. 
+
+Next, we will review Tanner's construction, that in addition to being a critical element to our proof, also serves as an example of how one can construct a code with arbitrary length and positive rate.
+
+\section{Tanner Code}
+The constructions require two main ingredients: a graph $\Gamma$, and for simplicity, we will restrict ourselves to a $\Delta$ regular graph, Yet notice that the following could be generalize straightforwardly for graphs with degree at most $\Delta$. The second ingredients is a ;small' code $C_{0}$ at length equals the graph's regularity, namely $C_{0} = [\Delta,\rho\Delta, \delta\Delta]$. We can think about any bit string at length $\Delta$ as an assignment over the edges of the graph. Furthermore, for every vertex $v \in \Gamma$, we will call the bit string, which is set on its edges, the local view of $v$. Then we can define, \cite{Tanner}:
+  \begin{definition}  Let $ C = \mathcal{T}\left( \Gamma, C_{0} \right)$  be all the codewords which, for any vertex $v\in \Gamma$, the local view of $v$ is a codeword of $C_{0}$. We say that $C$ is a \textbf{Tanner code}\label{Tan} of $\Gamma, C_{0}$. Notice that if $C_{0}$ is a binary linear code, So $C$ is.  
+  \end{definition}
+  \begin{example}
+Consider the Petersen graph $\Gamma$, which is a regular graph with degree $3$. Let $C_{0}$ be the set of all words with even parity. It follows that $C_{0}$ contains all even-length binary strings of length $3$: $000$, $110$, $101$, and $011$. However, the size of $\mathcal{T}(\Gamma, C_{0})$ is significantly larger, as shown in Figure \cref{fig:pet}. Specifically, any rotation of the inner and outer cycles simultaneously gives rise to another valid codeword, so any assignments that are not invariant under these rotations would produce five additional valid codewords.
+
+  \end{example}
+\begin{sagesilent}
+   
+  
+ggs = peter_graphs()
+ff = cycle_graph()
+for gg in ggs:
+  gg.set_latex_options(
+          edge_label_sloped = False,
+          edge_labels=True,
+          edge_thickness=0.005,
+          vertex_labels=False,
+          vertex_size= 0.01,
+          format='dot2tex',
+          prog='crico',
+          graphic_size=(7,7),
+          edge_fills=False,
+      )
+ff.set_latex_options(
+          edge_label_sloped = False,
+          edge_labels=True,
+          edge_thickness=0.005,
+          vertex_labels=False,
+          vertex_size= 0.01,
+          format='dot2tex',
+          prog='crico',
+          graphic_size=(30,8),
+          edge_fills=False,
+      )
+ 
+ops = [ gg.latex_options() for gg in ggs ] 
+ops2 = ff.latex_options()
+
+graphs_tex =  ' \ \ \ '.join([  str(op.tkz_picture())  for op in ops[:3 ]])
+graphs_tex_2 = ' \ \ \ \ \ ' +  ' \ \ \ '.join([  str(op.tkz_picture())  for op in ops[3:]])
+graphs_tex_ff  = str(ops2.tkz_picture())
+\end{sagesilent}
+
+\begin{center}
+  \begin{figure}[h]
+    \scalebox{0.65}{
+      \sagestr{graphs_tex} 
+    } 
+    \scalebox{0.65}{
+      \sagestr{graphs_tex_2}
+   }
+  \caption{Peterson Graph.} 
+  \label{fig:pet}
+\end{figure}
+\end{center}
+  %It's also worth mentioning that the first construction of good classical codes, due to Sipser and Shpilman, are Tanner codes over expanders graphs \cite{ExpanderCodes}.
+  \begin{lemma}
+\label{tanrate} Tanner codes have a rate of at least $2\rho - 1$.
+\end{lemma}
+  \begin{proof}  The dimension of the subspace is bounded by the dimension of the container minus the number of restrictions. So assuming non-degeneration of the small code restrictions, we have that any vertex count exactly $ \left( 1 - \rho  \right)\Delta $ restrictions. Hence, \begin{equation*}
+    \begin{split}
+      \dim C & \ge \frac{1}{2}n\Delta - \left( 1-\rho \right)\Delta n = \frac{1}{2}n\Delta\left( 2\rho - 1 \right)  
+    \end{split}
+  \end{equation*} Clearly, any small code with rate $> \frac{1}{2}$ will yield a code with an asymptotically positive rate \end{proof} 
+  %\subsubsection{Positive Rate, Arbitrarily Large Codes.} 
+  Based on \cref{tanrate}, we can obtain a recipe for constructing codes with a almost non-vanishing rate for arbitrarily large lengths and dimensions. This recipe involves concatenating a series of Tanner codes over complete graphs. To be more precise, we can define a family of codes as follows:
+  \begin{equation*}
+    \begin{split}
+      C_{i+1} & = \mathcal{T}\left( K_{n(C_{i}) + 1}, C_{i} \right) \\
+      C_{0} &= \text{ Some simple } \Delta[1, \rho_{0}, \delta_{0}] \text{ code. }
+    \end{split}
+  \end{equation*}
+Where $n(C_i)$ represents the code length of the $i$th code. Repeating the process described above $\log_{\Delta}^{*}(n)$ times allows us to extend the initial code $\Delta[1,\rho_{0}]$ to $n[1, \sim 2\rho^{\log_{\Delta}^{*}(n)}]$. Interestingly, any family of finite groups generated by a constant-size generator set can define a family of codes by utilizing their Cayley graphs as a basis for Tanner codes.
+
+  Once we have seen that Tanner codes enable us to achieve rates, the next natural question to ask is about the distance of the codes. Achieving a linear distance requires a little bit more from the graphs, but to understand this idea better, let us return to the repetition code. For instance, the repetition code can be presented as a Tanner code over the cycle graph.  
+
+  \begin{example}
+    In this representation, each vertex checks if the bits on its edges are equal. A valid codeword is an assignment in which all the bits are equal, since otherwise, there would be an edge with no supporting vertex. An illustration of a legal assignment is provided in \cref{fig:cyc}.
+    
+
+Recall that the distance of a linear code is the minimal weight of the non-zero codewords. Consider a codeword $c \in C$ and group the vertices by four sets $V_i$ such that $V_i$ is the set of vertices that see $i \in \{0,1\}^{2}$. Since $c \in C$, we have that $|V_{10}|=|V_{01}| = 0$. Additionally, any vertex in $V_{00}$ is not connected to $V_{11}$, which gives us two possible cases: either all the vertices in $V_{11}$ are isolated, or the graph is not connected. Hence, the distance of the code is equal to $\frac{1}{2}\sum{|V_{i}|\cdot |i|} = \frac{1}{2}2 \cdot n = n$.
+  \end{example} 
+
+
+ \begin{figure}[h]
+   \begin{center}
+  \label{fig:cyc}
+\input{~/workspace/academic/projects/NLTES_project/ltc_ldpc/network2-cycle.tex} 
+\caption{The $1^{n}$ assignment on the cycle graph. Any vertex compute parity $1 + 1 = 0$, therefore all the restrictions are satisfied and $1^n \in \mathcal{T} \left( \text{ cycle } , \text{ parity }  \right) $.}
+\end{center}
+\end{figure}
+
+It is worth mentioning that, in the literature, the repetition code is not usually given as an example of a Tanner code. However, this example will come up again later in the chapter on quantum codes, when we discuss the Toric code, its relation to the hyperproduct code, and how it can be seen as a hyperproduct of two cycle codes.
+
+Furthermore, analyzing the repetition code gives a clue as to how, in certain cases, one might prove a lower bound on the code distance. We would like to say that, if the weight of the code word is below the distance, then it must be that there is at least one vertex that has a non-trivial local view which is not a codeword in $C_{0}$. Put differently, we cannot spread a small weight codeword over $\{V_{i}\}$, defined above, without expanding into subsets corresponding to low $|i|$. Next, we are going to present the Expander codes, which are Tanner codes constructed from graphs with good algebraic expansion.
+%Note that for any $S\subset V$ and $ S \neq V $, 
+
+%But on the other hand any vertex in $V_{00}$ can't be connected to $V_{11}$, Thus we obtain that either all the vertices in $V_{11}$ tr that the graph is not connected. The distance of the code is $\frac{1}{2}\sum{|V_{i}|\cdot |i|} = \frac{1}{2}2 \cdot n = n$.      
+% The idea  
+
+  \section{Expander Codes}
+  We saw how a graph could give us arbitrarily long codes with a positive rate. We will show, Sipser's result \cite{ExpanderCodes} that if the graph is also an expander, we can guarantee a positive relative distance. 
+  \begin{definition} Denote by $\lambda$ the second eigenvalue of the adjacency matrix of the $\Delta$-regular graph. For our uses, it will be satisfied to define expander as a graph $G = \left( V,E \right)$ such that for any two subsets of vertices $T,S \subset V$, the number of edges between $S$ and $T$ is at most:
+  \begin{equation*}
+    \begin{split}
+      \mid E\left( S,T \right) - \frac{\Delta}{n}|S||T| \mid \le \lambda\sqrt{|S| |T|} 
+    \end{split}
+  \end{equation*}
+\end{definition}
+This bound is known as the Expander Mixining Lemma. We refer the reader to \cite{hoory2006expander} for more deatilied survery. 
+\begin{figure}[h]
+  \label{fig:expander}
+\input{~/workspace/academic/projects/NLTES_project/ltc_ldpc/network2.tex} 
+\caption{Expander Graph. Any small set of vertices, like the isolated set on the left, has more edges leaving it than intermediate edges. The exact amount is controlled by the expansion factor.}
+\end{figure}
+  \begin{theorem*} Theorem, let $C$ be the Tanner Code defined by the small code $C_{0} = [\Delta,\delta\Delta, \rho\Delta ]$ such that $\rho \ge \frac{1}{2}$ and the expander graph $G$ such that $\delta\Delta \ge \lambda$. $C$ is a good  LDPC code.
+  \end{theorem*}
+  \begin{proof} We have already shown that the graph has a positive rate due to the Tunner construction. So it's left to show also the code has a linear distance. Fix a codeword $x \in C$ and denote By $S$ the support of $x$ over the edges. Namely, a vertex $v\in V$ belongs to $S$ if it connects to nonzero edges regarding the assignment by $x$, Assume towards contradiction that $|x| = o\left( n \right)$. And notice that $|S|$ is at most $2|x|$, Then by The Expander Mixining Lemma we have that: 
+  \begin{equation*}
+    \begin{split}
+      \frac{E\left( S,S \right)}{|S|} & \le \frac{\Delta}{n}|S|  + \lambda \\
+      & \le_{ n \rightarrow \infty} o\left( 1 \right) + \lambda
+    \end{split}
+  \end{equation*}
+
+  Namely, for any such sublinear weight string, $x$, the average of nontrivial edges for the vertex is less than $\lambda$. So there must be at least one vertex $v \in S$ that, on his local view, sets a  string at a weight less than $\lambda$. By the definition of $S$, this string cannot be trivial. Combining the fact that any nontrivial codeword of the $C_{0}$ is at weight at least $\delta\Delta$, we get a contradiction to the assumption that $v$ is satisfied, videlicet, $x$ can't be a codeword \end{proof}
+
+%  \subsubsection{Setting $C_{0}$ To Be The Polynomial Code.}
+%  
+%  \begin{equation*}
+%    \begin{split}
+%     \log \Delta \dim C & \ge \frac{1}{2}n\Delta  - \left( 1- \rho  \right) \Delta n = \frac{1}{2}n\Delta\left( 2\rho - 1 \right)  \\
+%     \Rightarrow  \dim C & \ge \frac{1}{\log \Delta} \frac{1}{2}n\Delta\left( 2\rho - 1 \right)  
+%    \end{split}
+%  \end{equation*}
+%
+Now, we have an explicit construction for good classical LDPC codes. Next, we present a randomized construction which gives us non-LDPC, but good, codes of arbitrary length. We have to present this construction rather than stopping here, as for proving good quantum codes, we have to rely on assumptions about the small code which hold only for codes of sufficient length.
+
+  \section{Randomized Constructions.}
+  Randomized constraction reffers to taking as eithr generator or pairty check matrix a matrix that sampled uniformly random. That is, we are going show that if the generator matrix $A$ is a random matrix in $M(\mathbb{F}_{2}^{k\times n})$ then $\Ima A$ is a good code. 
+  
+  \begin{claim}
+    \label{claim:random}
+    Let $n,k \in \mathbb{N}$ such $k = \Theta(n)$ and let $A$ be a random matrix in $M(\mathbb{F}_{2}^{k\times n})$ then the code generated by $A$ is good code with high probability. 
+   \end{claim}
+
+Let's start with the following claim: 
+
+\begin{claim}
+Let $A$ be a random matrix in $M(\mathbb{F}_{2}^{k\times n})$. For any non-zero $x \in \mathbb{F}$, we have that $Ax$ is distributed uniformly.
+\end{claim}
+\begin{proof}
+By the fact that $x \neq 0$, there exists at least one coordinate $i \in [k]$ such that $x_i \neq 0$. Thus, we have
+\begin{equation*}
+    \begin{split}    
+        \left( Ax \right)_{j} &= \sum_{k}{A_{jk}x_{k}} = \sum_{i \neq k}{A_{jk}x_{k}}  + A_{ji}x_{i} \\ 
+        & =  \sum_{i \neq k}{A_{jk}x_{k}}  + A_{ji}
+      \end{split}
+\end{equation*}
+Notice that due to the fact that $\mathbb{F}_{2}$ is a field, there is exactly one assignment that satisfies the equation conditioned on all the values $A_{jk}$ where $j \neq k$.    
+
+\begin{equation*}
+    \begin{split}
+      \prb{\left( Ax \right)_{j} = 1} &=  \sum_{ A_{jk}; k\neq i   }{\prb{\left( Ax \right)_{j} = 1 \mid A_{jk} ; k\neq i }\prb{ A_{jk} ; k\neq i }}  \\
+      &= \frac{1}{2} 
+    \end{split}
+\end{equation*}
+Therefore, any coordinate of $Ax$ is distributed uniformly $\Rightarrow$ $Ax$ is distributed uniformly. 
+\end{proof}
+
+\begin{proof}[proof of~\ref{claim:random}]
+
+By the uniformity of $Ax$, we obtain that the expected Hamming weight of $Ax$ is: 
+\begin{equation*}
+  \begin{split}
+    \expp{|Ax| } = \expp{\sum_{i}^{n}{(Ax)_{i}}} = \frac{1}{2} n    
+  \end{split}
+\end{equation*} 
+As the coordinates of $A_{x}$ are independent (each row of $A$ is sampled separately), we can use the Hoff's bound to conclude that: 
+\begin{equation*}
+  \begin{split}
+    \prb{| |Ax| - \expp{|Ax|}| \ge \left(\frac{1}{2} - \delta \right) n } & \le e^{-n \left(\frac{1}{2} - \delta \right)^{2} } 
+  \end{split}
+\end{equation*}
+Now, we will use the union bound to show that any $x \in \mathbb{F}_{2}^{k}$, $Ax$ is of weight at least $\delta$.  
+\begin{equation*}
+  \begin{split}
+    \prb{|Ax| \ge \delta : \forall x \in \mathbb{F}_{2}^{k} } \ge 1 - |\mathbb{F}_{2}^{k}| \cdot e^{-n \left(\frac{1}{2} - \delta \right)^{2} } 
+  \end{split}
+\end{equation*}
+Let $k = \rho n$ and note that the statement holds when $\rho \ge \left(\frac{1}{2} - \delta \right)^{2}$. In other words, for any $k = \Theta(n)$, there exists a positive $\delta$ such that with high probability, the distance of $\Ima$ is at least $\delta n$.
+\end{proof}
+%
+%\subsubsection{Note On Quantum Polynomial Code.} 
+%Let's define the code $C$ such that any state in $C$ is a coset of the polynomials at degree at most $d$ shifted by $x \in \mathbb{F}_{p}$. In other words the codeword associated with $x$ is the state $\ket{\underline{c}} = \sum_{ \substack{ f \in \mathbb{F}_{d}[x] \\  f(0) = 0}}{ \ket{ c + f}} $. The inner product between any $d$-degree polynomial with zero free coefficient is:
+%\begin{equation*}
+%  \begin{split}
+%    \braket{ f | x^{j} } = \sum_{i \le d }{ \braket{a_{i} x^{i} | x^{j}}} = \sum_{i \le d}{ a_{i} \expp{ x^{i}x^{j}   }} =  \sum_{i \le d}{ a_{i } \mathbf{1}_{ i + j =_{n} 0 }}
+%  \end{split}
+%\end{equation*}
+%\ctt{Say some words about the classily testability of the polynomial code, and why for quantum it doesn't work. (The dual space of polynomials of low degree is the subspace of all the polynomials with heigh degree.)}
+%
+
+
+\printbibliography 
+
+
+\end{document}
+
