@@ -487,27 +487,17 @@ Obliviously, if $H_{1},H_{2},H_{1}^{\top},H_{2}^{\top}$ are parity checks matric
 
 % That insight raise the following perspective. The Toric code could be thought as tanner code defined on product of two cycles. If the checks in the repetition code are of the form $H_i =  x_i + x_{i+1}$  then in the Toric code the checks are $x_{i,j}+ x_{i, j+1} + x_{i+1, j} + x_{i+1,j+1}$. Namely any restriction over the edge in the Toric code  $x_{e_{0}}+ x_{e_{1}} + x_{e_{2}} + x_{e_{3}} = 0$ is obtained by taking two restrictions of the repetition code and multiple them.
 
-\begin{sagesilent}
-latex.matrix_delimiters('[', ']')
-M = matrix(GF(2), [1 for _ in range(3)])
-repetition = codes.LinearCode(M)
-H = repetition.parity_check_matrix().stack( matrix(GF(2), [1,1,0]))
-H1 = identity_matrix(3).tensor_product(H).augment( H.transpose().tensor_product(identity_matrix(3)))
-Hstr = latex(H)
-H1str = latex(H1)
-\end{sagesilent}
-
 \begin{example}
   The Toric code could be thought as the Hyperproduct of the repetition code with himself. The parity check matrices of the codes are given follow. The left $3 \times 3$ matrix corresponds to the repetition code while the right $18 \times  9$ corresponds to the vertices check of the Toric code.  
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{example-hyperproduct.png}
+  %\caption{<+caption text+>}
+  %\label{fig:<+label+>}
+\end{figure}
+
 \end{example}
-
-\begin{equation*}
-  \begin{split}
-    \sagestr{Hstr} \sagestr{H1str} 
-  \end{split}
-\end{equation*}
-
-
 \begin{claim}
   \label{claim:kerdim}
   Let  $A,B \in \mathbb{M}_{n\times r_{1}}, \mathbb{M}_{n\times r_{2}}$ then  $\dim \ker [A ,B]$ is $ \dim \ker A + n $. 
