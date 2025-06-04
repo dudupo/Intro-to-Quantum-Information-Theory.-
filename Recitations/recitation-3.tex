@@ -95,10 +95,23 @@ A code is a subset, which one can think of as the valid points. Here we focus on
 
   \begin{example}[The Check-sum/Even-parity Code.]
 The parity check code $C_{p} \subset \mathbb{F}_{2}^{n+1}$, in which its codewords are only the vectors with even parity.
+\begin{equation*}
+  \begin{split}
+    101 &\mapsto 101 \inb{0} \\ 
+    111 & \mapsto 111 \inb{1}\\
+    000 & \mapsto 000 \inb{0}
+  \end{split}
+\end{equation*}
   \end{example}
 
   \begin{example}[The Repetition Code.]  
     define the repetition code $C_{r} \subset \mathbb{F}_{2}^{n \cdot r}$, In which, for a fixed integer $r$, any bit of the original string is duplicated $r$ times.
+\begin{equation*}
+  \begin{split}
+    1 & \mapsto \inb{1111}\\
+    0 & \mapsto \inb{000}
+  \end{split}
+\end{equation*}
   \end{example}
 
 Having both examples in mind, we get a feeling of the behavior of the distance-rate trade-off. To summarize, using a simple construction, one could construct the codes $[r, 1, r]$ and $[r, r-1, 2]$. Each has a single perfect parameter, while the other decays to the worst.
