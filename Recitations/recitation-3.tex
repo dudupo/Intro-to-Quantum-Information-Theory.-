@@ -98,7 +98,7 @@ Moreover, since $C$ is a linear subspace, there are matrices $G : \mathbb{F}_{2}
 
 
   \begin{example}[The Check-sum/Even-parity Code.]
-The parity check code $C_{p} \subset \mathbb{F}_{2}^{n+1}$, in which its codewords are only the vectors with even parity.
+The parity check code $C_{p} \subset \mathbb{F}_{2}^{n+1}$ consists of codewords that are vectors with even parity. Alternatively, it can be described as appending the xor of the original codeword at the end, sometimes called a checksum bit.
 \begin{equation*}
   \begin{split}
     101 &\mapsto 101 \inb{0} \\ 
@@ -109,7 +109,7 @@ The parity check code $C_{p} \subset \mathbb{F}_{2}^{n+1}$, in which its codewor
   \end{example}
 
   \begin{example}[The Repetition Code.]  
-    define the repetition code $C_{r} \subset \mathbb{F}_{2}^{n \cdot r}$, In which, for a fixed integer $r$, any bit of the original string is duplicated $r$ times.
+    Define the repetition code $C_{r} \subset \mathbb{F}_{2}^{n \cdot r}$, In which, for a fixed integer $r$, any bit of the original string is duplicated $r$ times. For example:
 \begin{equation*}
   \begin{split}
     0 & \mapsto 0\inb{000}\\
