@@ -265,8 +265,8 @@ The Shor code is a specific case of the more general CSS (Calderbank-Shor-Steane
   Recall that one way to present a code is by define the parity check matrix, Consider the $l\times l$ Tours, namely the Cayley graph of the group product  $\mathbb{Z}_{l} \times \mathbb{Z}_{l}$. Associate any coordinate (bit/qubit) with an edge on the Tours. And consider the following two restrictions:
 
   \begin{enumerate}
-    \item Each vertex requires form its local view, the bits lay on its supported edges, To has an even party. We will refer to this type of check as \textit{cross check}. 
-    \item Similarly, each face requires the same from its supported edges, but computes the parity in a different (specific) base. That it, the face first rotates the qubits by applying the Hadamard transform on them, and then computes their XOR. Finally, the qubits are rotated back to the computation base. We shall refer to this type of check as \textit{face check}.
+    \item Each vertex requires form its local view, the bits lay on its supported edges, To has an even party. We will refer to this type of check as \textit{cross check}. Namely $C_{X}$ is the tanner code defined by use the Toric as a graph and the parity code as the local code. 
+    \item Similarly, each face requires the same from its supported edges but computes the parity in a phase basis, namely the $C_{Z}$ code defined again as Tanner code, when the graph is defined by associating with each face a vertex and connecting any two adjacent faces by an edge, which corresponds to the side of the square.
   \end{enumerate}
 
   \begin{center}
