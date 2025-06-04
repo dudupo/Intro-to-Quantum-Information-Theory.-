@@ -146,7 +146,9 @@ Another parameter that will interest us is the complexity of performing checks. 
   We will say that a code $C$ is a \textbf{low density parity check matrix} code if any check of it (a row in the parity check matrix), checks toach at most $O(1)$ bits. 
 \end{definition}
 
-
+\begin{exercise}
+Give two representations of the checking matrix of the repetition code, one which is LDPC and the other which is not.
+\end{exercise}
 
 \section{Tanner Code}
 The constructions require two main ingredients: a graph $\Gamma$, and for simplicity, we will restrict ourselves to a $\Delta$ regular graph, Yet notice that the following could be generalize straightforwardly for graphs with degree at most $\Delta$. The second ingredients is a ;small' code $C_{0}$ at length equals the graph's regularity, namely $C_{0} = [\Delta,\rho\Delta, \delta\Delta]$. We can think about any bit string at length $\Delta$ as an assignment over the edges of the graph. Furthermore, for every vertex $v \in \Gamma$, we will call the bit string, which is set on its edges, the local view of $v$. Then we can define, \cite{Tanner}:
@@ -214,15 +216,6 @@ Furthermore, analyzing the repetition code gives a clue as to how, in certain ca
 
 \part{Quantum Error Correction Codes.}
 \section{Introduction.}
-It is widely believed that quantum machines have a significant advantage over classical machines in a wide range of computational tasks \cite{grover1996fast}, \cite{ahuja1999quantum}. Simple algorithms which can be interpreted as the quantum version of scanning all the options, reducing the running time by the square root of the classical magnitude.
-Nevertheless, Shor has demonstrated a polynomial-depth quantum circuit that solves the hidden abelian subgroup problem \cite{Shor_1997}, which is considered a breakthrough, as it made the computer science community believe that a quantum computer could offer an exponential advantage.
-
-Despite a consensus on the superiority of the ideal quantum computing model, it is still uncertain whether it is possible to implement such a machine in a noisy environment.
-Still, simply pointing out the existence of noise is not sufficient to negate the feasibility of computation. Evidence of this is that classical computers also experience a certain rate of errors. Therefore, to fully comprehend the difficulty, let us compare two main factors that made it a challenging task.
-
-
-First is the magnitude of the error rate; classical computers also have errors, and sometimes we witness system failures (e.g. the blue screen). The error rate of modern computers is so low that the probability of errors propagating stays negligible, even if the length of the computation is polynomial in the scale of what is considered a reasonable input size. It's worth mentioning that in exascale computing, when supercomputers perform around $10^{18}$ operations per second, it is difficult to overlook faults. In quantum computing, we become aware of their existence much earlier.
- 
 
 The second difference, which is a subtle point, is that quantum states are susceptible to additional types of errors. In addition to the possibility of bit-flip errors, a quantum state may also experience a change in phase. For example, consider the initial state $\ket{+} = \frac{1}{\sqrt{2}}\left( \ket{0} + \ket{1} \right)$, and suppose that due to noise the state is transformed into $\frac{1}{\sqrt{4}}\left( \sqrt{3}\ket{0} + \ket{1} \right)$. Classical circuits are oblivious to such faults, meaning that their operation would remain unchanged as no error has occurred. Quantum circuits, however, are usually affected and may fail. Furthermore, when designing a decoder for quantum error correction codes, one must ensure that the decoding process does not introduce bit-flip errors if a classical code is used to protect against phase flips.
 
