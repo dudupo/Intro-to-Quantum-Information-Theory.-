@@ -67,6 +67,15 @@ Guided Exercise on Recitation, \today \end{framed}  }
 
     Assume that $|f| < d(C_{Z})/2$. Explain how to correct the noisy state $Z^{f}\ket{C_{Z}^\perp}$ and convince yourself that you can also correct a noisy state of the form $\left( Z^{f_{1}}X^{f_{2}} + Z^{f_{3}} \right) \ket{C_{Z}^\perp}$.
 
+\inb{ We will apply the Hadamard gate $H^{\otimes n}$, apply the classical decoder for $C_{Z}$, and eventually we will apply the Hadamard again to return to the original form. The state is evolving as follows:
+      %\begin{equation*}
+        %\begin{split}
+          %Z^{f}\ket{C_{Z}^\perp} & \overbrace{\rightarrow}^{ H^{n}} X^{f}\ket{C_{Z} \overbrace{\rightarrow}^{ \text{Decoding}  } \ket{C_{Z}} \\
+            %& \overbrace{\rightarrow}^{ H^{n}} \ket{C_{Z}^\perp}
+        %\end{split}
+      %\end{equation*}
+    } 
+
 
 
   \item  Prove that the relation $C_{X} \subset C_{Z}^{\perp}$ implies $H_{Z}H_{X}^\top = 0$, where $H_{Z}$ and $H_{X}$ are the parity check matrices of the codes $C_{X}, C_{Z}$.
