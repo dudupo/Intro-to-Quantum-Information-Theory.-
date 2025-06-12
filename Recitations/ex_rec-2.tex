@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{framed}
+\usepackage{advdate}
+%-----------------------
+% Begin document
+%----------------------
+
+
+\input{my-bib-file/usepackage.tex} 
+
+\title{ \begin{framed} Quantum Information Theory - 67749 \\ 
+Guided Exercise on Recitation, \today \end{framed}  }
+\date{\vspace{-5ex}}
+\addbibresource{my-bib-file/sample.bib} 
+
+\begin{document}
+
+\input{my-bib-file/newcommands.tex} 
+\maketitle{ }    
+
+
+\newcommand{\CCZ}{\textbf{CCZ}}
+\newcommand{\CCX}{\textbf{CCX}}
+
+
+\newcounter{enumcirc}
+\setcounter{enumcirc}{1} 
+\counterwithin{enumcirc}{section}
+
+
+\newcommand{\advanceday}[1][21]{%
+\begingroup
+\AdvanceDate[#1]%
+\today%
+\endgroup
+}%
+
+
+\newcommand{\subqCircEx}[2]{\begin{subfigure}[t]{0.5\textwidth}
+        \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1} \centering 
+        #2
+    \end{subfigure}
+}
+
+\newcommand{\qCircEx}[4]{\begin{figure*}[h!]
+    \centering
+    \subqCircEx{#1}{#2}
+    ~ 
+    \subqCircEx{#3}{#4}
+\end{figure*}
+}
+
+\newcommand{\qCircExfullline}[2]{\begin{figure*}[h!]
+    \stepcounter{enumcirc} \caption*{ (\alph{enumcirc}) #1}
+        \centering 
+        #2
+\end{figure*}
+}
+
+\newcommand{\Tr}{\mathbf{Tr}}
+
+\section{CSS codes.}
+
+\begin{enumerate}
+  \item  Prove that the relation $C_{X} \subset C_{Z}^{\perp}$ implies $H_{Z}H_{X}^\top = 0$, where $H_{Z}$ and $H_{X}$ are the parity check matrices of the codes $C_{X}, C_{Z}$.
+    \inblue{ \textbf{[Solution.]} $H_{X}^\top$ is the generator matrix of the subspace spanned by it's colomuns, namly by $H_{X}$ rows, which, by definition, are all the vectors who prepdicular to codewords in $C_X$, Thus, $H_{X}^\top$ is the the generator matrix for the code $C_{X}^\perp$. Since $C_{X}^\perp \subset C_{Z}$ we get the relation $H_{Z}H_{X}^\top = 0 $.  } 
+
+\end{enumerate}
+
+\end{document}
+
