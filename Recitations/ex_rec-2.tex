@@ -62,6 +62,10 @@ Guided Exercise on Recitation, \today \end{framed}  }
 \section{CSS codes.}
 
 \begin{enumerate}
+
+   \item Consider the CSS code $Q(C_{X}, C_{Z})$ and let $f \in \mathbb{F}_{2}^{n}$. Denote by $Z^{f}$ the operator which on the $i$th qubit acts trivially if $f_{i} = 0$ and otherwise applies $Z$.
+
+
   \item  Prove that the relation $C_{X} \subset C_{Z}^{\perp}$ implies $H_{Z}H_{X}^\top = 0$, where $H_{Z}$ and $H_{X}$ are the parity check matrices of the codes $C_{X}, C_{Z}$.
 
     \inb{ \textbf{[Solution.]} $H_{X}^\top$ is the generator matrix of the subspace spanned by its columns (True for any matrix), namely by $H_{X}$ rows, which, by definition, are all the vectors perpendicular to codewords in $C_X$. Thus, $H_{X}^\top$ is the generator matrix for the code $C_{X}^\perp$. Since $C_{X}^\perp \subset C_{Z}$, we get the relation $H_{Z}H_{X}^\top = 0$. 
@@ -72,6 +76,7 @@ Guided Exercise on Recitation, \today \end{framed}  }
 
 
   \item Take a minute to think about the result above. Try to understand why your TA believes that this should be the entry point to explain why the world that we see around us is classical and not quantum.
+
 
 
 \end{enumerate}
