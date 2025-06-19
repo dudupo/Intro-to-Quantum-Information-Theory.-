@@ -149,7 +149,7 @@ Denote the above by $K(\delta)$
   \frametitle{Your Title Here}
   
 \begin{block}{Claim}
-  Let $\rho_{1}$ be a reduce density matrix of $\rho$. Denote by $m = \dim \rho - \dim \rho_{1}$ Then:  
+  Let $\rho_{1}$ be a reduce density matrix of $\rho$ Then:  
   \begin{equation*}
     \begin{split}
       - \Tr \rho \log \left( \rho_{1} \otimes I \right)= S(\rho_{1})
@@ -167,7 +167,18 @@ Denote the above by $K(\delta)$
       &= \left( \Tr \rho_{2} \right) \sum_i \lambda_{i} \log \lambda_{i} = -S(\rho_{1})
     \end{split}
   \end{equation*}
+\end{frame}
 
-
+\begin{frame}
+  \frametitle{Your Title Here}
+  Let's use the notation $\sum_{A_k}\rho|_{A_k}$ to denote the sum over all the reduced matrices over $k$ qubits.  
+\begin{block}{Claim}
+  Let $\rho$ be a density matrix over $n$ qubits then:  
+  \begin{equation*}
+    \begin{split}
+      { n \choose k }^{-1}\sum_{A_k} I(\rho|_{A_k}) \le \frac{k}{n}I(\rho)
+    \end{split}
+  \end{equation*}
+\end{block}
 \end{frame}
 \end{document}
