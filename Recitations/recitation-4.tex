@@ -69,7 +69,11 @@
   
   \begin{equation*}
     \begin{split}
-      m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) 
+      m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) \\ 
+      & \le m - \sum_{i} H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ 
+      & \le \sum_{i} 1 - H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ 
+      & \le \sum_{i} \left( 1 - p^{2} \right)\left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right) \\ 
+      & \le \left( 1 - p^{2} \right) \sum_{i} \left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right)  = \left( 1 - p^{2} \right) \left( m - H\left( X \right) \right)
     \end{split}
   \end{equation*}
 \end{frame}
