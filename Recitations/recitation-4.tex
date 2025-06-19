@@ -52,6 +52,24 @@
 
 \begin{frame}
   \frametitle{Your Title Here}
+  Denote by $\delta$ the parameter for which $X$ distributed as $\sim \text{Bin}(\frac{1+\delta}{2})$. First notice that:  
+  \begin{equation*}
+    \begin{split}
+      \textbf{Pr}\left( Y = 1 \right) = \frac{1+\delta}{2} p + \frac{1-\delta}{2}(1-p) = \frac{1 + \delta p}{2}  
+    \end{split}
+  \end{equation*}
+\begin{block}{Claim}
+  Let $Y$ be a bit given by moving $X$ trough BSC($p$). Then:
+  \begin{equation*}
+    \begin{split}
+      1 - H(Y) \le \left( 1 - p^{2} \right)\left( 1 - H(X) \right)
+    \end{split}
+  \end{equation*}
+\end{block}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
   
 \begin{block}{Claim}
   Let $Y = \left(Y_{1}, Y_{2}, .., Y_{m}\right)$ be a bit given by moving each of $X_i \in$ $X = \left(X_{1}, X_{2}, .., X_{m}\right)$  trough BSC($p$). Then:
