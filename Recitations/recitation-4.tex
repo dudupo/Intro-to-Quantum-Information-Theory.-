@@ -149,15 +149,25 @@ Denote the above by $K(\delta)$
   \frametitle{Your Title Here}
   
 \begin{block}{Claim}
-  Let $\rho_{1}$ be a reduce density matrix of $\rho$. Then:  
+  Let $\rho_{1}$ be a reduce density matrix of $\rho$. Denote by $m = \dim \rho - \dim \rho_{1}$ Then:  
   \begin{equation*}
     \begin{split}
       - \Tr \rho \log \left( \rho_{1} \otimes I \right)= S(\rho_{1})
     \end{split}
   \end{equation*}
-  In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$. 
-
-
 \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
+  First consider the case in which $\rho$ is a tensor of $\rho_{1}$ namely $\rho = \rho_{1} \otimes \rho_{2}$, Then clearly $\rho$ and $\log \rho_{1} \otimes I$ commute. 
+  Denote by $\lambda_{1},..\lambda_{n}$ and $\mu_{1},..\mu_{m}$ the eigen values of $\rho_{1}$ and $\rho_2$. So the trace equals: 
+  \begin{equation*}
+    \begin{split}
+      \sum \lambda_{i}\mu_{j}\log(\lambda_{i} \cdot 1) &= \left( \sum \mu_{j} \right) \left( \sum_i \lambda_{i} \log \lambda_{i} \right) \\
+      &= \left( \Tr \rho_{2} \right) \sum_i \lambda_{i} \log \lambda_{i} = -S(\rho_{1})
+    \end{split}
+  \end{equation*}
+
+
 \end{frame}
 \end{document}
