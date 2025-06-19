@@ -55,10 +55,10 @@
   Denote by $\delta$ the parameter for which $X$ distributed as $\sim \text{Bin}(\frac{1+\delta}{2})$. First notice that:  
   \begin{equation*}
     \begin{split}
-      \textbf{Pr}\left( Y = 1 \right) = \frac{1+\delta}{2} (1 -p) + \frac{1-\delta}{2}p = \frac{1 - 2\delta p}{2}  
+      \textbf{Pr}\left( Y = 1 \right) = \frac{1+\delta}{2} (1 -p) + \frac{1-\delta}{2}p = \frac{1 + \delta - 2\delta p}{2}  
     \end{split}
   \end{equation*}
-  So $Y \sim \text{Bin}(  \frac{1 - 2\delta p}{2} )$, Or $\delta \mapsto -2p \delta$. 
+  So $Y \sim \text{Bin}(  \frac{1 -\delta( 1 -  2 p)}{2} )$, Or $\delta \mapsto 1-2p \delta$. 
 \end{frame}
 
 \begin{frame}
@@ -85,10 +85,10 @@ Denote the above by $K(\delta)$
   \begin{equation*}
     \begin{split}
       1 - H(Y) = K(2p \delta) &= \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\
-      \le 4p^{2}K(\delta) = 4p^{2}( 1 - H(X) )
+      \le ( 1 -2p)^{2}K(\delta) = ( 1 - 2p)^{2}( 1 - H(X) )
     \end{split}
   \end{equation*}
-  And notice that since $p < \frac{1}{2}$ we have $\gamma < 1$.
+  And notice that since $p < 1$ we have $\gamma < 1$, noitce also that inequlity is symmetric to $p \mapsto 1 - p$, in paritcular the entropy is not increase if eithrr $p =0$ or $p=1$.
 \end{frame}  
 
 
