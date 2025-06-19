@@ -59,8 +59,38 @@
     \end{split}
   \end{equation*}
   So $Y \sim \text{Bin}(  \frac{1 - 2\delta p}{2} )$, Or $\delta \mapsto -2p \delta$. 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Your Title Here}
+Now expand $ 1 - H(X)$ to it's Taylor Seryias at $\delta$ gives: 
+\begin{equation*}
+  \begin{split}
+  1 - H(X) &= 1 - \frac{1}{2} \left \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ 
+  &=- \frac{1}{2} \left \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ 
+  %&= - \frac{1}{2} \ \cdot \  (1+ \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}\delta^{n}{n} }} +  (1- \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}(-\delta)^{n}{n} }}\\
+      %&=  - \frac{1}{2} \ \cdot \   \sum_{i=1}^{\infty}{2 \frac{\delta^{2n}{2n} }}  - \sum_{i=1}^{\infty}{ 2\frac{\delta^{2n}{2n-1} }}\\ 
+      %&= \sum_{ i =1 }^{\infty} \frac{\delta^{2n} }{ 2n(2n-1)  } 
+  \end{split}
+\end{equation*}
+
+Denote the above by $K(\delta)$
 
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Your Title Here}
+  Now, observes that: 
+  \begin{equation*}
+    \begin{split}
+      1 - H(Y) = K(2p \delta) &= \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\
+      \le 2p^{2}K(\delta) = 2p^{2}( 1 - H(X) )
+    \end{split}
+  \end{equation*}
+\end{frame}  
+
+
 \begin{frame}
   \frametitle{Your Title Here}
   
