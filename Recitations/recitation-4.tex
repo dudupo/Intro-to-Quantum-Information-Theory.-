@@ -1,8 +1,24 @@
 \documentclass{beamer}
+%\usepackage{split}
 
-\begin{document}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{braket}
+\usepackage{subcaption}
+\usepackage{tikz}
+\begin{document} 
+ 
 
 \begin{frame}
+    \title{Final Recitation – Information Theory, Application.}
+    \author{David Ponarovsky}
+    \date{\today}
+    \titlepage
+\end{frame}
+
+
+\begin{frame}
+
 \frametitle{Introduction}
 \begin{itemize}
     \item Brief overview of the topic
@@ -20,4 +36,53 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Your Title Here}
+  
+\begin{block}{Claim}
+  Let $Y$ be a bit given by moving $X$ trough BSC($p$). Then:
+  \begin{equation*}
+    \begin{split}
+      1 - H(Y) \le \left( 1 - p^{2} \right)\left( 1 - H(X) \right)
+    \end{split}
+  \end{equation*}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Your Title Here}
+  
+\begin{block}{Claim}
+  Let $Y = \left(Y_{1}, Y_{2}, .., Y_{m}\right)$ be a bit given by moving each of $X_i \in$ $X = \left(X_{1}, X_{2}, .., X_{m}\right)$  trough BSC($p$). Then:
+
+  \begin{equation*}
+    \begin{split}
+      m - H(Y) \le \left( 1 - p^{2} \right)\left( m - H(X) \right)
+    \end{split}
+  \end{equation*}
+\end{block}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
+  
+  \begin{equation*}
+    \begin{split}
+      m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) 
+    \end{split}
+  \end{equation*}
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
+  % Content goes here
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
+  % Content goes here
+\end{frame}
+\begin{frame}
+  \frametitle{Your Title Here}
+  % Content goes here
+\end{frame}
 \end{document}
