@@ -7,7 +7,9 @@
 \usepackage{subcaption}
 \usepackage{tikz}
 \begin{document} 
- 
+
+\newcommand[0]{\Tr}{\textbf{Tr }}
+
 
 \begin{frame}
     \title{Final Recitation – Information Theory, Application.}
@@ -145,6 +147,17 @@ Denote the above by $K(\delta)$
 \end{frame}
 \begin{frame}
   \frametitle{Your Title Here}
-  % Content goes here
+  
+\begin{block}{Claim}
+  Let $\rho_{1}$ be a reduce density matrix of $\rho$. Then:  
+  \begin{equation*}
+    \begin{split}
+      - \Tr \rho \log \left( \rho_{1} \otimes I \right)= S(\rho_{1})
+    \end{split}
+  \end{equation*}
+  In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$. 
+
+
+\end{block}
 \end{frame}
 \end{document}
