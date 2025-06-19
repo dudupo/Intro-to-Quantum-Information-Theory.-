@@ -100,7 +100,7 @@ Denote the above by $K(\delta)$
 
   \begin{equation*}
     \begin{split}
-      m - H(Y) \le \left( 4p^{2} \right)\left( m - H(X) \right)
+      m - H(Y) \le \gamma\left( m - H(X) \right)
     \end{split}
   \end{equation*}
 \end{block}
@@ -114,14 +114,29 @@ Denote the above by $K(\delta)$
       m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) \\ 
       & \le m - \sum_{i} H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ 
       & \le \sum_{i} 1 - H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ 
-      & \le \sum_{i} \left( 1 - p^{2} \right)\left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right) \\ 
-      & \le \left( 1 - p^{2} \right) \sum_{i} \left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right)  \\
-      &= \left( 1 - p^{2} \right) \left( m - H\left( X \right) \right)
+      & \le \sum_{i} \gamma\left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right) \\ 
+      & \le \gamma \sum_{i} \left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right)  \\
+      &= \gamma\left( m - H\left( X \right) \right)
     \end{split}
   \end{equation*}
 \end{frame}
 \begin{frame}
   \frametitle{Your Title Here}
+  
+  
+\begin{block}{Claim}
+  Denote b $X = (X_{1}, X_{2}, .., X_{m})$ and $Y = (Y_1, Y_2 , .. ,Y_m)$ the input and the output distrubtions of reversible $p$-noisy compuation at widith $m$ (bits) and depth $d$. Then, there: 
+  \begin{equation*}
+    \begin{split}
+      m - H(Y) \le \gamma^{d}\left( m - H(X) \right) 
+    \end{split}
+  \end{equation*}
+  In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$. 
+
+
+\end{block}
+
+
   % Content goes here
 \end{frame}
 \begin{frame}
