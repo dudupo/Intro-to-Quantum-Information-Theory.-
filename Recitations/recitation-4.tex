@@ -40,10 +40,10 @@
   \frametitle{Your Title Here}
   
 \begin{block}{Claim}
-  Let $Y$ be a bit given by moving $X$ trough BSC($p$). Then:
+  Let $Y$ be a bit given by moving $X$ trough BSC($p$), Then there is $\gamma_{p} < 1$ such :
   \begin{equation*}
     \begin{split}
-      1 - H(Y) \le \left( 1 - p^{2} \right)\left( 1 - H(X) \right)
+      1 - H(Y) \le \gamma \left( 1 - H(X) \right)
     \end{split}
   \end{equation*}
 \end{block}
@@ -85,9 +85,10 @@ Denote the above by $K(\delta)$
   \begin{equation*}
     \begin{split}
       1 - H(Y) = K(2p \delta) &= \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\
-      \le 2p^{2}K(\delta) = 2p^{2}( 1 - H(X) )
+      \le 4p^{2}K(\delta) = 4p^{2}( 1 - H(X) )
     \end{split}
   \end{equation*}
+  And notice that since $p < \frac{1}{2}$ we have $\gamma < 1$.
 \end{frame}  
 
 
@@ -99,7 +100,7 @@ Denote the above by $K(\delta)$
 
   \begin{equation*}
     \begin{split}
-      m - H(Y) \le \left( 1 - p^{2} \right)\left( m - H(X) \right)
+      m - H(Y) \le \left( 4p^{2} \right)\left( m - H(X) \right)
     \end{split}
   \end{equation*}
 \end{block}
