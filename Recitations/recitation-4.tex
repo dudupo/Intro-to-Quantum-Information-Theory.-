@@ -226,4 +226,25 @@ By the concavity of the entropy (convexity of $I$), We have:
 \end{equation*}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Your Title Here}
+
+Zeros Distillation. Consider the unitary majority gate over $3$ qubits, which on the computational basis sets the last $3$rd bit to be the majority, and acts as follows:
+  
+  \begin{equation*}
+    \begin{split}
+      M \ket{0,0,1} & \mapsto \ket{1,1,0} \\ 
+      M \ket{1,1,0} & \mapsto \ket{0,0,1} \\ 
+    \end{split}
+  \end{equation*} 
+And acts trivially on every other configuration.
+
+\begin{block}{Claim} Consider the noisy zero $\rho = \left( 1 - \frac{p}{2} \right) \ket{0}\bra{0} + \frac{p}{2}\ket{1}\bra{1}$. Then: 
+  \begin{equation*}
+    \begin{split}
+      \Tr_{[1,2]} M \rho^{3} = \left( 1 - \frac{p}{2} - \frac{p^2}{4} + \frac{p^3}{8} \right) \ket{0}\bra{0} + ,,
+    \end{split}
+  \end{equation*}
+\end{block}
+\end{frame}
 \end{document}
