@@ -6,6 +6,7 @@
 \usepackage{braket}
 \usepackage{subcaption}
 \usepackage{tikz}
+\usepackage{svg}
 \begin{document} 
 
 \newcommand*{\Tr}{\textbf{Tr }}
@@ -273,4 +274,14 @@ And acts trivially on every other configuration.
     \end{split}
   \end{equation*}
 \end{frame}
+
+
+\begin{frame}{Your Title Here}
+    \begin{figure}
+        \centering
+        \includesvg[width=\textwidth]{/srv/shared/graph.svg}
+        \caption{Description of the SVG figure}
+    \end{figure}
+\end{frame}
+
 \end{document}
