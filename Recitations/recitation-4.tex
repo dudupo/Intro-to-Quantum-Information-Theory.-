@@ -215,6 +215,15 @@ Let us write:
     \sigma = \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\rho|_{A_{k}}\otimes \upsilon^{n-k}
   \end{split}
 \end{equation*}
+By the concavity of the entropy (convexity of $I$), We have:
+\begin{equation*}
+  \begin{split}
+    I\left(\sigma\right) &\le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\left[ I\left(\rho|_{A_{k}}\right) + (n-k) I(\upsilon) \right] \\ 
+    &= \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} I\left(\rho|_{A_{k}}\right)  \\ 
+    & \le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} \frac{k}{n} { n \choose k } I\left(\rho\right)  \\ 
+    & = \left( 1 - p \right)I\left(\rho\right)
+  \end{split}
+\end{equation*}<++>
 \end{frame}
 
 \end{document}
