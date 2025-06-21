@@ -314,6 +314,40 @@ And acts trivially on every other configuration.
 
 
 
+\begin{frame}
+  \frametitle{Your Title Here}
+  the probability of the thried qubit to be $1$ is still less than $1$. 
+  There is $p_{0}$ such that for any $p < p_{0}$, it follows that if each qubit has a probability less than $p$ of being at $\ket{1}$, then after a cycle of Noise $\rightarrow$ Majority, the probability of the third qubit being $\ket{1}$ is still less than $p$.
+
+
+Proof. After the noise round, the density matrices of each qubit:
+  \begin{equation*}
+    \begin{split}
+      &\le \left( 1- p \right)\left(  \left( 1 -p \right) \ket{0}\bra{0} + p\ket{1}\bra{1}  \right) + p \frac{1}{2}\left( \ket{0}\bra{0} + \ket{1}\bra{1} \right) \\ 
+      &= \left( \left( 1-p \right)^{2} + \frac{1}{2}p \right)\ket{0}\bra{0} + \left( \left( 1-p \right)p + \frac{1}{2}p \right)\ket{1}\bra{1} \\
+      &= " \ket{0}\bra{0} + \left( 3/2 p - p^{2} \right) \ket{1}\bra{1} 
+    \end{split}
+  \end{equation*}
+
+And for convenience, let's bound by looking at the noisier state, where each qubit is in
+  \begin{equation*}
+    \begin{split}
+      \left( 1 - 2p \right)\ket{0}\bra{0} + 2p \ket{1}\bra{1}
+    \end{split}
+  \end{equation*}
+
+Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ which absorb at least two flips. So, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
+
+  \begin{equation*}
+    \begin{split}
+      \left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 
+    \end{split}
+  \end{equation*}
+  And for $p_0 = \frac{1}{6}$ we have that this probability is less than $p$. 
+
+\end{frame}
+
+
 
 
 \begin{frame}{Your Title Here}
