@@ -71,6 +71,27 @@ where $ \rho $ is a single-qubit density matrix and $ I $ is the identity matrix
 
 \begin{frame}
   \frametitle{Classical no-go.}
+  \begin{block}{Claim-Informal.}
+We can't compute when subjected to noise; \uncover<+->{after a while, the bits become garbage.}
+  \end{block}
+
+\uncover<+->{  
+\begin{block}{Claim}
+  Denote b $X = (X_{1}, X_{2}, .., X_{m})$ and $Y = (Y_1, Y_2 , .. ,Y_m)$ the input and the output distrubtions of reversible $p$-noisy compuation at widith $m$ (bits) and depth $d$. Then: 
+  \uncover<+->{
+  \begin{equation*}
+    \begin{split}
+      m - H(Y) \le \gamma^{d}\left( m - H(X) \right) 
+    \end{split}
+  \end{equation*}}
+  \uncover<+->{In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$.}
+
+
+\end{block}
+}
+\end{frame}
+\begin{frame}
+  \frametitle{Classical no-go.}
   
 \begin{block}{Claim}
   Let $Y$ be a bit given by moving $X$ trough BSC($p$), Then there is $\gamma_{p} < 1$ such :
@@ -170,9 +191,6 @@ Now expand $ 1 - H(X)$ to it's Taylor Seryias at $\delta$ gives:
 
 
 \end{block}
-
-
-  % Content goes here
 \end{frame}
 \begin{frame}
   \frametitle{Quantum no-go.}
