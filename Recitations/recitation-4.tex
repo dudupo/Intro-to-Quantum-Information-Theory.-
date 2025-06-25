@@ -111,284 +111,284 @@ Now expand $ 1 - H(X)$ to it's Taylor Seryias at $\delta$ gives:
 
 \end{frame}
 
-
-\begin{frame}
-  \frametitle{Classical no-go.}
-  Now, observes that: 
-  \begin{equation*}
-    \begin{split}
-      1 - H(Y) &\uncover<+->{= K(2p \delta) = \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\}
-      &\uncover<+->{\le ( 1 -2p)^{2}K(\delta) = ( 1 - 2p)^{2}( 1 - H(X) )}
-    \end{split}
-  \end{equation*}
-  \uncover<+->{And notice that since $p < 1$ we have $\gamma < 1$,}\uncover<+->{ noitce also that inequlity is symmetric to $p \mapsto 1 - p$, in paritcular the entropy is not increase if eithrr $p =0$ or $p=1$.}
-\end{frame}  
-
-
-\begin{frame}
-  \frametitle{Classical no-go.}
-  
-\begin{block}{Claim}
-  Let $Y = \left(Y_{1}, Y_{2}, .., Y_{m}\right)$ be a bit given by moving each of $X_i \in$ $X = \left(X_{1}, X_{2}, .., X_{m}\right)$  trough BSC($p$). Then:
-\uncover<+->{
-  \begin{equation*}
-    \begin{split}
-      m - H(Y) \le \gamma\left( m - H(X) \right)
-    \end{split}
-  \end{equation*}
-\end{block}
-}
-\end{frame}
-\begin{frame}
-  \frametitle{Classical no-go.}
-  \begin{block}{Proof.} 
-  \begin{equation*}
-    \begin{split}
-      m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &\uncover<+->{= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) \\ }
-      &\uncover<+->{ \le m - \sum_{i} H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ }
-      &\uncover<+->{ \le \sum_{i} 1 - H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ }
-      &\uncover<+->{ \le \sum_{i} \gamma\left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right) \\ }
-      &\uncover<+->{ \le \gamma \sum_{i} \left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right)  \\}
-      &\uncover<+->{= \gamma\left( m - H\left( X \right) \right)}
-    \end{split}
-  \end{equation*}
-\end{block}
-\end{frame}
-\begin{frame}
-  \frametitle{Classical no-go.}
-  
-  
-\begin{block}{Claim}
-  Denote b $X = (X_{1}, X_{2}, .., X_{m})$ and $Y = (Y_1, Y_2 , .. ,Y_m)$ the input and the output distrubtions of reversible $p$-noisy compuation at widith $m$ (bits) and depth $d$. Then, there: 
-  \uncover<+->{
-  \begin{equation*}
-    \begin{split}
-      m - H(Y) \le \gamma^{d}\left( m - H(X) \right) 
-    \end{split}
-  \end{equation*}}
-  \uncover<+->{In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$.}
-
-
-\end{block}
-
-
-  % Content goes here
-\end{frame}
-\begin{frame}
-  \frametitle{Your Title Here}
-  % Content goes here
-\end{frame}
-\begin{frame}
-  \frametitle{Quantum no-go.}
-  
-\begin{block}{Claim}
-  Let $\rho_{1}$ be a reduce density matrix of $\rho$ Then:  
-  \uncover<+->{
-  \begin{equation*}
-    \begin{split}
-      - \Tr \rho \log \left( \rho_{1} \otimes I \right)= S(\rho_{1})
-    \end{split}
-  \end{equation*}
-}
-\end{block}
-\end{frame}
-\begin{frame}
-  \frametitle{Quantum no-go.}
-  First consider the case in which $\rho$ is a tensor of $\rho_{1}$ namely $\rho = \rho_{1} \otimes \rho_{2}$, Then clearly $\rho$ and $\log \rho_{1} \otimes I$ commute. 
-  Denote by $\lambda_{1},..\lambda_{n}$ and $\mu_{1},..\mu_{m}$ the eigen values of $\rho_{1}$ and $\rho_2$. So the trace equals: 
-  \begin{equation*}
-    \begin{split}
-      \sum \lambda_{i}\mu_{j}\log(\lambda_{i} \cdot 1) &\uncover<+->{= \left( \sum \mu_{j} \right) \left( \sum_i \lambda_{i} \log \lambda_{i} \right) \\}
-      &\uncover<+->{= \left( \Tr \rho_{2} \right) \sum_i \lambda_{i} \log \lambda_{i} = -S(\rho_{1})}
-    \end{split}
-  \end{equation*}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Quantum no-go.}
-  Let's use the notation $\sum_{A_k}\rho|_{A_k}$ to denote the sum over all the reduced matrices over $k$ qubits.  
-\begin{block}{Claim}
-  Let $\rho$ be a density matrix over $n$ qubits then:  
-  \uncover<+->{
-  \begin{equation*}
-    \begin{split}
-      { n \choose k }^{-1}\sum_{A_k} I(\rho|_{A_k}) \le \frac{k}{n}I(\rho)
-    \end{split}
-  \end{equation*}}
-\end{block}
-\end{frame}
-\begin{frame}
-  \frametitle{Quantum no-go.}
-  \begin{block}{Proof}
-Let $\rho_{1}$ be $\rho^{\otimes k { n \choose k } }$ and let $\rho_{2} = \left( \prod_{A_{k}} \rho |_{A_{k}} \right)^{\otimes n}$.  
-  \begin{equation*}
-    \begin{split}
-      0 \ge S(\rho_{2} | \rho_{1} ) &\uncover<+->{= \Tr \left( \rho_{1} \left( \log \rho_{1} - \log \rho_{2} \right) \right) = -S(\rho_{1}) - \Tr \left( \rho_{1} \log \rho_{2} \right) \\ }
-      &\uncover<+->{= -k { n \choose k } S(\rho) - \sum_{A_k} \Tr \left( \rho_{1} \log \left( \rho|_{A_{k}} \right)^n \otimes I^n \right)}
-    \end{split}
-  \end{equation*}
-  \uncover<+->{Now observes that $ \rho|_{A_{K}}^{\otimes n} $ is a reduced density matrix of $\rho_{1}$. So we get:
-
-  \begin{equation*}
-    \begin{split}
-      0 &\uncover<+->{ \le  -k { n \choose k } S(\rho) - \sum_{A_k} n S\left( \rho |_{A_{k}} \right) \\ }
-      \Rightarrow  &\uncover<+->{ \sum_{A_{k}}I\left( \rho|_{A_{k}} \right)\le \frac{k}{n}{ n \choose k } I\left( \rho \right)}
-    \end{split}
-  \end{equation*}
-
-  }
-\end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Quantum no-go.}
-\begin{block}{Claim}
-  Let $\rho$ be a density matrix of $n$ qubits. Let each qubit be replaced with independent probability $p$ by a fully mixed qubit denoted by $\upsilon$, to give the density matrix $\sigma$. Then $I\left( \sigma \right) \le \left( 1 - p  \right) I \left( \rho \right)$. 
-\end{block}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Quantum no-go.}
-Let us write: 
-\begin{equation*}
-  \begin{split}
-    \sigma = \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\rho|_{A_{k}}\otimes \upsilon^{n-k}
-  \end{split}
-\end{equation*}
-\uncover<+->{
-By the concavity of the entropy (convexity of $I$), We have:
-\begin{equation*}
-  \begin{split}
-    I\left(\sigma\right) &\uncover<+->{\le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\left[ I\left(\rho|_{A_{k}}\right) + (n-k) I(\upsilon) \right] \\ }
-    &\uncover<+->{= \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} I\left(\rho|_{A_{k}}\right)  \\ }
-    &\uncover<+->{ \le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} \frac{k}{n} { n \choose k } I\left(\rho\right)  \\ }
-    &\uncover<+->{ = \left( 1 - p \right)I\left(\rho\right)}
-  \end{split}
-\end{equation*}}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}
-
-Zeros Distillation. Consider the unitary majority gate over $3$ qubits, which on the computational basis sets the last $3$rd bit to be the majority, and acts as follows:
-  
-  \begin{equation*}
-    \begin{split}
-      M \ket{0,0,1} & \mapsto \ket{1,1,0} \\ 
-      M \ket{1,1,0} & \mapsto \ket{0,0,1} \\ 
-    \end{split}
-  \end{equation*} 
-And acts trivially on every other configuration.
-
-\begin{block}{Claim} Consider the noisy zero $\rho = \left( 1 - \frac{p}{2} \right) \ket{0}\bra{0} + \frac{p}{2}\ket{1}\bra{1}$. Then: 
-  \begin{equation*}
-    \begin{split}
-      \Tr_{[1,2]} M \rho^{3} = \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,,
-    \end{split}
-  \end{equation*}
-\end{block}
-\end{frame}
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}
-
-  
-  \begin{equation*}
-    \begin{split}
-      \rho^{\otimes 3} &\uncover<+->{= \left( 1 - \frac{p}{2} \right)^3 \ket{000}\bra{000} \\ }
-      &\uncover<+->{+ \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2}\left( \ket{001}\bra{001} + \ket{010}\bra{010} + \ket{100}\bra{100}  \right) \\}
-      &\uncover<+->{+ \left( 1 - \frac{p}{2} \right)\left(\frac{p}{2}\right)^2 \left( \ket{110}\bra{110} + \ket{101}\bra{101} + \ket{011}\bra{011} \right) \\ }
-      &\uncover<+->{+ \left( \frac{p}{2} \right)^{3} \ket{111}\bra{111}\\}
-      M\rho^{\otimes 3} &\uncover<+->{= " \\}
-      &\uncover<+->{+ \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2}\left( \ket{110}\bra{110} + "  \right) \\}
-      &\uncover<+->{+ \left( 1 - \frac{p}{2} \right)\left(\frac{p}{2}\right)^2 \left( \ket{001}\bra{001} + " \right) \\ }
-      &\uncover<+->{+ " }
-    \end{split}
-  \end{equation*}
-\end{frame}
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}  
-  \begin{equation*}
-    \begin{split}
-      \Tr_{[1,2]}M\rho^{\otimes 3} &\uncover<+->{= \left( \left( 1 - \frac{p}{2} \right)^3 + 3 \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2} \right) \ket{0}\bra{0} +  \\ }
-      &\uncover<+->{+ \left( 3\left( 1 - \frac{p}{2} \right)\left( \frac{p}{2} \right)^2 + \left( \frac{p}{2} \right)^{3} \right) \ket{1}\bra{1}\\}
-      &\uncover<+->{= \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,,}
-    \end{split}
-  \end{equation*}
-\end{frame}
-
-\begin{frame}{Entropy-Space tradeoff.}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{/srv/shared/graph.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}
-
-  \begin{equation*}
-    \begin{split}
-      &\uncover<+->{ \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,, \\}
-      \mapsto &\uncover<+->{ \left( 1 - p\right) \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + \frac{p}{2} \ket{0}\bra{0} \\ }
-      = &\uncover<+->{ 1 - \frac{1}{2}p - \frac{3}{4}p^{2} + p^3 - \frac{1}{4}p^{4}}
-    \end{split}
-  \end{equation*}
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}
-  the probability of the thried qubit to be $1$ is still less than $1$. 
-  There is $p_{0}$ such that for any $p < p_{0}$, it follows that if each qubit has a probability less than $p$ of being at $\ket{1}$, then after a cycle of Noise $\rightarrow$ Majority, the probability of the third qubit being $\ket{1}$ is still less than $p$.
-
-
-\end{frame}
-\begin{frame}
-  \frametitle{Entropy-Space tradeoff.}
-Proof. After the noise round, the density matrices of each qubit:
-  \begin{equation*}
-    \begin{split}
-      &\uncover<+->{\le \left( 1- p \right)\left(  \left( 1 -p \right) \ket{0}\bra{0} + p\ket{1}\bra{1}  \right) + p \frac{1}{2}\left( \ket{0}\bra{0} + \ket{1}\bra{1} \right) \\ }
-      &\uncover<+->{= \left( \left( 1-p \right)^{2} + \frac{1}{2}p \right)\ket{0}\bra{0} + \left( \left( 1-p \right)p + \frac{1}{2}p \right)\ket{1}\bra{1} \\}
-      &\uncover<+->{= " \ket{0}\bra{0} + \left( 3/2 p - p^{2} \right) \ket{1}\bra{1} }
-    \end{split}
-  \end{equation*}
-\uncover<+->{
-And for convenience, let's bound by looking at the noisier state, where each qubit is in
-  \begin{equation*}
-    \begin{split}
-      \left( 1 - 2p \right)\ket{0}\bra{0} + 2p \ket{1}\bra{1}
-    \end{split}
-  \end{equation*}
-}
-\uncover<+->{Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ which absorb at least two flips.}\uncover<+->{ So, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
-
-  \begin{equation*}
-    \begin{split}
-      \left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 
-    \end{split}
-\end{equation*}}
-\uncover<+->{And for $p_0 = \frac{1}{6}$ we have that this probability is less than $p$. }
-
-\end{frame}
-
-
-
-
-\begin{frame}{Your Title Here}
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{/srv/shared/graph_after_noise.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Your Title Here}
-
-\end{frame}
-
-\begin{frame}{Your Title Here}
-
-\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Classical no-go.}
+  %Now, observes that: 
+  %\begin{equation*}
+    %\begin{split}
+      %1 - H(Y) &\uncover<+->{= K(2p \delta) = \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\}
+      %&\uncover<+->{\le ( 1 -2p)^{2}K(\delta) = ( 1 - 2p)^{2}( 1 - H(X) )}
+    %\end{split}
+  %\end{equation*}
+  %\uncover<+->{And notice that since $p < 1$ we have $\gamma < 1$,}\uncover<+->{ noitce also that inequlity is symmetric to $p \mapsto 1 - p$, in paritcular the entropy is not increase if eithrr $p =0$ or $p=1$.}
+%\end{frame}  
+%
+%
+%\begin{frame}
+  %\frametitle{Classical no-go.}
+  %
+%\begin{block}{Claim}
+  %Let $Y = \left(Y_{1}, Y_{2}, .., Y_{m}\right)$ be a bit given by moving each of $X_i \in$ $X = \left(X_{1}, X_{2}, .., X_{m}\right)$  trough BSC($p$). Then:
+%\uncover<+->{
+  %\begin{equation*}
+    %\begin{split}
+      %m - H(Y) \le \gamma\left( m - H(X) \right)
+    %\end{split}
+  %\end{equation*}
+%\end{block}
+%}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Classical no-go.}
+  %\begin{block}{Proof.} 
+  %\begin{equation*}
+    %\begin{split}
+      %m - H\left( Y_{1}, Y_{2}, .., Y_{m} \right) &\uncover<+->{= m - \sum_{i} H\left( Y_{i} | Y_{1}, Y_{2}, .., Y_{i-1} \right) \\ }
+      %&\uncover<+->{ \le m - \sum_{i} H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ }
+      %&\uncover<+->{ \le \sum_{i} 1 - H\left( Y_{i} | X_{1}, X_{2}, .., X_{i-1} \right) \\ }
+      %&\uncover<+->{ \le \sum_{i} \gamma\left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right) \\ }
+      %&\uncover<+->{ \le \gamma \sum_{i} \left(1 - H\left( X_{i} | X_{1}, X_{2}, .., X_{i-1} \right)\right)  \\}
+      %&\uncover<+->{= \gamma\left( m - H\left( X \right) \right)}
+    %\end{split}
+  %\end{equation*}
+%\end{block}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Classical no-go.}
+  %
+  %
+%\begin{block}{Claim}
+  %Denote b $X = (X_{1}, X_{2}, .., X_{m})$ and $Y = (Y_1, Y_2 , .. ,Y_m)$ the input and the output distrubtions of reversible $p$-noisy compuation at widith $m$ (bits) and depth $d$. Then, there: 
+  %\uncover<+->{
+  %\begin{equation*}
+    %\begin{split}
+      %m - H(Y) \le \gamma^{d}\left( m - H(X) \right) 
+    %\end{split}
+  %\end{equation*}}
+  %\uncover<+->{In particular, for $d = \Omega(\log m)$ we have $H(Y) \rightarrow m$.}
+%
+%
+%\end{block}
+%
+%
+  %% Content goes here
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Your Title Here}
+  %% Content goes here
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+  %
+%\begin{block}{Claim}
+  %Let $\rho_{1}$ be a reduce density matrix of $\rho$ Then:  
+  %\uncover<+->{
+  %\begin{equation*}
+    %\begin{split}
+      %- \Tr \rho \log \left( \rho_{1} \otimes I \right)= S(\rho_{1})
+    %\end{split}
+  %\end{equation*}
+%}
+%\end{block}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+  %First consider the case in which $\rho$ is a tensor of $\rho_{1}$ namely $\rho = \rho_{1} \otimes \rho_{2}$, Then clearly $\rho$ and $\log \rho_{1} \otimes I$ commute. 
+  %Denote by $\lambda_{1},..\lambda_{n}$ and $\mu_{1},..\mu_{m}$ the eigen values of $\rho_{1}$ and $\rho_2$. So the trace equals: 
+  %\begin{equation*}
+    %\begin{split}
+      %\sum \lambda_{i}\mu_{j}\log(\lambda_{i} \cdot 1) &\uncover<+->{= \left( \sum \mu_{j} \right) \left( \sum_i \lambda_{i} \log \lambda_{i} \right) \\}
+      %&\uncover<+->{= \left( \Tr \rho_{2} \right) \sum_i \lambda_{i} \log \lambda_{i} = -S(\rho_{1})}
+    %\end{split}
+  %\end{equation*}
+%\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+  %Let's use the notation $\sum_{A_k}\rho|_{A_k}$ to denote the sum over all the reduced matrices over $k$ qubits.  
+%\begin{block}{Claim}
+  %Let $\rho$ be a density matrix over $n$ qubits then:  
+  %\uncover<+->{
+  %\begin{equation*}
+    %\begin{split}
+      %{ n \choose k }^{-1}\sum_{A_k} I(\rho|_{A_k}) \le \frac{k}{n}I(\rho)
+    %\end{split}
+  %\end{equation*}}
+%\end{block}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+  %\begin{block}{Proof}
+%Let $\rho_{1}$ be $\rho^{\otimes k { n \choose k } }$ and let $\rho_{2} = \left( \prod_{A_{k}} \rho |_{A_{k}} \right)^{\otimes n}$.  
+  %\begin{equation*}
+    %\begin{split}
+      %0 \ge S(\rho_{2} | \rho_{1} ) &\uncover<+->{= \Tr \left( \rho_{1} \left( \log \rho_{1} - \log \rho_{2} \right) \right) = -S(\rho_{1}) - \Tr \left( \rho_{1} \log \rho_{2} \right) \\ }
+      %&\uncover<+->{= -k { n \choose k } S(\rho) - \sum_{A_k} \Tr \left( \rho_{1} \log \left( \rho|_{A_{k}} \right)^n \otimes I^n \right)}
+    %\end{split}
+  %\end{equation*}
+  %\uncover<+->{Now observes that $ \rho|_{A_{K}}^{\otimes n} $ is a reduced density matrix of $\rho_{1}$. So we get:
+%
+  %\begin{equation*}
+    %\begin{split}
+      %0 &\uncover<+->{ \le  -k { n \choose k } S(\rho) - \sum_{A_k} n S\left( \rho |_{A_{k}} \right) \\ }
+      %\Rightarrow  &\uncover<+->{ \sum_{A_{k}}I\left( \rho|_{A_{k}} \right)\le \frac{k}{n}{ n \choose k } I\left( \rho \right)}
+    %\end{split}
+  %\end{equation*}
+%
+  %}
+%\end{block}
+%\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+%\begin{block}{Claim}
+  %Let $\rho$ be a density matrix of $n$ qubits. Let each qubit be replaced with independent probability $p$ by a fully mixed qubit denoted by $\upsilon$, to give the density matrix $\sigma$. Then $I\left( \sigma \right) \le \left( 1 - p  \right) I \left( \rho \right)$. 
+%\end{block}
+%\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Quantum no-go.}
+%Let us write: 
+%\begin{equation*}
+  %\begin{split}
+    %\sigma = \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\rho|_{A_{k}}\otimes \upsilon^{n-k}
+  %\end{split}
+%\end{equation*}
+%\uncover<+->{
+%By the concavity of the entropy (convexity of $I$), We have:
+%\begin{equation*}
+  %\begin{split}
+    %I\left(\sigma\right) &\uncover<+->{\le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k}\left[ I\left(\rho|_{A_{k}}\right) + (n-k) I(\upsilon) \right] \\ }
+    %&\uncover<+->{= \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} I\left(\rho|_{A_{k}}\right)  \\ }
+    %&\uncover<+->{ \le \sum^{n}_{k=1}\sum_{A_{k}}p^{n-k}\left( 1 - p  \right)^{k} \frac{k}{n} { n \choose k } I\left(\rho\right)  \\ }
+    %&\uncover<+->{ = \left( 1 - p \right)I\left(\rho\right)}
+  %\end{split}
+%\end{equation*}}
+%\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}
+%
+%Zeros Distillation. Consider the unitary majority gate over $3$ qubits, which on the computational basis sets the last $3$rd bit to be the majority, and acts as follows:
+  %
+  %\begin{equation*}
+    %\begin{split}
+      %M \ket{0,0,1} & \mapsto \ket{1,1,0} \\ 
+      %M \ket{1,1,0} & \mapsto \ket{0,0,1} \\ 
+    %\end{split}
+  %\end{equation*} 
+%And acts trivially on every other configuration.
+%
+%\begin{block}{Claim} Consider the noisy zero $\rho = \left( 1 - \frac{p}{2} \right) \ket{0}\bra{0} + \frac{p}{2}\ket{1}\bra{1}$. Then: 
+  %\begin{equation*}
+    %\begin{split}
+      %\Tr_{[1,2]} M \rho^{3} = \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,,
+    %\end{split}
+  %\end{equation*}
+%\end{block}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}
+%
+  %
+  %\begin{equation*}
+    %\begin{split}
+      %\rho^{\otimes 3} &\uncover<+->{= \left( 1 - \frac{p}{2} \right)^3 \ket{000}\bra{000} \\ }
+      %&\uncover<+->{+ \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2}\left( \ket{001}\bra{001} + \ket{010}\bra{010} + \ket{100}\bra{100}  \right) \\}
+      %&\uncover<+->{+ \left( 1 - \frac{p}{2} \right)\left(\frac{p}{2}\right)^2 \left( \ket{110}\bra{110} + \ket{101}\bra{101} + \ket{011}\bra{011} \right) \\ }
+      %&\uncover<+->{+ \left( \frac{p}{2} \right)^{3} \ket{111}\bra{111}\\}
+      %M\rho^{\otimes 3} &\uncover<+->{= " \\}
+      %&\uncover<+->{+ \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2}\left( \ket{110}\bra{110} + "  \right) \\}
+      %&\uncover<+->{+ \left( 1 - \frac{p}{2} \right)\left(\frac{p}{2}\right)^2 \left( \ket{001}\bra{001} + " \right) \\ }
+      %&\uncover<+->{+ " }
+    %\end{split}
+  %\end{equation*}
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}  
+  %\begin{equation*}
+    %\begin{split}
+      %\Tr_{[1,2]}M\rho^{\otimes 3} &\uncover<+->{= \left( \left( 1 - \frac{p}{2} \right)^3 + 3 \left( 1 - \frac{p}{2} \right)^{2} \frac{p}{2} \right) \ket{0}\bra{0} +  \\ }
+      %&\uncover<+->{+ \left( 3\left( 1 - \frac{p}{2} \right)\left( \frac{p}{2} \right)^2 + \left( \frac{p}{2} \right)^{3} \right) \ket{1}\bra{1}\\}
+      %&\uncover<+->{= \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,,}
+    %\end{split}
+  %\end{equation*}
+%\end{frame}
+%
+%\begin{frame}{Entropy-Space tradeoff.}
+    %\begin{figure}
+        %\centering
+        %\includegraphics[width=\textwidth]{/srv/shared/graph.png}
+    %\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}
+%
+  %\begin{equation*}
+    %\begin{split}
+      %&\uncover<+->{ \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + ,, \\}
+      %\mapsto &\uncover<+->{ \left( 1 - p\right) \left( 1 - \frac{3}{4}p^2 + \frac{1}{4}p^{3} \right) \ket{0}\bra{0} + \frac{p}{2} \ket{0}\bra{0} \\ }
+      %= &\uncover<+->{ 1 - \frac{1}{2}p - \frac{3}{4}p^{2} + p^3 - \frac{1}{4}p^{4}}
+    %\end{split}
+  %\end{equation*}
+%\end{frame}
+%
+%
+%
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}
+  %the probability of the thried qubit to be $1$ is still less than $1$. 
+  %There is $p_{0}$ such that for any $p < p_{0}$, it follows that if each qubit has a probability less than $p$ of being at $\ket{1}$, then after a cycle of Noise $\rightarrow$ Majority, the probability of the third qubit being $\ket{1}$ is still less than $p$.
+%
+%
+%\end{frame}
+%\begin{frame}
+  %\frametitle{Entropy-Space tradeoff.}
+%Proof. After the noise round, the density matrices of each qubit:
+  %\begin{equation*}
+    %\begin{split}
+      %&\uncover<+->{\le \left( 1- p \right)\left(  \left( 1 -p \right) \ket{0}\bra{0} + p\ket{1}\bra{1}  \right) + p \frac{1}{2}\left( \ket{0}\bra{0} + \ket{1}\bra{1} \right) \\ }
+      %&\uncover<+->{= \left( \left( 1-p \right)^{2} + \frac{1}{2}p \right)\ket{0}\bra{0} + \left( \left( 1-p \right)p + \frac{1}{2}p \right)\ket{1}\bra{1} \\}
+      %&\uncover<+->{= " \ket{0}\bra{0} + \left( 3/2 p - p^{2} \right) \ket{1}\bra{1} }
+    %\end{split}
+  %\end{equation*}
+%\uncover<+->{
+%And for convenience, let's bound by looking at the noisier state, where each qubit is in
+  %\begin{equation*}
+    %\begin{split}
+      %\left( 1 - 2p \right)\ket{0}\bra{0} + 2p \ket{1}\bra{1}
+    %\end{split}
+  %\end{equation*}
+%}
+%\uncover<+->{Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ which absorb at least two flips.}\uncover<+->{ So, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
+%
+  %\begin{equation*}
+    %\begin{split}
+      %\left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 
+    %\end{split}
+%\end{equation*}}
+%\uncover<+->{And for $p_0 = \frac{1}{6}$ we have that this probability is less than $p$. }
+%
+%\end{frame}
+%
+%
+%
+%
+%\begin{frame}{Your Title Here}
+%
+    %\begin{figure}
+        %\centering
+        %\includegraphics[width=\textwidth]{/srv/shared/graph_after_noise.png}
+    %\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Your Title Here}
+%
+%\end{frame}
+%
+%\begin{frame}{Your Title Here}
+%
+%\end{frame}
 \end{document}
