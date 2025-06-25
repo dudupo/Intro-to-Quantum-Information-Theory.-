@@ -311,7 +311,9 @@ There is a $p_{0}$ such that for any $p < p_{0}$, it follows that if each qubit 
 \end{frame}
 \begin{frame}
   \frametitle{Entropy-Space tradeoff.}
-Proof. After the noise round, the density matrices of each qubit:
+\begin{block}{Proof.}
+
+After the noise round, the density matrices of each qubit:
   \begin{equation*}
     \begin{split}
       &\uncover<+->{\le \left( 1- p \right)\left(  \left( 1 -p \right) \ket{0}\bra{0} + p\ket{1}\bra{1}  \right) + p \frac{1}{2}\left( \ket{0}\bra{0} + \ket{1}\bra{1} \right) \\ }
@@ -335,7 +337,7 @@ And for convenience, let's bound by looking at the following noisier state, wher
     \end{split}
 \end{equation*}}
 \uncover<+->{And for $p_0 = \frac{1}{6}$ we have that this probability is less than $p$. }
-
+\end{block}
 \end{frame}
 
 
