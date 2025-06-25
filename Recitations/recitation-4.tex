@@ -313,7 +313,7 @@ There is a $p_{0}$ such that for any $p < p_{0}$, it follows that if each qubit 
   \frametitle{Entropy-Space tradeoff.}
 \begin{block}{Proof.}
 
-After the noise round, the density matrices of each qubit:
+After the noise round, the density matrices of each qubit\footnote{The inequality refers to the $\ket{1}\bra{1}$ coefficient.}:
   \begin{equation*}
     \begin{split}
       &\uncover<+->{\le \left( 1- p \right)\left(  \left( 1 -p \right) \ket{0}\bra{0} + p\ket{1}\bra{1}  \right) + p \frac{1}{2}\left( \ket{0}\bra{0} + \ket{1}\bra{1} \right) \\ }
@@ -322,7 +322,7 @@ After the noise round, the density matrices of each qubit:
     \end{split}
   \end{equation*}
 \uncover<+->{
-And for convenience, let's bound by looking at the following noisier state, where each qubit is in:
+And for convenience, let's bound it by looking at the following noisier state, where each qubit is in:
   \begin{equation*}
     \begin{split}
       \left( 1 - 2p \right)\ket{0}\bra{0} + 2p \ket{1}\bra{1}
@@ -330,7 +330,6 @@ And for convenience, let's bound by looking at the following noisier state, wher
   \end{equation*}
 }
 \uncover<+->{Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ that absorb at least two flips.}\uncover<+->{ Thus, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
-
   \begin{equation*}
     \begin{split}
       \left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \uncover<+->{ \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 }
