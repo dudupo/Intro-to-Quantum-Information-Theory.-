@@ -24,7 +24,7 @@
 
 \frametitle{Introduction}
 \begin{block}{Today:}
-\begin{itemize}
+  \begin{itemize}[<+->]
   \item Nosiy circuit and noisy computation. 
   \item Classical no-go for reversible noisy computation at logarithmic depth (and polynomial space).
   \item Quantum case. 
@@ -95,11 +95,11 @@ where $ \rho $ is a single-qubit density matrix and $ I $ is the identity matrix
 Now expand $ 1 - H(X)$ to it's Taylor Seryias at $\delta$ gives: 
 \begin{equation*}
   \begin{split}
-  1 - H(X) &= 1 - \frac{1}{2} \left( \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ 
-  &=- \frac{1}{2} \left( \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ 
-  &= - \frac{1}{2} \ \cdot \  (1+ \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}\delta^{n}}{n} } +  (1- \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}(-\delta)^{n}}{n} }\\
-&=  - \frac{1}{2} \ \cdot \   \sum_{i=1}^{\infty}{2 \frac{\delta^{2n}}{2n} }  - \sum_{i=1}^{\infty}{ 2\frac{\delta^{2n}}{2n-1} }\\ 
-      &= \sum_{ i =1 }^{\infty} \frac{\delta^{2n} }{ 2n(2n-1)  } 
+    1 - H(X) &=\uncover<+->{ 1 - \frac{1}{2} \left( \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ }
+    &=\uncover<+->{- \frac{1}{2} \left( \left( 1 + \delta \right) \log       \left( \frac{1 + \delta}{2} \right) + \left( 1 - \delta \right) \log       \left( \frac{1 - \delta}{2} \right) \right) \\ }
+    &=\uncover<+->{ - \frac{1}{2} \ \cdot \  (1+ \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}\delta^{n}}{n} } +  (1- \delta) \sum_{i=1}^{\infty}{ \frac{(-1)^{n+1}(-\delta)^{n}}{n} }\\}
+    &=\uncover<+->{  - \frac{1}{2} \ \cdot \   \sum_{i=1}^{\infty}{2 \frac{\delta^{2n}}{2n} }  - \sum_{i=1}^{\infty}{ 2\frac{\delta^{2n}}{2n-1} }\\ }
+    &=\uncover<+->{ \sum_{ i =1 }^{\infty} \frac{\delta^{2n} }{ 2n(2n-1)  } }
   \end{split}
 \end{equation*}
 
