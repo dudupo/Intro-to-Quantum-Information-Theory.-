@@ -302,18 +302,18 @@ Proof. After the noise round, the density matrices of each qubit:
     \end{split}
   \end{equation*}
 \uncover<+->{
-And for convenience, let's bound by looking at the noisier state, where each qubit is in
+And for convenience, let's bound by looking at the following noisier state, where each qubit is in:
   \begin{equation*}
     \begin{split}
       \left( 1 - 2p \right)\ket{0}\bra{0} + 2p \ket{1}\bra{1}
     \end{split}
   \end{equation*}
 }
-\uncover<+->{Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ which absorb at least two flips.}\uncover<+->{ So, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
+\uncover<+->{Now, after applying the majority gate, the kets whose third bit is $1$ are kets in $\rho^{\otimes 3}$ that absorb at least two flips.}\uncover<+->{ Thus, after tracing out the first two qubits, the coefficient of $\ket{1}\bra{1}$ would be less than:
 
   \begin{equation*}
     \begin{split}
-      \left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 
+      \left( 2p \right)^{3} + 3\left( 1 - 2p \right) \left( 2p \right)^2 \uncover<+->{ \le \left( 2p \right)^{3} + 3\left( 2p \right)^2 }
     \end{split}
 \end{equation*}}
 \uncover<+->{And for $p_0 = \frac{1}{6}$ we have that this probability is less than $p$. }
