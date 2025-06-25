@@ -136,7 +136,7 @@ Now expand $ 1 - H(X)$ to it's Taylor Seryias at $\delta$ gives:
   Now, observes that: 
   \begin{equation*}
     \begin{split}
-      1 - H(Y) &\uncover<+->{= K(2p \delta) = \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\}
+      1 - H(Y) &\uncover<+->{= K( (1 - 2p) \delta) = \sum_{ i =1 }^{\infty} \frac{(2 p\delta)^{2n} }{ 2n(2n-1)  }\\}
       &\uncover<+->{\le ( 1 -2p)^{2}K(\delta) = ( 1 - 2p)^{2}( 1 - H(X) )}
     \end{split}
   \end{equation*}
@@ -254,11 +254,11 @@ Let $\rho_{1}$ be $\rho^{\otimes k { n \choose k } }$ and let $\rho_{2} = \left(
       &\uncover<+->{= -k { n \choose k } S(\rho) - \sum_{A_k} \Tr \left( \rho_{1} \log \left( \rho|_{A_{k}} \right)^n \otimes I^n \right)}
     \end{split}
   \end{equation*}
-  \uncover<+->{Now observes that $ \rho|_{A_{K}}^{\otimes n} $ is a reduced density matrix of $\rho_{1}$. So we get:
+  \uncover<+->{Now observes that $ \rho|_{A_{k}}^{\otimes n} $ is a reduced density matrix of $\rho_{1}$. So we get:
 
   \begin{equation*}
     \begin{split}
-      0 &\uncover<+->{ \le  -k { n \choose k } S(\rho) - \sum_{A_k} n S\left( \rho |_{A_{k}} \right) \\ }
+      0 &\uncover<+->{ \le  -k { n \choose k } S(\rho) + \sum_{A_k} n S\left( \rho |_{A_{k}} \right) \\ }
       \Rightarrow  &\uncover<+->{ \sum_{A_{k}}I\left( \rho|_{A_{k}} \right)\le \frac{k}{n}{ n \choose k } I\left( \rho \right)}
     \end{split}
   \end{equation*}
